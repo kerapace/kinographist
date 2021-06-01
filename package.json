@@ -1,0 +1,43 @@
+{
+  "name": "kinographist",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "webpack": "^5.38.1"
+  },
+  "description": "Kinographist is an attempt at cloning most of the base features of Letterboxd, a social film discovery site that allows users to catalog, rate, and review their watched and liked films.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kerapace/kinographist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kerapace/kinographist/issues"
+  },
+  "homepage": "https://github.com/kerapace/kinographist#readme",
+  "devDependencies": {
+    "redux-logger": "^3.0.6",
+    "webpack-cli": "^4.7.0"
+  }
+}
