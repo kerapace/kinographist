@@ -4,6 +4,7 @@ import NavbarContainer from "./navbar_container";
 
 const Header = (props) => (
   <header className="main-header">
+    <div className="background-gradient"></div>
     <div className="logo-container">
       <Link to="/">
         Placeholder

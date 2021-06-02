@@ -1,0 +1,27 @@
+.user-dropdown-container {
+  position: relative;
+}
+
+.user-dropdown-container:hover ul.dropdown-options {
+  display: flex;
+}
+
+.dropdown-options {
+  position: absolute;
+  font-family: 'Lato', sans-serif;
+  text-transform: none;
+  font-size: 12px;
+  flex-direction: column;
+  display: none;
+}
+
+.dropdown-options > li {
+  background-color: grey;
+  width: 5em;
+  padding: 0.5em;
+}
+
+.dropdown-options > li:hover {
+  background-color: #ccc;
+  color: #14181c;
+}
