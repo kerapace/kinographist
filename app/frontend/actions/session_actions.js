@@ -26,6 +26,6 @@ export const login = formUser => dispatch => (
   SessionApiUtil.login(formUser).then(user => dispatch(receiveCurrentUser(user)))
 );
 
-export const logout = () => dispatch (
+export const logout = () => dispatch => (
   SessionApiUtil.logout().then(() => dispatch(logoutCurrentUser()))
 );

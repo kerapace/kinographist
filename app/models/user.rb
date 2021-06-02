@@ -7,14 +7,14 @@ class User < ApplicationRecord
   attr_reader :password
 
   before_validation :ensure_session_token
-  
+
   def self.find_by_credentials(username,password)
     user = User.find_by(username: username)
     user && user.is_password?(password) ? user : nil
   end
 
   def password=(pw)
-    self.password = pw
+    @password = pw
     self.password_digest = BCrypt::Password.create(pw)
   end
 
