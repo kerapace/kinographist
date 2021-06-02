@@ -37346,15 +37346,13 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   }
 
-  var store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)(preloadedState);
-  window.signup = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__.signup;
-  window.login = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__.login;
-  window.logout = _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__.logout;
-  window.dispatch = store.dispatch;
-  window.getState = store.getState;
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_root__WEBPACK_IMPORTED_MODULE_2__.default, {
-    store: store
-  }), rootElement);
+  var store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)(preloadedState); // window.signup = signup;
+  // window.login = login;
+  // window.logout = logout;
+  // window.dispatch = store.dispatch;
+  // window.getState = store.getState;
+
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Heya"), rootElement);
 });
 })();
 
