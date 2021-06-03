@@ -14,14 +14,14 @@
  *= require_self
  */
 
- @import "./reset.scss";
+ @use "reset";
 
  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Rubik:wght@500&display=swap');
 
- @import "./components/header.scss";
+ @use "components/header";
 
- @import "./components/navbar.scss";
+ @use "components/navbar";
 
- @import "./components/dropdown.scss";
+ @use "components/dropdown";
 
- @import "./components/signup_modal.scss";
+ @use "components/signup_modal";
