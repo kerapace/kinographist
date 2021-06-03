@@ -1,4 +1,4 @@
-import {Route, Link} from "react-router-dom";
+import {Route, Link, Switch, Redirect} from "react-router-dom";
 import {AuthRoute} from "./util/route_util";
 import React from "react";
 import Header from "./components/header";
@@ -10,6 +10,10 @@ const App = (props) => {
         <Header/>
         <SignupModalContainer/>
       </Route>
+      <Switch>
+        <Route exact path="/"></Route>
+        <Route><Redirect to="/"/></Route>
+      </Switch>
     </main>
   );
 };

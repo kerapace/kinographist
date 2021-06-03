@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
   const store = configureStore(preloadedState);
-  window.signup = signup;
-  window.login = login;
-  window.logout = logout;
-  window.dispatch = store.dispatch;
-  window.getState = store.getState;
+  // window.signup = signup;
+  // window.login = login;
+  // window.logout = logout;
+  // window.dispatch = store.dispatch;
+  // window.getState = store.getState;
   ReactDOM.render(<Root store={store}/>,rootElement);
 });
