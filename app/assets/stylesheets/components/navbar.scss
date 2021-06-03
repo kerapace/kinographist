@@ -26,8 +26,14 @@ nav.header-nav {
   flex-direction: row;
   align-items: center;
   padding-left: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+}
+
+.header-nav > .login-form > .error-container {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 10vh;
+  height: 2em;
 }
 
 input[type="text"], input[type="password"], textarea {

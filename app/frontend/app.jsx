@@ -1,5 +1,5 @@
 import {Route, Link} from "react-router-dom";
-import AuthRoute from "./util/route_util";
+import {AuthRoute} from "./util/route_util";
 import React from "react";
 import Header from "./components/header";
 import SignupModalContainer from "./components/signup_modal_container";

@@ -7,7 +7,7 @@ const Header = (props) => (
     <div className="background-gradient"></div>
     <div className="logo-container">
       <Link to="/">
-        Placeholder
+        Kinographist
         {/* <img src="logo.png"></img> */}
       </Link>
     </div>

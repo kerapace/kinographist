@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link, Redirect } from "react-router-dom";
+import ErrorDisplay from "./error_display";
 
-const SignupModal = ({signup,toggleSignupModal}) => {
+const SignupModal = ({sessionErrors,isDisplayed,signup,toggleSignupModal,flushSessionErrors}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,12 +10,13 @@ const SignupModal = ({signup,toggleSignupModal}) => {
   const handleSignup = (e, un, em, pw) => {
     e.preventDefault();
     signup({username: un, email: em, password: pw});
-    toggleSignupModal();
     redirectOnSubmit(true);
   };
-  return (
-    <div classname="modal-background">
-      <div className="signup-form-container">
+  useEffect(() => {return flushSessionErrors},[isDisplayed]);
+  return !isDisplayed ? "" : (
+    <div className="modal-background">
+      {!submitted ? "" : <Redirect to="/"/>}
+      <section className="signup-form-container">
         <div className="exit-login-button">
           <a onClick={e => {
               e.preventDefault();
@@ -27,14 +29,15 @@ const SignupModal = ({signup,toggleSignupModal}) => {
             <input name="username" type="text" value={username} onChange={e => setUsername(e.target.value)}/>
           </label>
           <label><p>Email:</p>
-            <input name="email" type="text" value={email} onChange={e => setUsername(e.target.value)}/>
+            <input name="email" type="text" value={email} onChange={e => setEmail(e.target.value)}/>
           </label>
           <label><p>Password:</p>
             <input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)}/>
           </label>
-          <button>Sign In</button>
-          </form>
-      </div>
+          <button>Sign Up</button>
+        </form>
+          <ErrorDisplay errors={sessionErrors}/>
+      </section>
     </div>
   );
 }

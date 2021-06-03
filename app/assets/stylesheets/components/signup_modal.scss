@@ -1,0 +1,27 @@
+.modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #14181c;
+  opacity: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form-container {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  text-transform: none;
+  height: 25vh;
+  width: 25vw;
+  background: grey;
+  border-radius: 5px;
+  padding: 2.5vh 2.5vw; 
+}
+
+.signup-form-container > .exit-login-button {
+  float: right;
+}

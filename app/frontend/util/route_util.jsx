@@ -16,4 +16,4 @@ const mapStateToProps = ({session}) => ({
   loggedIn: Boolean(session.currentUserId),
 });
 
-export default withRouter(connect(mapStateToProps,null)(Auth));
+export const AuthRoute = withRouter(connect(mapStateToProps,null)(Auth));
