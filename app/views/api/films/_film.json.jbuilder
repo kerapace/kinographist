@@ -1,0 +1,1 @@
+json.extract! film, :id, :title, :release_date, :blurb, :studio, :languages, :country

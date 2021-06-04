@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_01_222409) do
+ActiveRecord::Schema.define(version: 2021_06_04_001847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,41 @@ ActiveRecord::Schema.define(version: 2021_06_01_222409) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "film_crews", force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.integer "film_id", null: false
+    t.string "position"
+    t.string "ord"
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id", "film_id"], name: "index_film_crews_on_person_id_and_film_id"
+  end
+
+  create_table "films", force: :cascade do |t|
+    t.integer "tmdb_id", null: false
+    t.string "title", null: false
+    t.date "release_date"
+    t.text "blurb"
+    t.string "studio"
+    t.string "languages"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_films_on_title"
+    t.index ["tmdb_id"], name: "index_films_on_tmdb_id", unique: true
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.integer "tmdb_id", null: false
+    t.string "name", null: false
+    t.text "blurb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_people_on_name"
+    t.index ["tmdb_id"], name: "index_people_on_tmdb_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

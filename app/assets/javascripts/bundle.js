@@ -206,6 +206,38 @@ var flushSessionErrors = function flushSessionErrors() {
 
 /***/ }),
 
+/***/ "./app/frontend/actions/film_actions.js":
+/*!**********************************************!*\
+  !*** ./app/frontend/actions/film_actions.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_FILM": () => (/* binding */ RECEIVE_FILM),
+/* harmony export */   "receiveFilm": () => (/* binding */ receiveFilm),
+/* harmony export */   "getFilm": () => (/* binding */ getFilm)
+/* harmony export */ });
+/* harmony import */ var _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/film_api_util */ "./app/frontend/util/film_api_util.js");
+
+var RECEIVE_FILM = "RECEIVE_FILM";
+var receiveFilm = function receiveFilm(filmData) {
+  return {
+    type: RECEIVE_FILM,
+    filmData: filmData
+  };
+};
+var getFilm = function getFilm(id) {
+  return function (dispatch) {
+    return _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__.getFilm(id).then(function (filmData) {
+      return dispatch(receiveFilm(filmData));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./app/frontend/actions/session_actions.js":
 /*!*************************************************!*\
   !*** ./app/frontend/actions/session_actions.js ***!
@@ -889,6 +921,117 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./app/frontend/reducers/entities/film_crew_reducer.js":
+/*!*************************************************************!*\
+  !*** ./app/frontend/reducers/entities/film_crew_reducer.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+
+
+var filmCrewReducer = function filmCrewReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = {};
+
+  switch (action.type) {
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
+      newState = Object.assign({}, state);
+      Object.values(action.filmData.filmCrew).forEach(function (credit) {
+        return newState[credit.id] = credit;
+      });
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (filmCrewReducer);
+
+/***/ }),
+
+/***/ "./app/frontend/reducers/entities/films_reducer.js":
+/*!*********************************************************!*\
+  !*** ./app/frontend/reducers/entities/films_reducer.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+
+
+var filmsReducer = function filmsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = {};
+
+  switch (action.type) {
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
+      newState = Object.assign({}, state);
+      Object.values(action.filmData.films).forEach(function (film) {
+        return newState[film.id] = film;
+      });
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (filmsReducer);
+
+/***/ }),
+
+/***/ "./app/frontend/reducers/entities/people_reducer.js":
+/*!**********************************************************!*\
+  !*** ./app/frontend/reducers/entities/people_reducer.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+
+
+var peopleReducer = function peopleReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = {};
+
+  switch (action.type) {
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
+      newState = Object.assign({}, state);
+      Object.values(action.filmData.people).forEach(function (person) {
+        return newState[person.id] = person;
+      });
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (peopleReducer);
+
+/***/ }),
+
 /***/ "./app/frontend/reducers/entities/users_reducer.js":
 /*!*********************************************************!*\
   !*** ./app/frontend/reducers/entities/users_reducer.js ***!
@@ -935,12 +1078,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _entities_users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./entities/users_reducer */ "./app/frontend/reducers/entities/users_reducer.js");
+/* harmony import */ var _entities_films_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./entities/films_reducer */ "./app/frontend/reducers/entities/films_reducer.js");
+/* harmony import */ var _entities_film_crew_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./entities/film_crew_reducer */ "./app/frontend/reducers/entities/film_crew_reducer.js");
+/* harmony import */ var _entities_people_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./entities/people_reducer */ "./app/frontend/reducers/entities/people_reducer.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
-  users: _entities_users_reducer__WEBPACK_IMPORTED_MODULE_0__.default
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+  users: _entities_users_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
+  films: _entities_films_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
+  filmCrew: _entities_film_crew_reducer__WEBPACK_IMPORTED_MODULE_2__.default,
+  people: _entities_people_reducer__WEBPACK_IMPORTED_MODULE_3__.default
 }));
 
 /***/ }),
@@ -1174,8 +1326,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
 });
+
+/***/ }),
+
+/***/ "./app/frontend/util/film_api_util.js":
+/*!********************************************!*\
+  !*** ./app/frontend/util/film_api_util.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchFilm": () => (/* binding */ fetchFilm),
+/* harmony export */   "updateFilm": () => (/* binding */ updateFilm),
+/* harmony export */   "getFilm": () => (/* binding */ getFilm)
+/* harmony export */ });
+var fetchFilm = function fetchFilm(tmdbId) {
+  return $.ajax({
+    url: 'api/films',
+    method: 'POST',
+    data: {
+      tmdbId: tmdbId
+    }
+  });
+};
+var updateFilm = function updateFilm(id) {
+  return $.ajax({
+    url: "api/films/".concat(id),
+    method: 'PATCH'
+  });
+};
+var getFilm = function getFilm(id) {
+  return $.ajax({
+    url: "api/films/".concat(id),
+    method: 'GET'
+  });
+};
 
 /***/ }),
 
@@ -37686,7 +37875,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./root */ "./app/frontend/root.jsx");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./app/frontend/store/store.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions/session_actions */ "./app/frontend/actions/session_actions.js");
+/* harmony import */ var _util_film_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/film_api_util */ "./app/frontend/util/film_api_util.js");
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions/film_actions */ "./app/frontend/actions/film_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -37711,9 +37904,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)(preloadedState); // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
-  // window.dispatch = store.dispatch;
-  // window.getState = store.getState;
 
+  window.dispatch = store.dispatch;
+  window.getState = store.getState;
+  window.fetchFilm = _util_film_api_util__WEBPACK_IMPORTED_MODULE_5__.fetchFilm;
+  window.updateFilm = _util_film_api_util__WEBPACK_IMPORTED_MODULE_5__.updateFilm;
+  window.getFilm = _actions_film_actions__WEBPACK_IMPORTED_MODULE_6__.getFilm;
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_root__WEBPACK_IMPORTED_MODULE_2__.default, {
     store: store
   }), rootElement);
