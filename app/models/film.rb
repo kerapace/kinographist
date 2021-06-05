@@ -9,12 +9,4 @@ class Film < ApplicationRecord
   has_many :crewmembers, -> { distinct },
     through: :contributions,
     source: :person
-
-  # has_many :actors,
-  #   source: :contributions,
-  #   through: :actor
-
-  # has_many :crewmembers,
-  #   source: :contributions,
-  #   through: :crewmember
 end

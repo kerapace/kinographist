@@ -1,14 +1,11 @@
-import { RECEIVE_FILM } from "../../actions/film_actions";
+import { RECEIVE_VERBOSE_FILM_DATA } from "../../actions/film_actions";
 
 const peopleReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = {};
   switch (action.type) {
-    case RECEIVE_FILM:
-      newState = Object.assign({},state);
-      Object.values(action.filmData.people).forEach((person => 
-        newState[person.id] = person));
-      return newState;
+    case RECEIVE_VERBOSE_FILM_DATA:
+      return action.filmData.people;
     default:
       return state;
   }

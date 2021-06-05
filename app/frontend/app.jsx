@@ -5,16 +5,17 @@ import Header from "./components/header";
 import SignupModalContainer from "./components/signup_modal_container";
 const App = (props) => {
   return (
-    <main>
+    <>
       <Route path="/">
         <Header/>
         <SignupModalContainer/>
       </Route>
       <Switch>
         <Route exact path="/"></Route>
-        <Route><Redirect to="/"/></Route>
+        <Route path="/film/:filmId"><FilmDisplayContainer/></Route>
+        <Redirect to="/"/>
       </Switch>
-    </main>
+    </>
   );
 };
 

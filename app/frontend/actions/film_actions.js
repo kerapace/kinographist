@@ -1,10 +1,10 @@
 import * as FilmApiUtil from "../util/film_api_util";
 
-export const RECEIVE_FILM = "RECEIVE_FILM";
+export const RECEIVE_VERBOSE_FILM_DATA = "RECEIVE_VERBOSE_FILM_DATA";
 
-export const receiveFilm = (filmData) => ({
-  type: RECEIVE_FILM,
+export const receiveFilmVerboseData = (filmData) => ({
+  type: RECEIVE_VERBOSE_FILM_DATA,
   filmData,
 });
 
-export const getFilm = (id) => (dispatch) => (FilmApiUtil.getFilm(id).then((filmData) => dispatch(receiveFilm(filmData))));
+export const getFilm = (id) => (dispatch) => (FilmApiUtil.getFilm(id).then((filmData) => dispatch(receiveFilmVerboseData(filmData))));

@@ -215,23 +215,23 @@ var flushSessionErrors = function flushSessionErrors() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RECEIVE_FILM": () => (/* binding */ RECEIVE_FILM),
-/* harmony export */   "receiveFilm": () => (/* binding */ receiveFilm),
+/* harmony export */   "RECEIVE_VERBOSE_FILM_DATA": () => (/* binding */ RECEIVE_VERBOSE_FILM_DATA),
+/* harmony export */   "receiveFilmVerboseData": () => (/* binding */ receiveFilmVerboseData),
 /* harmony export */   "getFilm": () => (/* binding */ getFilm)
 /* harmony export */ });
 /* harmony import */ var _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/film_api_util */ "./app/frontend/util/film_api_util.js");
 
-var RECEIVE_FILM = "RECEIVE_FILM";
-var receiveFilm = function receiveFilm(filmData) {
+var RECEIVE_VERBOSE_FILM_DATA = "RECEIVE_VERBOSE_FILM_DATA";
+var receiveFilmVerboseData = function receiveFilmVerboseData(filmData) {
   return {
-    type: RECEIVE_FILM,
+    type: RECEIVE_VERBOSE_FILM_DATA,
     filmData: filmData
   };
 };
 var getFilm = function getFilm(id) {
   return function (dispatch) {
     return _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__.getFilm(id).then(function (filmData) {
-      return dispatch(receiveFilm(filmData));
+      return dispatch(receiveFilmVerboseData(filmData));
     });
   };
 };
@@ -353,14 +353,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     path: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_header__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_signup_modal_container__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Redirect, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+    path: "/film/:filmId"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(FilmDisplayContainer, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Redirect, {
     to: "/"
-  }))));
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
@@ -942,12 +944,8 @@ var filmCrewReducer = function filmCrewReducer() {
   var newState = {};
 
   switch (action.type) {
-    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
-      newState = Object.assign({}, state);
-      Object.values(action.filmData.filmCrew).forEach(function (credit) {
-        return newState[credit.id] = credit;
-      });
-      return newState;
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_VERBOSE_FILM_DATA:
+      return action.filmData.filmCrew;
 
     default:
       return state;
@@ -979,7 +977,7 @@ var filmsReducer = function filmsReducer() {
   var newState = {};
 
   switch (action.type) {
-    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_VERBOSE_FILM_DATA:
       newState = Object.assign({}, state);
       Object.values(action.filmData.films).forEach(function (film) {
         return newState[film.id] = film;
@@ -1016,12 +1014,8 @@ var peopleReducer = function peopleReducer() {
   var newState = {};
 
   switch (action.type) {
-    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_FILM:
-      newState = Object.assign({}, state);
-      Object.values(action.filmData.people).forEach(function (person) {
-        return newState[person.id] = person;
-      });
-      return newState;
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_VERBOSE_FILM_DATA:
+      return action.filmData.people;
 
     default:
       return state;
