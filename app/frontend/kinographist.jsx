@@ -5,6 +5,7 @@ import configureStore from "./store/store";
 import {login, signup, logout} from "./actions/session_actions";
 import {fetchFilm, updateFilm} from "./util/film_api_util";
 import {getFilm} from "./actions/film_actions";
+import {crewListGroupedByRole} from "./reducers/selectors";
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.getElementById("root");
@@ -30,5 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.fetchFilm = fetchFilm;
   window.updateFilm = updateFilm;
   window.getFilm = getFilm;
+  window.crewListGroupedByRole = crewListGroupedByRole;
   ReactDOM.render(<Root store={store}/>,rootElement);
 });

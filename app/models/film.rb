@@ -1,3 +1,6 @@
+require 'net/http'
+require 'open-uri'
+
 class Film < ApplicationRecord
   validates :tmdb_id, :title, presence: true
   validates :tmdb_id, uniqueness: true
@@ -9,4 +12,94 @@ class Film < ApplicationRecord
   has_many :crewmembers, -> { distinct },
     through: :contributions,
     source: :person
+
+  has_one_attached :poster
+
+  has_one_attached :backdrop
+
+  def self.populate_films!(*ids)
+    film_list = []
+    ids.each do |id|
+      film_list << Film.populate_film!(id)
+    end
+    film_list
+  end
+
+  def self.populate_film!(id)
+    response = Film.request_film(id)
+    puts response
+    film = Film.new(Film.extract_film_data(response))
+    film.save!
+    backdrop = film.backdrop.attach(io: Film.request_image(response["backdrop_path"]), filename: "#{film[:id]}-backdrop.jpg")
+    poster = film.poster.attach(io: Film.request_image(response["poster_path"]), filename: "#{film[:id]}-poster.jpg")
+    Film.populate_people(response)
+    film
+  end
+
+  def self.request_film(tmdb_id)
+    uri = URI.parse("https://api.themoviedb.org/3/movie/#{tmdb_id}?api_key=#{Rails.application.credentials.dig(:tmdb_api_key)}&language=en-US&append_to_response=credits")
+    JSON.parse(Net::HTTP.get_response(uri).body)
+  end
+
+  def self.request_image(filename)
+    puts "http://image.tmdb.org/t/p/original/#{filename}"
+    URI.open("http://image.tmdb.org/t/p/original/#{filename}")
+  end
+
+  def self.extract_film_data(film)
+    {
+      tmdb_id: film["id"],
+      title: film["title"],
+      release_date: film["release_date"],
+      blurb: film["overview"],
+      tagline: film["tagline"],
+      runtime: film["runtime"],
+      genres: film["genres"].map{|genre| genre["name"]}.join(", "),
+      studio: film["production_companies"][0] ? film["production_companies"][0]["name"] : nil,
+      languages: film["spoken_languages"].map{|lang| lang["english_name"]}.join(", "),
+      country: film["production_countries"][0]["name"]
+    }
+  end
+
+  def self.extract_person_data(credit)
+    {
+      tmdb_id: credit["id"],
+      name: credit["name"]
+    }
+  end
+
+  def self.extract_credit_data(field,credit,person_id,film_id)
+    case field
+    when "cast"
+      {
+        person_id: person_id,
+        film_id: film_id,
+        position: "actor",
+        ord: credit["order"],
+        role: credit["character"]
+      }
+    when "crew"
+      {
+        person_id: person_id,
+        film_id: film_id,
+        position: credit["job"].is_a?(String) ? credit["job"].downcase : credit["job"]
+      }
+    end
+  end
+
+  def self.populate_people(response)
+    film = Film.find_by(tmdb_id: response["id"])
+    credits = response["credits"]
+    ["cast","crew"].each do |field|
+      credits[field].each do |data|
+        person = Person.find_by(tmdb_id: data["id"])
+        person = Person.new(extract_person_data(data)) if !person
+        person.save!
+        fc_data = extract_credit_data(field,data,person.id,film.id)
+        fc = FilmCrew.find_by(person_id: person.id, film_id: film.id, position: fc_data[:position], role: fc_data[:role])
+        fc ? fc.update(fc_data) : fc = FilmCrew.new(fc_data)
+        fc.save!
+      end
+    end
+  end
 end

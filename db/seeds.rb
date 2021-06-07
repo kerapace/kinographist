@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Film.destroy_all
+Person.destroy_all
+FilmCrew.destroy_all
+
+Film::populate_films!(6609,592,473033,9603,615457)

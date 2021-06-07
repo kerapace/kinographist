@@ -16,7 +16,7 @@
 
  @import "reset.scss";
 
- @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Rubik:wght@500&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Merriweather:wght@300&family=Rubik:wght@500&display=swap');
 
  @import "components/header.scss";
 
@@ -25,3 +25,11 @@
  @import "components/dropdown.scss";
 
  @import "components/signup_modal.scss";
+
+ @import "components/film_display.scss";
+
+ @import "components/poster.scss";
+
+ body {
+   background-color: #345;
+ }

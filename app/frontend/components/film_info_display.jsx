@@ -1,25 +1,23 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useRouteMatch} from "react-router-dom";
 import {Route} from "react-router";
-
-let {path, url} = useRouteMatch();
 
 const crewJobValues = ["director","writer","producer","editor","composer"];
 
-const FilmInfoCast = (crewHash) => (
+const FilmInfoCast = ({crewHash}) => (
   <>
     <ol className="actor-credits">
       {crewHash["actor"].map((actor,idx) => (
         <li key={idx}>
-          <span>{actor.name}</span>
-          <details>{actor.role}</details>
+          <p>{actor.name}</p>
+          <span>{actor.role}</span>
         </li>
       ))}
     </ol>
   </>
 );
 
-const FilmInfoCrew = (crewHash) => (
+const FilmInfoCrew = ({crewHash}) => (
   <div className="crew-credits-container">
     {
       crewJobValues.map((job) => (
@@ -28,7 +26,7 @@ const FilmInfoCrew = (crewHash) => (
           <h3>{crewHash[job].length === 1 ? job : job + "s"}</h3>
           {crewHash[job].map((crew) => (
             <li key={crew.id}>
-              <span>{actor.name}</span>
+              <span>{crew.name}</span>
             </li>
           ))}
         </ul>
@@ -37,7 +35,7 @@ const FilmInfoCrew = (crewHash) => (
   </div>
 );
 
-const FilmInfoDetails = (film) => (
+const FilmInfoDetails = ({film}) => (
   <div className="film-details-container">
     <ul className="film-details">
       <h3>Studio</h3>
@@ -57,6 +55,7 @@ const FilmInfoDetails = (film) => (
 );
 
 const FilmInfoDisplay = ({film, crewHash}) => {
+  const {path, url} = useRouteMatch();
   return (
     <div className="film-info-tabbed-display">
       <nav>
@@ -65,7 +64,10 @@ const FilmInfoDisplay = ({film, crewHash}) => {
         <NavLink to={`${url}/details`}>Details</NavLink>
       </nav>
       <section className="film-info-tab">
-        <Route path={[`${path}`,`${path}/cast`]}>
+        <Route exact path={path}>
+          <FilmInfoCast crewHash={crewHash}/>
+        </Route>
+        <Route path={`${path}/cast`}>
           <FilmInfoCast crewHash={crewHash}/>
         </Route>
         <Route path={`${path}/crew`}>

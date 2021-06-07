@@ -1,5 +1,15 @@
+.header-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
 header.main-header {
   height: 10vh;
+  width: 100%;
+  max-width: max(80vw,800px);
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
