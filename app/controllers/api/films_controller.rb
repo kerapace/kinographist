@@ -22,9 +22,18 @@ class Api::FilmsController < ApplicationController
   #   end
   # end
 
+  def browse
+    @films = Film::reduce_constraints(*search_params.to_h.to_a).with_attached_poster
+  end
+
   def show
     @film = Film.includes(:contributions,:crewmembers).find_by(id: params[:id])
     @backdrop = url_for(@film.backdrop)
     @poster = url_for(@film.poster)
+  end
+
+  private
+  def search_params
+    params.require("filter").permit! if params["filter"].present?
   end
 end

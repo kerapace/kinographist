@@ -15,3 +15,11 @@ export const getFilm = (id) => ($.ajax({
   url: `api/films/${id}`,
   method: 'GET',
 }));
+
+export const fetchFilmList = (filter) => ($.ajax({
+  url: 'api/browse',
+  method: 'GET',
+  data: {
+    filter,
+  },
+}))

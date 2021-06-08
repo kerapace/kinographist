@@ -9,8 +9,8 @@ const FilmInfoCast = ({crewHash}) => (
     <ol className="actor-credits">
       {crewHash["actor"].map((actor,idx) => (
         <li key={idx}>
-          <p>{actor.name}</p>
-          <span>{actor.role}</span>
+          {actor.name}
+          <p>{actor.role}</p>
         </li>
       ))}
     </ol>
@@ -24,9 +24,10 @@ const FilmInfoCrew = ({crewHash}) => (
         crewHash[job] === undefined ? "" :
         <ul key={job} className="crew-credits">
           <h3>{crewHash[job].length === 1 ? job : job + "s"}</h3>
+          <div/>
           {crewHash[job].map((crew) => (
             <li key={crew.id}>
-              <span>{crew.name}</span>
+              {crew.name}
             </li>
           ))}
         </ul>
@@ -39,29 +40,45 @@ const FilmInfoDetails = ({film}) => (
   <div className="film-details-container">
     <ul className="film-details">
       <h3>Studio</h3>
+      <div/>
       <li key={"studio"}>{film.studio}</li>
     </ul>
     <ul className="film-details">
       <h3>Country</h3>
+      <div/>
       <li key={"country"}>{film.country}</li>
     </ul>
     <ul className="film-details">
       <h3>Languages</h3>
-      {film.languages.split(", ").map(language => (
+      <div/>
+      {film.languages.map(language => (
         <li key={language}>{language}</li>
       ))}
     </ul>
   </div>
 );
 
+const FilmInfoGenres = ({film}) => (
+  <div className="film-genres-container">
+    <ul className="film-genres">
+      <h3>Genres</h3>
+        <div/>
+        {film.genres.map(genre => (
+          <li key={genre}>{genre}</li>
+        ))}
+    </ul>
+  </div>
+)
+
 const FilmInfoDisplay = ({film, crewHash}) => {
   const {path, url} = useRouteMatch();
   return (
     <div className="film-info-tabbed-display">
       <nav>
-        <NavLink to={`${url}/cast`}>Cast</NavLink>
+        <NavLink to={`${url}/cast`} isActive={((_,location) => location.pathname === url || location.pathname === `${url}/cast`)}>Cast</NavLink>
         <NavLink to={`${url}/crew`}>Crew</NavLink>
         <NavLink to={`${url}/details`}>Details</NavLink>
+        <NavLink to={`${url}/genres`}>Genres</NavLink>
       </nav>
       <section className="film-info-tab">
         <Route exact path={path}>
@@ -75,6 +92,9 @@ const FilmInfoDisplay = ({film, crewHash}) => {
         </Route>
         <Route path={`${path}/details`}>
           <FilmInfoDetails film={film}/>
+        </Route>
+        <Route path={`${path}/genres`}>
+          <FilmInfoGenres film={film}/>
         </Route>
       </section>
     </div>

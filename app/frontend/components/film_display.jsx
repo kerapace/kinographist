@@ -4,8 +4,8 @@ import FilmInfoDisplay from "./film_info_display";
 import Poster from "./poster";
 
 const FilmDisplay = ({film, crewHash, getFilm, match}) => {
-  useEffect(() => getFilm(match.params.filmId),[])
-  return !film ? "" : (
+  useEffect(() => getFilm(match.params.filmId),[]);
+  return !film || Object.keys(crewHash).length === 0 ? "" : (
     <>
       <div className="splash-container">
         <figure className="film-splash-header">
@@ -23,9 +23,9 @@ const FilmDisplay = ({film, crewHash, getFilm, match}) => {
           </aside>
         </div>
         <section className="film-info">
-          <div class="film-info-header">
+          <div className="film-info-header">
             <h1>{film.title}</h1>
-            <h2>{<Link to="/">{film.releaseDate.slice(0,4)}</Link>}</h2>
+            <h2>{<Link to="/">{film.releaseYear}</Link>}</h2>
             {!crewHash["director"] ? "" :
             <h2>Directed by {crewHash["director"].map((el,idx) => <Link key={idx} to="/">{el.name}</Link> )}</h2>
             }

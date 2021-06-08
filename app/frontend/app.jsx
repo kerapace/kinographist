@@ -4,6 +4,7 @@ import React from "react";
 import Header from "./components/header";
 import SignupModalContainer from "./components/signup_modal_container";
 import FilmDisplayContainer from "./components/film_display_container";
+import FilmBrowseContainer from "./components/film_browse_container";
 const App = (props) => {
   return (
     <>
@@ -14,7 +15,8 @@ const App = (props) => {
       <Switch>
         {/* <Route exact path="/"/> */}
         <Route path="/film/:filmId" component={FilmDisplayContainer}/>
-        {/* <Redirect to="/"/> */}
+        <Route path="/films/browse" component={FilmBrowseContainer}/>
+        <Route path="/" render={() => (<Redirect to="/"/>)}/>
       </Switch>
     </>
   );

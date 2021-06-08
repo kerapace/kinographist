@@ -17,6 +17,23 @@ class Film < ApplicationRecord
 
   has_one_attached :backdrop
 
+  def self.reduce_constraints(*constraints)
+    return constraints.inject(Film){|relation,constraint| apply_constraint(relation,constraint)}.where(nil)
+  end
+
+  def self.apply_constraint(relation,constraint)
+    case constraint[0]
+    when "year"
+      relation.where(release_year: Integer(constraint[1]))
+    when "actor" || "director" || "writer" || "producer" || "composer"
+      relation.joins(contributions: :person).where('position = ? AND person_id = ?',constraint[0],constraint[1])
+    when "language"
+      relation.where("? = ANY (languages)",constraint[1].capitalize)
+    when "genre"
+      relation.where("? = ANY (genres)", constraint[1].capitalize)
+    end
+  end
+
   def self.populate_films!(*ids)
     film_list = []
     ids.each do |id|
@@ -27,11 +44,10 @@ class Film < ApplicationRecord
 
   def self.populate_film!(id)
     response = Film.request_film(id)
-    puts response
     film = Film.new(Film.extract_film_data(response))
     film.save!
-    backdrop = film.backdrop.attach(io: Film.request_image(response["backdrop_path"]), filename: "#{film[:id]}-backdrop.jpg")
-    poster = film.poster.attach(io: Film.request_image(response["poster_path"]), filename: "#{film[:id]}-poster.jpg")
+    backdrop = film.backdrop.attach(io: Film.request_image(response["backdrop_path"],"w1280"), filename: "#{film[:id]}-backdrop.jpg")
+    poster = film.poster.attach(io: Film.request_image(response["poster_path"],"w780"), filename: "#{film[:id]}-poster.jpg")
     Film.populate_people(response)
     film
   end
@@ -41,22 +57,21 @@ class Film < ApplicationRecord
     JSON.parse(Net::HTTP.get_response(uri).body)
   end
 
-  def self.request_image(filename)
-    puts "http://image.tmdb.org/t/p/original/#{filename}"
-    URI.open("http://image.tmdb.org/t/p/original/#{filename}")
+  def self.request_image(filename, size)
+    URI.open("http://image.tmdb.org/t/p/#{size}/#{filename}")
   end
 
   def self.extract_film_data(film)
     {
       tmdb_id: film["id"],
       title: film["title"],
-      release_date: film["release_date"],
+      release_year: film["release_date"][0...4],
       blurb: film["overview"],
       tagline: film["tagline"],
       runtime: film["runtime"],
-      genres: film["genres"].map{|genre| genre["name"]}.join(", "),
+      genres: film["genres"].map{|genre| genre["name"]},
       studio: film["production_companies"][0] ? film["production_companies"][0]["name"] : nil,
-      languages: film["spoken_languages"].map{|lang| lang["english_name"]}.join(", "),
+      languages: film["spoken_languages"].map{|lang| lang["english_name"]},
       country: film["production_countries"][0]["name"]
     }
   end
@@ -69,6 +84,8 @@ class Film < ApplicationRecord
   end
 
   def self.extract_credit_data(field,credit,person_id,film_id)
+    credit["job"] = "composer" if credit["job"] === "Original Music Composer"
+    credit["job"] = "writer" if credit["job"] === "Screenplay"
     case field
     when "cast"
       {

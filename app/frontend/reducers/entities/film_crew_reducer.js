@@ -5,7 +5,7 @@ const filmCrewReducer = (state = {}, action) => {
   let newState = {};
   switch (action.type) {
     case RECEIVE_VERBOSE_FILM_DATA:
-     return action.filmData.filmCrew;
+     return action.filmData ? action.filmData.filmCrew : {};
     default:
       return state;
   }

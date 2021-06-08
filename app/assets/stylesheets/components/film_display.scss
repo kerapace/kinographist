@@ -1,7 +1,8 @@
-$dark-grey: #345;
+$dark-grey: #283038;
 $font-white: #ccc;
 $sans-serif: 'Lato', sans-serif;
 $serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
 
 
 figure.film-splash-header {
@@ -30,7 +31,7 @@ figure.film-splash-header > img {
   background: linear-gradient(to right,rgba($dark-grey,1),rgba($dark-grey,0.0));
   left: 0;
   height: 100%;
-  width: 10vw;
+  width: 15vw;
 }
 
 .right-gradient {
@@ -38,7 +39,7 @@ figure.film-splash-header > img {
   background: linear-gradient(to left,rgba($dark-grey,1),rgba($dark-grey,0.0));
   right: 0;
   height: 100%;
-  width: 10vw;
+  width: 15vw;
 }
 
 .bottom-gradient {
@@ -46,7 +47,7 @@ figure.film-splash-header > img {
   background: linear-gradient(to top,rgba($dark-grey,1),rgba($dark-grey,0.0));
   bottom: 0;
   left: 0;
-  height: 10vh;
+  height: 15vh;
   width: 100%;
 }
 
@@ -58,7 +59,7 @@ main.film-page {
   z-index: 3;
   color: $font-white;
   font-family: $serif;
-  grid-template-columns: 2fr 3fr 1.5fr;
+  grid-template-columns: 1fr 425px 1fr;
   grid-template-rows: 500px 1fr;
   grid-gap: 20px;
   grid-template-areas: "left-sidebar info rating-sidebar" ". reviews reviews"
@@ -102,11 +103,100 @@ section.rating-container {
   }
 }
 
-.film-info {
-  line-height: 1.2em;
+.film-blurb {
+  h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: $sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2em;
+  }
+  line-height: 1.4em;
 }
 
 .film-blurb {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 200;
   padding: 10px;
+}
+
+.actor-credits, .crew-credits, .film-details, .film-genres {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.actor-credits > li, .crew-credits > li, .film-details > li, .film-genres > li {
+  padding: 0.4em;
+  border-radius: 0.4em;
+  background-color: #345;
+  margin: 0.3em;
+  font-size: 12px;
+  font-family: $sans-serif;
+}
+
+.actor-credits > li {
+  position: relative;
+}
+
+.actor-credits > li > p {
+  width: 100%;
+  display: none;
+}
+
+.actor-credits > li > p {
+  margin: auto;
+  padding: 0.4em;
+  border-radius: 0.4em;
+  background-color: #9ab;
+  color: #345;
+}
+
+ol.actor-credits > li:hover p {
+  display: block;
+  position: absolute;
+  top: -125%;
+  left: 0;
+}
+
+ol.actor-credits > li:hover, ul.crew-credits > li:hover, ul.film-details > li:hover, ul.film-genres > li:hover {
+  background-color: #ccc;
+  color: #123;
+}
+
+.film-info-tabbed-display > nav > a {
+  font-family: $title;
+  margin-right: 0.5em;
+  text-transform: uppercase;
+}
+
+.film-info-tabbed-display > nav > a.active {
+  color: #7e9;
+}
+
+.film-info-tabbed-display > nav {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #9ab;
+  margin-bottom: 1em;
+}
+
+.film-details, .crew-credits, .film-genres {
+  h3 {
+    text-transform: uppercase;
+    font-family: $sans-serif;
+    font-size: 12px;
+    flex-grow: 0;
+    padding-right: 0.1em;
+  }
+
+  div {
+    height: 1px;
+    border-top: 1px dotted white;
+    margin-top: 0.2em;
+    flex-grow: 1;
+  }
+
+  li {
+    margin-top: -0.2em;
+    flex-grow: 0;
+  }
 }
