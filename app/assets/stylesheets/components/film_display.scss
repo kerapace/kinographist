@@ -96,7 +96,6 @@ section.rating-container {
     display: inline;
     margin-right: 0.2em;
   }
-
   a {
     border-bottom: 1px dotted white;
     color: white;
@@ -193,10 +192,12 @@ ol.actor-credits > li:hover, ul.crew-credits > li:hover, ul.film-details > li:ho
     border-top: 1px dotted white;
     margin-top: 0.2em;
     flex-grow: 1;
+    align-items: flex-end;
   }
 
   li {
     margin-top: -0.2em;
     flex-grow: 0;
+    align-items: flex-start;
   }
 }
