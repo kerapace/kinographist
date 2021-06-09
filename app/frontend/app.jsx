@@ -18,6 +18,7 @@ const App = (props) => {
         <Route path="/films/browse" component={FilmBrowseContainer}/>
         <Route path="/" render={() => (<Redirect to="/"/>)}/>
       </Switch>
+      <Route path="/"><div className="footer">Seed data from <a href="https://themoviedb.org">tMDb</a>.</div></Route>
     </>
   );
 };
