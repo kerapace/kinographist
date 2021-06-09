@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
-  window.dispatch = store.dispatch;
-  window.getState = store.getState;
+  // window.dispatch = store.dispatch;
+  // window.getState = store.getState;
   // window.fetchFilm = fetchFilm;
   // window.updateFilm = updateFilm;
-  window.getFilm = getFilm;
-  window.crewListGroupedByRole = crewListGroupedByRole;
+  // window.getFilm = getFilm;
+  // window.crewListGroupedByRole = crewListGroupedByRole;
   ReactDOM.render(<Root store={store}/>,rootElement);
 });

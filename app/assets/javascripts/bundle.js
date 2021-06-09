@@ -1912,7 +1912,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default));
 });
 
 /***/ }),
@@ -38589,13 +38589,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)(preloadedState); // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
-
-  window.dispatch = store.dispatch;
-  window.getState = store.getState; // window.fetchFilm = fetchFilm;
+  // window.dispatch = store.dispatch;
+  // window.getState = store.getState;
+  // window.fetchFilm = fetchFilm;
   // window.updateFilm = updateFilm;
+  // window.getFilm = getFilm;
+  // window.crewListGroupedByRole = crewListGroupedByRole;
 
-  window.getFilm = _actions_film_actions__WEBPACK_IMPORTED_MODULE_6__.getFilm;
-  window.crewListGroupedByRole = _reducers_selectors__WEBPACK_IMPORTED_MODULE_7__.crewListGroupedByRole;
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_root__WEBPACK_IMPORTED_MODULE_2__.default, {
     store: store
   }), rootElement);
