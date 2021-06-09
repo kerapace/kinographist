@@ -13,6 +13,10 @@ class Film < ApplicationRecord
     through: :contributions,
     source: :person
 
+  has_many :actors, -> { merge(FilmCrew.actor) },
+    through: :contributions,
+    source: :person
+  
   has_one_attached :poster
 
   has_one_attached :backdrop

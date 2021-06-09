@@ -4,7 +4,7 @@ class FilmCrew < ApplicationRecord
   belongs_to :film
 
   belongs_to :person
-  # belongs_to :actor, -> {:actor}
+  scope :actor, -> {where(position: "actor")}
 
   def is_actor?
     position == "actor"

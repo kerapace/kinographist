@@ -60,7 +60,7 @@ main.film-page {
   color: $font-white;
   font-family: $serif;
   grid-template-columns: 1fr 425px 1fr;
-  grid-template-rows: 500px 1fr;
+  grid-template-rows: auto 1fr;
   grid-gap: 20px;
   grid-template-areas: "left-sidebar info rating-sidebar" ". reviews reviews"
 }
