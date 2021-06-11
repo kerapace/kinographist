@@ -1,8 +1,10 @@
 import {TOGGLE_SIGNUP_MODAL} from "../actions/ui_actions";
 import {RECEIVE_CURRENT_USER} from "../actions/session_actions";
+import {TOGGLE_REVIEW_MODAL} from "../actions/ui_actions";
 
 const initialState = {
   signupModalDisplay: false,
+  reviewModalDisplay: false,
 }
 
 const uiReducer = (state = initialState, action) => {
@@ -12,6 +14,10 @@ const uiReducer = (state = initialState, action) => {
     case TOGGLE_SIGNUP_MODAL:
       newState = Object.assign({},state);
       newState.signupModalDisplay = !newState.signupModalDisplay;
+      return newState;
+    case TOGGLE_REVIEW_MODAL:
+      newState = Object.assign({},state);
+      newState.reviewModalDisplay = !newState.reviewModalDisplay;
       return newState;
     case RECEIVE_CURRENT_USER:
       newState.signupModalDisplay = false;

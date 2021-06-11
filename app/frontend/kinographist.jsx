@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './root';
 import configureStore from "./store/store";
-import {login, signup, logout} from "./actions/session_actions";
 import {fetchFilm, updateFilm} from "./util/film_api_util";
-import {getFilm} from "./actions/film_actions";
-import {crewListGroupedByRole} from "./reducers/selectors";
+import {updateReview, deleteReview} from "./actions/review_actions";
+import {filmReviews, filmReviewsWithUserData} from "./reducers/selectors";
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.getElementById("root");
@@ -26,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
-  // window.dispatch = store.dispatch;
-  // window.getState = store.getState;
+  window.dispatch = store.dispatch;
+  window.getState = store.getState;
   // window.fetchFilm = fetchFilm;
   // window.updateFilm = updateFilm;
   // window.getFilm = getFilm;

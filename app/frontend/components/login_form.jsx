@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
 import ErrorDisplay from "./error_display";
 
-const LoginForm = ({sessionErrors, setDisplayLogin, login,flushSessionErrors}) => {
+const LoginForm = ({sessionErrors, setDisplayLogin, login, flushSessionErrors}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, redirectOnSubmit] = useState(false);

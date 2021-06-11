@@ -23,3 +23,25 @@ json.film_crew do
     end
   end
 end
+
+json.reviews do
+  @film.reviews.each do |review|
+    json.set! review.id do
+        json.extract! review, :id, :user_id, :film_id, :rating, :watched, :title, :body
+        json.created Time.at(review.created_at).strftime("%B %e, %Y at %I:%M")
+        json.updated Time.at(review.updated_at).strftime("%B %e, %Y at %I:%M")
+    end
+  end
+end
+json.reviews({}) if @film.reviews.empty?
+
+json.users do
+  @film.reviews.each do |review|
+    user = review.user
+    json.set! user.id do
+      json.extract! user, :id, :username
+    end
+  end
+end
+
+json.users({}) if @film.reviews.empty?

@@ -2,8 +2,10 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import FilmInfoDisplay from "./film_info_display";
 import Poster from "./poster";
+import {ReviewList} from "./review_list";
+import FilmInteractionMenuContainer from "./film_interaction_menu_container"
 
-const FilmDisplay = ({film, crewHash, getFilm, match}) => {
+const FilmDisplay = ({film, crewHash, reviews, getFilm, match}) => {
   useEffect(() => getFilm(match.params.filmId),[]);
   return !film || Object.keys(crewHash).length === 0 ? "" : (
     <>
@@ -27,7 +29,7 @@ const FilmDisplay = ({film, crewHash, getFilm, match}) => {
             <h1>{film.title}</h1>
             <h2>{<Link to="/">{film.releaseYear}</Link>}</h2>
             {!crewHash["director"] ? "" :
-            <h2>Directed by {crewHash["director"].map((el,idx) => <Link key={idx} to="/">{el.name}</Link> )}</h2>
+            <h2>Directed by {crewHash["director"].map((el,idx) => <Link key={idx} to="/">{el.name}</Link>)}</h2>
             }
           </div>
           <section className="film-blurb">
@@ -37,7 +39,10 @@ const FilmDisplay = ({film, crewHash, getFilm, match}) => {
           <FilmInfoDisplay film={film} crewHash={crewHash}/>
         </section>
         <section className="rating-container">
-
+          <FilmInteractionMenuContainer film={film}/>
+        </section>
+        <section className="reviews-container">
+          <ReviewList page={"film"} reviews={reviews}/>
         </section>
       </main>
       </>

@@ -77,9 +77,17 @@ section.rating-container {
   grid-area: rating-sidebar;
 }
 
-.film-left-sidebar {
+section.reviews-container {
+  grid-area: reviews;
+}
+
+.film-info-header > h2 > a:not(:last-child):after {
+  content: ", "
+}
+
+.film-left-sidebar > aside {
   position: sticky;
-  top: 0;
+  top: 20px;
 }
 
 .film-info-header {
@@ -114,7 +122,7 @@ section.rating-container {
 }
 
 .film-blurb {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 200;
   padding: 10px;
 }
@@ -169,7 +177,7 @@ ol.actor-credits > li:hover, ul.crew-credits > li:hover, ul.film-details > li:ho
 }
 
 .film-info-tabbed-display > nav > a.active {
-  color: #7e9;
+  color: #5e7;
 }
 
 .film-info-tabbed-display > nav {

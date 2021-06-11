@@ -20,22 +20,22 @@ const FilmBrowse = ({films, getFilms, getPerson, position}) => {
   return (
     <section className="film-browser">
       <h1>Browse Films</h1>
-      <select id="genre" onChange={(e) => setGenre(e.target.value)}>
+      <select key={"genre"} id="genre" onChange={(e) => setGenre(e.target.value)}>
         <option key={"blank"} value={""}>Genre</option>
         {genres.map(genre => <option key={genre} value={genre}>{genre}</option>)}
       </select>
-      <select id="year" onChange={(e) => setYear(e.target.value)}>
+      <select key={"year"} id="year" onChange={(e) => setYear(e.target.value)}>
         <option key={"blank"} value={""}>Year</option>
         {
           [...Array(121)].map((_,idx) => <option key={idx+1901} value={idx+1901}>{idx+1901}</option>)
         }
       </select>
-      <select id="language" onChange={(e) => setLanguage(e.target.value)}>
+      <select key={"language"} id="language" onChange={(e) => setLanguage(e.target.value)}>
         <option key={"blank"} value={""}>Language</option>
         {languages.map(language => <option key={language} type="select" value={language}>{language}</option>)}
       </select>
       <div className="film-browse-container">
-        {!films ? "" : films.map(film => (<Link to={`/film/${film.id}`}><Poster key={film.id} size={"medium"} hoverable={true} film={film}/></Link>))}
+        {!films ? "" : films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}
       </div>
     </section>
   );

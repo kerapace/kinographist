@@ -1,0 +1,165 @@
+$dark-grey: #283038;
+$shale-blue:#578;
+$font-white: #ccc;
+$lighter-grey: #345;
+$rating-menu-grey: #456;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
+
+.rating-button {
+  height: 30px;
+  width: 150px;
+  position: relative;
+  display: flex;
+  background: $dark-grey;
+  -webkit-mask-image: image-url("star.svg");
+  mask-image: image-url("star.svg");
+  -webkit-mask-size: 30px 30px;
+  mask-size: 30px 30px;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+}
+
+div.visible-rating {
+  background-color: #59f;
+  position: absolute;
+  height: 100%;
+  z-index: -2;
+  top: 0;
+  left: 0;
+}
+
+nav.film-interaction-menu {
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 20px;
+  overflow: hidden;
+  font-family: $sans-serif;
+  width: 180px;
+}
+
+nav.film-interaction-menu > div {
+  width: 100%;
+  padding: 10px 0;
+  background-color: $shale-blue;
+  border-bottom: 1px solid $lighter-grey;
+}
+
+.state-buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+nav.film-interaction-menu > div.state-buttons-container {
+  padding: 0;
+  min-height: 20px;
+}
+
+.watch-button {
+  height: 100%;
+  padding: 10px;
+  border-left: 1px solid #456;
+  border-right: 1px solid #456;
+  width: 70px;
+}
+
+button.watch-button.clicked > svg {
+  fill: #5e7;
+  fill-rule: nonzero;
+}
+
+.rating-button-container > .exit-button {
+  float: left;
+}
+
+.review-form-container .exit-button {
+  font-family: $sans-serif;
+}
+
+.rating-inset > .exit-button {
+  float: left;
+}
+
+nav.film-interaction-menu > div:last-child {
+  border-bottom: none;
+}
+
+div.rating-button.rated > div.visible-rating {
+  background-color: #5e7;
+}
+
+.review-button-container {
+  text-align: center;
+}
+
+.review-button-container > p {
+  margin: 0 auto;
+}
+
+.rating-increment {
+  width: 10%;
+  z-index: 2;
+}
+
+.review-form-container {
+  position: relative;
+  background-color: $rating-menu-grey;
+  padding: 50px;
+  border-radius: 20px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 300px;
+  grid-gap: 30px;
+}
+
+.review-form-container > .poster {
+  float: left;
+}
+
+.review-form-container > section > form {
+  display: flex;
+  height: 80%;
+  width: 500px;
+  flex-direction: column;
+  align-items: left;
+  textarea, input[type=text] {
+    border-radius: 5px;
+    background-color: $shale-blue;
+    color: $font-white;
+    font-family: $sans-serif;
+    font-size: 12px;
+    margin: 10px 0;
+  }
+
+  textarea {
+    height: 50%;
+  }
+
+  ::placeholder {
+    color: $font-white;
+  }
+}
+
+.review-form-container h2 {
+  font-family: $sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+}
+
+.review-form-container h1 {
+  font-size: 32px;
+  font-weight: bolder;
+  margin-right: 0.2em;
+}
+
+.review-form-container > section > .exit-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

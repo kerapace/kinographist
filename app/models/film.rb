@@ -5,7 +5,7 @@ class Film < ApplicationRecord
   validates :tmdb_id, :title, presence: true
   validates :tmdb_id, uniqueness: true
 
-  has_many :contributions,
+  has_many :contributions, dependent: :destroy,
     foreign_key: :film_id,
     class_name: :FilmCrew
 
@@ -16,6 +16,8 @@ class Film < ApplicationRecord
   has_many :actors, -> { merge(FilmCrew.actor) },
     through: :contributions,
     source: :person
+
+  has_many :reviews, dependent: :destroy
   
   has_one_attached :poster
 
@@ -30,7 +32,7 @@ class Film < ApplicationRecord
     when "year"
       relation.where(release_year: Integer(constraint[1]))
     when "actor" || "director" || "writer" || "producer" || "composer"
-      relation.joins(contributions: :person).where('position = ? AND person_id = ?',constraint[0],constraint[1])
+      relation.joins(:contributions).where('position = ? AND person_id = ?',constraint[0],constraint[1])
     when "language"
       relation.where("? = ANY (languages)",constraint[1].capitalize)
     when "genre"

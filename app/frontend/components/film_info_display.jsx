@@ -75,10 +75,10 @@ const FilmInfoDisplay = ({film, crewHash}) => {
   return (
     <div className="film-info-tabbed-display">
       <nav>
-        <NavLink to={`${url}/cast`} isActive={((_,location) => location.pathname === url || location.pathname === `${url}/cast`)}>Cast</NavLink>
-        <NavLink to={`${url}/crew`}>Crew</NavLink>
-        <NavLink to={`${url}/details`}>Details</NavLink>
-        <NavLink to={`${url}/genres`}>Genres</NavLink>
+        <NavLink to={`${url}/cast`} replace isActive={((_,location) => location.pathname === url || location.pathname === `${url}/cast`)}>Cast</NavLink>
+        <NavLink to={`${url}/crew`} replace >Crew</NavLink>
+        <NavLink to={`${url}/details`} replace >Details</NavLink>
+        <NavLink to={`${url}/genres`} replace >Genres</NavLink>
       </nav>
       <section className="film-info-tab">
         <Route exact path={path}>

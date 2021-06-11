@@ -8,6 +8,9 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
 
+  has_many :likes, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+
   def self.find_by_credentials(username,password)
     user = User.find_by(username: username)
     user && user.is_password?(password) ? user : nil

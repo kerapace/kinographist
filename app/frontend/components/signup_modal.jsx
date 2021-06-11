@@ -13,6 +13,14 @@ const SignupModal = ({sessionErrors,isDisplayed,signup,toggleSignupModal,flushSe
     redirectOnSubmit(true);
   };
   useEffect(() => {return flushSessionErrors},[isDisplayed]);
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.height = 'auto';
+    }
+  },[])
   return !isDisplayed ? "" : (
     <div className="modal-background">
       {!submitted ? "" : <Redirect to="/"/>}

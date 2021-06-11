@@ -1,0 +1,62 @@
+$dark-grey: #283038;
+$shale-blue:#578;
+$font-white: #ccc;
+$lighter-grey: #345;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
+
+.review-list-container {
+  padding: 20px;
+  font-family: $serif;
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+div.border {
+  border-bottom: 1px solid $font-white;
+  margin-bottom: 10px;
+}
+
+.film-review > header > div > p {
+  color: #9ab;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: $sans-serif;
+  margin-right: 0.5em;
+}
+
+.film-review > header > div {
+  display: flex;
+  fill: #5e7;
+  stroke: #5e7;
+  margin-bottom: 10px;
+}
+
+.film-review > div.border {
+  border-bottom: 1px solid $shale-blue;
+}
+
+.film-review > h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 1em;
+}
+
+.film-review > p {
+  padding: 0.5em;
+  font-size: 14px;
+}
+
+.film-review > header > div > .rating > * {
+  margin-right: 0.1em;
+  height: 14px;
+  width: 14px;
+}
+
+a.user-link {
+  color: $font-white;
+}

@@ -18,6 +18,18 @@ export const crewListGroupedByRole = (state) => {
   return crewHash;
 }
 
+export const filmReviewsWithUserData = (state, filmId) => 
+  (filmReviews(state,filmId).map(review => 
+    Object.assign({},review,{username: state.entities.users[review.userId].username})))
+
+export const filmReviews = (state, filmId) => (
+  Object.values(state.entities.reviews).filter(review => review.filmId === filmId)
+);
+
+export const userReview = (state,userId,filmId) => (
+  Object.values(state.entities.reviews).find(review => review.filmId === filmId && review.userId === userId)
+);
+
 export const filmAssociatedPeople = (state) => (
   Object.values(state.entities.people)
 )

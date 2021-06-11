@@ -27,9 +27,14 @@ class Api::FilmsController < ApplicationController
   end
 
   def show
-    @film = Film.includes(:contributions,:crewmembers).find_by(id: params[:id])
-    @backdrop = url_for(@film.backdrop)
-    @poster = url_for(@film.poster)
+    @film = Film.includes(:contributions,:crewmembers, reviews: :user).find_by(id: params[:id])
+    if @film
+      @backdrop = url_for(@film.backdrop)
+      @poster = url_for(@film.poster)
+      render :show
+    else
+      render json: ["Film not found"], status: 404
+    end
   end
 
   private
