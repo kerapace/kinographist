@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {toggleSignupModal} from "../actions/ui_actions";
+import {toggleSignupModal} from "../../actions/ui_actions";
 import Navbar from "./navbar";
 
 const mapStateToProps = ({entities, session}) => ({

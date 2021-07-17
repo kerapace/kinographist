@@ -27,7 +27,8 @@ class Api::FilmsController < ApplicationController
   end
 
   def show
-    @film = Film.includes(:contributions,:crewmembers, reviews: :user).find_by(id: params[:id])
+    @user = current_user
+    @film = Film.includes(:contributions,:crewmembers, reviews: [:user, :user_like]).find_by(id: params[:id])
     if @film
       @backdrop = url_for(@film.backdrop)
       @poster = url_for(@film.poster)

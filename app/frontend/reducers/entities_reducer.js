@@ -4,6 +4,7 @@ import filmsReducer from "./entities/films_reducer";
 import filmCrewReducer from "./entities/film_crew_reducer";
 import peopleReducer from "./entities/people_reducer";
 import reviewsReducer from "./entities/reviews_reducer";
+import likesReducer from "./entities/likes_reducer";
 
 export default combineReducers({
   users: usersReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   films: filmsReducer,
   filmCrew: filmCrewReducer,
   people: peopleReducer,
+  likes: likesReducer,
 });

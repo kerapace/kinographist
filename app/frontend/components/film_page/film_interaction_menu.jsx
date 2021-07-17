@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, {useState, useEffect} from "react";
-import {Eye, Heart} from "./svg_elements";
-import Poster from "./poster";
+import {Eye, Heart} from "../svg_elements";
+import Poster from "../poster";
 
 const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, currentUser, review, updateReview, film}) => {
   return (

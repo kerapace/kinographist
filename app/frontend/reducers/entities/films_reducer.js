@@ -1,4 +1,5 @@
 import { RECEIVE_VERBOSE_FILM_DATA, RECEIVE_FILM_DATA } from "../../actions/film_actions";
+import { RECEIVE_PROFILE_DATA } from "../../actions/user_actions";
 
 const filmsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -13,6 +14,12 @@ const filmsReducer = (state = {}, action) => {
       newState = Object.assign({},state);
       Object.values(action.filmData.films).forEach((film => 
         newState[film.id] = film));
+      return newState;
+    case RECEIVE_PROFILE_DATA:
+      newState = {};
+      Object.values(action.profileData.films).forEach(film =>
+        newState[film.id] = film
+      );
       return newState;
     default:
       return state;

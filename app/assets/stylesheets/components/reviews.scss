@@ -1,7 +1,8 @@
 $dark-grey: #283038;
 $shale-blue:#578;
 $font-white: #ccc;
-$lighter-grey: #345;
+$lighter-grey: #334455;
+$font-grey: #aab;
 $sans-serif: 'Lato', sans-serif;
 $serif: 'Merriweather', serif;
 $title: 'Rubik', sans-serif;
@@ -9,6 +10,7 @@ $title: 'Rubik', sans-serif;
 .review-list-container {
   padding: 20px;
   font-family: $serif;
+  color: $font-white;
   h2 {
     font-size: 24px;
     font-weight: bold;
@@ -21,12 +23,56 @@ div.border {
   margin-bottom: 10px;
 }
 
+.film-review {
+  display: grid;
+  color: $font-grey;
+  grid-template-columns: 100px auto;
+  grid-template-rows: 50px 100px auto auto;
+  grid-template-areas: 
+    "poster-or-avatar header-info"
+    "like-button review"
+    ". review"
+    "bottom-border bottom-border";
+  grid-gap: 1em;
+}
+
+.film-review > header {
+  grid-area: header-info;
+}
+
+.film-review > aside {
+  grid-area: poster-or-avatar;
+}
+
+.film-review > button.like-button {
+  grid-area: like-button;
+}
+
+.film-review > p {
+  grid-area: review;
+  line-height: 1.2em;
+  padding: 0.5em;
+  font-size: 14px;
+}
+
+.film-review > div {
+  grid-area: bottom-border;
+}
+
 .film-review > header > div > p {
   color: #9ab;
   font-size: 15px;
   font-weight: 500;
   font-family: $sans-serif;
   margin-right: 0.5em;
+}
+
+.film-review > header > div > a {
+  margin-right: 0.5em;
+}
+
+.film-review > header > div > a:hover {
+  color: $font-white;
 }
 
 .film-review > header > div {
@@ -40,15 +86,10 @@ div.border {
   border-bottom: 1px solid $shale-blue;
 }
 
-.film-review > h3 {
+.film-review > div > h3 {
   font-size: 18px;
   font-weight: bold;
   margin-left: 1em;
-}
-
-.film-review > p {
-  padding: 0.5em;
-  font-size: 14px;
 }
 
 .film-review > header > div > .rating > * {

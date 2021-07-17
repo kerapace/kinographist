@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import FilmInfoDisplay from "./film_info_display";
-import Poster from "./poster";
-import {ReviewList} from "./review_list";
+import Poster from "../poster";
+import ReviewList from "../embeds/review_list";
 import FilmInteractionMenuContainer from "./film_interaction_menu_container"
 
 const FilmDisplay = ({film, crewHash, reviews, getFilm, match}) => {
@@ -20,7 +20,7 @@ const FilmDisplay = ({film, crewHash, reviews, getFilm, match}) => {
       <main className="film-page">
         <div className="film-left-sidebar">
           <aside>
-            <Poster size={"large"} hoverable={false} film={film}/>
+            <Poster size={"large"} hoverable={false} displayInfo={false} film={film}/>
             {/* <InlineFilmDataContainer filmId={film.id}/> */}
           </aside>
         </div>

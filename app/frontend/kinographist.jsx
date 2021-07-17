@@ -5,6 +5,7 @@ import configureStore from "./store/store";
 import {fetchFilm, updateFilm} from "./util/film_api_util";
 import {updateReview, deleteReview} from "./actions/review_actions";
 import {filmReviews, filmReviewsWithUserData} from "./reducers/selectors";
+import {getProfile} from "./actions/user_actions";
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.getElementById("root");
@@ -22,14 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
   const store = configureStore(preloadedState);
-  // window.signup = signup;
-  // window.login = login;
-  // window.logout = logout;
   window.dispatch = store.dispatch;
   window.getState = store.getState;
-  // window.fetchFilm = fetchFilm;
-  // window.updateFilm = updateFilm;
-  // window.getFilm = getFilm;
-  // window.crewListGroupedByRole = crewListGroupedByRole;
   ReactDOM.render(<Root store={store}/>,rootElement);
 });

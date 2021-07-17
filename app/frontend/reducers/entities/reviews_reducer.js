@@ -1,5 +1,7 @@
 import {RECEIVE_VERBOSE_FILM_DATA} from "../../actions/film_actions";
 import {RECEIVE_REVIEWS, RECEIVE_VERBOSE_REVIEW_DATA, REMOVE_REVIEW} from "../../actions/review_actions";
+import {RECEIVE_PROFILE_DATA} from "../../actions/user_actions";
+
 
 const reviewsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -20,6 +22,12 @@ const reviewsReducer = (state = {}, action) => {
     case RECEIVE_VERBOSE_REVIEW_DATA:
       newState = Object.assign({},state);
       Object.values(action.reviewData.reviews).forEach(review =>
+        newState[review.id] = review
+      );
+      return newState;
+    case RECEIVE_PROFILE_DATA:
+      newState = Object.assign({},state);
+      Object.values(action.profileData.reviews).forEach(review =>
         newState[review.id] = review
       );
       return newState;

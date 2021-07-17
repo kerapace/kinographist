@@ -18,10 +18,19 @@ class Film < ApplicationRecord
     source: :person
 
   has_many :reviews, dependent: :destroy
+
+  has_many :watchers, -> { watched }, class_name: :Review
+
+  has_many :likes, as: :likeable
   
   has_one_attached :poster
 
   has_one_attached :backdrop
+
+  def update_watch_count
+    self.update(watch_count: self.watched.length)
+    self.save
+  end
 
   def self.reduce_constraints(*constraints)
     return constraints.inject(Film){|relation,constraint| apply_constraint(relation,constraint)}.where(nil)

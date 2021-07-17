@@ -1,7 +1,6 @@
 .poster {
   width: 100%;
   border-radius: 5px;
-  
   background-size: 100%;
 }
 
@@ -15,6 +14,12 @@
   border: 1px solid grey;
   width: 150px;
   height: 217px;
+}
+
+.poster-small {
+  border: 1px solid grey;
+  width: 100px;
+  height: 144px;
 }
 
 div.poster.hoverable:hover {

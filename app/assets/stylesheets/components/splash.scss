@@ -1,0 +1,73 @@
+$dark-grey: #283038;
+$font-white: #ccc;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
+
+.main-splash {
+  color: $font-white;
+  margin-top: -5em;
+  section.introduction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      font-family: $serif;
+      font-weight: bolder;
+      font-size: 32px;
+      line-height: 1.2em;
+      text-align: center;
+    }
+    p {
+      font-family: $sans-serif;
+      text-align: center;
+      margin: 1em auto;
+    }
+    div {
+      display: inline-block;
+      margin: 0 auto;
+    }
+    button {
+      max-width: 20vw;
+    }
+  }
+}
+
+.film-splash-header > img {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+figure.film-splash-header > a > p {
+  transform-style: flat;
+  display: inline-block;
+  font-family: $sans-serif;
+  color: $font-white;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  bottom: 2em;
+  z-index: 1;
+  transform: rotate(270deg) translate(75%,300%);
+}
+
+.pretty-button {
+  background-color: #0fda0f;
+  border-radius: 0.2em;
+  border: 1px solid #333;
+  color: $font-white;
+  font-family: $title;
+  text-transform: uppercase;
+  font-weight: normal;
+  padding: 0.2em;
+  font-size: 16px;
+ }
+
+button.pretty-button.large {
+  font-size: 20px;
+  padding: 0.2em 0.5em;
+}

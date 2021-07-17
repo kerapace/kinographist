@@ -2,7 +2,7 @@ json.key_format! camelize: :lower
 
 json.films do
   json.set! @film.id do
-    json.extract! @film, :id, :title, :tagline, :release_year, :blurb, :studio, :languages, :country, :genres
+    json.extract! @film, :id, :title, :tagline, :release_year, :blurb, :studio, :languages, :country, :genres, :likes_count
     json.poster @poster
     json.backdrop @backdrop
   end
@@ -28,6 +28,8 @@ json.reviews do
   @film.reviews.each do |review|
     json.set! review.id do
         json.extract! review, :id, :user_id, :film_id, :rating, :watched, :title, :body
+        json.created_at review.created_at.to_s
+        json.updated_at review.updated_at.to_s
         json.created Time.at(review.created_at).strftime("%B %e, %Y at %I:%M")
         json.updated Time.at(review.updated_at).strftime("%B %e, %Y at %I:%M")
     end
@@ -45,3 +47,16 @@ json.users do
 end
 
 json.users({}) if @film.reviews.empty?
+
+film_likes = @film.reviews.map{|review| review.user_like}
+json.likes do
+  film_likes.each do |like|
+    if like
+      json.set! like.id do
+        json.extract! :id, :user_id, :likeable_id, :likeable_type
+      end
+    end
+  end
+end
+
+json.likes({}) if film_likes.all?(&:nil?)

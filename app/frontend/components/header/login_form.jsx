@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, Redirect} from "react-router-dom";
-import ErrorDisplay from "./error_display";
+import ErrorDisplay from "../errors/error_display";
 
 const LoginForm = ({sessionErrors, setDisplayLogin, login, flushSessionErrors}) => {
   const [username, setUsername] = useState("");

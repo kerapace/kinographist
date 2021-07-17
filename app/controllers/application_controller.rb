@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
   def logged_in?
       !!current_user
   end
+
+  def require_login
+    return render json: {} if !logged_in?
+  end
+
+  def require_logout
+    return render json: {} if logged_in?
+  end
 end

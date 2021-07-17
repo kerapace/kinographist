@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
-import Poster from "./poster";
+import Poster from "../poster";
 
 const genres = ["Action","Comedy","Drama","Mystery","Crime",];
 const languages = ["English","French","Spanish","Italian","Japanese","Korean"];

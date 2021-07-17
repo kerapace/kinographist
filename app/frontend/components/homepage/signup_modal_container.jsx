@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
-import {signup} from "../actions/session_actions";
-import {toggleSignupModal} from "../actions/ui_actions";
-import {flushSessionErrors} from "../actions/error_actions";
+import {signup} from "../../actions/session_actions";
+import {toggleSignupModal} from "../../actions/ui_actions";
+import {flushSessionErrors} from "../../actions/error_actions";
 import SignupModal from "./signup_modal";
 
 const mapStateToProps = ({ui, errors}) => ({
