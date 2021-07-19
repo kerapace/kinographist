@@ -19,7 +19,7 @@ const App = (props) => {
         <SignupModalContainer/>
       </Route>
       <Switch>
-        <Route exact path="/" render={() => <HomeSplashContainer filmId={66}/>}/>
+        <Route exact path="/" render={() => <HomeSplashContainer tmdbId={378064}/>}/>
         <Route path="/film/:filmId" component={FilmDisplayContainer}/>
         <Route path="/films/browse" component={FilmBrowseContainer}/>
         <Route path="/user/:userId" component={UserProfileContainer}/>

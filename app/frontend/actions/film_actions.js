@@ -15,4 +15,6 @@ export const receiveFilmData = (filmData) => ({
 
 export const getFilm = (id) => (dispatch) => (FilmApiUtil.getFilm(id).then((filmData) => dispatch(receiveVerboseFilmData(filmData))));
 
+export const getFilmByTmdbId = id => dispatch => (FilmApiUtil.getFilmByTmdbId(id).then(filmData => dispatch(receiveVerboseFilmData(filmData))));
+
 export const getFilms = (filter) => (dispatch) => (FilmApiUtil.fetchFilmList(filter).then((filmData) => dispatch(receiveFilmData(filmData))));

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
+import classNames from 'classnames';
 
-const HomeSplash = ({splashHeaderFilm,user,toggleSignupModal,getFilm,filmId}) => {
-  useEffect(() => {getFilm(filmId)},[]);
+const HomeSplash = ({splashHeaderFilm,loggedIn,toggleSignupModal,getFilm,tmdbId}) => {
+  useEffect(() => {getFilm(tmdbId)},[]);
   return (
     <>
       {!splashHeaderFilm ? "" :  
@@ -16,13 +17,13 @@ const HomeSplash = ({splashHeaderFilm,user,toggleSignupModal,getFilm,filmId}) =>
           </figure>
         </div>
       }
-      <main className="main-splash">
+      <main className={classNames("main-splash",{"loaded": splashHeaderFilm})}>
         <section className="introduction">
           <h1>Record what you see<br/>
           Recommend films to others<br/>
           Keep your finger on the pulse</h1>
           <p>There's a wide world of cinema out there. Explore to your heart's content.</p>
-          <div><button className="pretty-button large" onClick={toggleSignupModal}>Sign Up Now</button></div>
+          {loggedIn ? "" : <div><button className="pretty-button large" onClick={toggleSignupModal}>Sign Up Now</button></div>}
         </section>
         <section className="functionality-display">
           <figure className="site-overview">

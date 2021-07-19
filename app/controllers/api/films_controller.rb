@@ -38,6 +38,18 @@ class Api::FilmsController < ApplicationController
     end
   end
 
+  def find_by_tmdb_id
+    @user = current_user
+    @film = Film.includes(:contributions,:crewmembers, reviews: [:user, :user_like]).find_by(tmdb_id: params[:tmdb_id])
+    if @film
+      @backdrop = url_for(@film.backdrop)
+      @poster = url_for(@film.poster)
+      render :show
+    else
+      render json: ["Film not found"], status: 404
+    end
+  end
+
   private
   def search_params
     params.require("filter").permit! if params["filter"].present?

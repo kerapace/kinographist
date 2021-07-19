@@ -16,6 +16,11 @@ export const getFilm = (id) => ($.ajax({
   method: 'GET',
 }));
 
+export const getFilmByTmdbId = (tmdbId) => ($.ajax({
+  url: `api/films/by_tmdb_id/${tmdbId}`,
+  method: 'GET'
+}));
+
 export const fetchFilmList = (filter) => ($.ajax({
   url: 'api/browse',
   method: 'GET',

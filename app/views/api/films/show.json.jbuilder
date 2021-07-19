@@ -2,7 +2,7 @@ json.key_format! camelize: :lower
 
 json.films do
   json.set! @film.id do
-    json.extract! @film, :id, :title, :tagline, :release_year, :blurb, :studio, :languages, :country, :genres, :likes_count
+    json.extract! @film, :id, :tmdb_id, :title, :tagline, :release_year, :blurb, :studio, :languages, :country, :genres, :likes_count
     json.poster @poster
     json.backdrop @backdrop
   end

@@ -27,17 +27,17 @@ class Api::LikesController < ApplicationController
   end
 
   def destroy
-    like = Like.find_by(
+    @like = Like.find_by(
       user_id: params[:userId],
       likeable_type: params[:type].capitalize,
       likeable_id: params[:likeableId]
     )
-    if like
-      if like.user_id == current_user.id
-        if like.destroy
-          render json: like
+    if @like
+      if @like.user_id == current_user.id
+        if @like.destroy
+          render :show
         else
-          render json: like.errors.full_messages, status: 422
+          render json: @like.errors.full_messages, status: 422
         end
       else
         render json: ["Invalid user"], status: 403

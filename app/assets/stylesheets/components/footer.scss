@@ -1,4 +1,7 @@
 $font-white: #ccc;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
 
 .footer {
   margin: 20px;
@@ -8,6 +11,7 @@ $font-white: #ccc;
   background-color: #578;
   color: $font-white;
   text-align: center;
+  font-family: $sans-serif;
 }
 
 .footer > a {

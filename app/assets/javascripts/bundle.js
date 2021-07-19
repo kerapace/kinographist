@@ -220,6 +220,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "receiveVerboseFilmData": () => (/* binding */ receiveVerboseFilmData),
 /* harmony export */   "receiveFilmData": () => (/* binding */ receiveFilmData),
 /* harmony export */   "getFilm": () => (/* binding */ getFilm),
+/* harmony export */   "getFilmByTmdbId": () => (/* binding */ getFilmByTmdbId),
 /* harmony export */   "getFilms": () => (/* binding */ getFilms)
 /* harmony export */ });
 /* harmony import */ var _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/film_api_util */ "./app/frontend/util/film_api_util.js");
@@ -241,6 +242,13 @@ var receiveFilmData = function receiveFilmData(filmData) {
 var getFilm = function getFilm(id) {
   return function (dispatch) {
     return _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__.getFilm(id).then(function (filmData) {
+      return dispatch(receiveVerboseFilmData(filmData));
+    });
+  };
+};
+var getFilmByTmdbId = function getFilmByTmdbId(id) {
+  return function (dispatch) {
+    return _util_film_api_util__WEBPACK_IMPORTED_MODULE_0__.getFilmByTmdbId(id).then(function (filmData) {
       return dispatch(receiveVerboseFilmData(filmData));
     });
   };
@@ -596,7 +604,7 @@ var App = function App(props) {
     path: "/",
     render: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_homepage_home_splash_container__WEBPACK_IMPORTED_MODULE_6__.default, {
-        filmId: 66
+        tmdbId: 378064
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
@@ -2224,18 +2232,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 
 var HomeSplash = function HomeSplash(_ref) {
   var splashHeaderFilm = _ref.splashHeaderFilm,
-      user = _ref.user,
+      loggedIn = _ref.loggedIn,
       toggleSignupModal = _ref.toggleSignupModal,
       getFilm = _ref.getFilm,
-      filmId = _ref.filmId;
+      tmdbId = _ref.tmdbId;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getFilm(filmId);
+    getFilm(tmdbId);
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, !splashHeaderFilm ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash-container"
@@ -2249,13 +2260,15 @@ var HomeSplash = function HomeSplash(_ref) {
     className: "right-gradient"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: splashHeaderFilm.backdrop
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/film/".concat(splashHeaderFilm.id)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "".concat(splashHeaderFilm.title))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
-    className: "main-splash"
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("main-splash", {
+      "loaded": splashHeaderFilm
+    })
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "introduction"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Record what you see", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Recommend films to others", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Keep your finger on the pulse"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "There's a wide world of cinema out there. Explore to your heart's content."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Record what you see", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Recommend films to others", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Keep your finger on the pulse"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "There's a wide world of cinema out there. Explore to your heart's content."), loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: "pretty-button large",
     onClick: toggleSignupModal
   }, "Sign Up Now"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
@@ -2311,7 +2324,9 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
   var entities = _ref.entities,
       session = _ref.session;
   return {
-    splashHeaderFilm: entities.films[ownProps.filmId],
+    splashHeaderFilm: Object.values(entities.films).find(function (film) {
+      return ownProps.tmdbId === film.tmdbId;
+    }),
     loggedIn: !!session.currentUserId,
     user: entities.users[session.currentUserId]
   };
@@ -2320,7 +2335,7 @@ var mapStateToProps = function mapStateToProps(_ref, ownProps) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getFilm: function getFilm(id) {
-      return dispatch((0,_actions_film_actions__WEBPACK_IMPORTED_MODULE_1__.getFilm)(id));
+      return dispatch((0,_actions_film_actions__WEBPACK_IMPORTED_MODULE_1__.getFilmByTmdbId)(id));
     },
     toggleSignupModal: function toggleSignupModal() {
       return dispatch((0,_actions_ui_actions__WEBPACK_IMPORTED_MODULE_2__.toggleSignupModal)());
@@ -3473,6 +3488,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchFilm": () => (/* binding */ fetchFilm),
 /* harmony export */   "updateFilm": () => (/* binding */ updateFilm),
 /* harmony export */   "getFilm": () => (/* binding */ getFilm),
+/* harmony export */   "getFilmByTmdbId": () => (/* binding */ getFilmByTmdbId),
 /* harmony export */   "fetchFilmList": () => (/* binding */ fetchFilmList)
 /* harmony export */ });
 var fetchFilm = function fetchFilm(tmdbId) {
@@ -3493,6 +3509,12 @@ var updateFilm = function updateFilm(id) {
 var getFilm = function getFilm(id) {
   return $.ajax({
     url: "api/films/".concat(id),
+    method: 'GET'
+  });
+};
+var getFilmByTmdbId = function getFilmByTmdbId(tmdbId) {
+  return $.ajax({
+    url: "api/films/by_tmdb_id/".concat(tmdbId),
     method: 'GET'
   });
 };

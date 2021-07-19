@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :index]
     resources :people, only: [:show]
     resources :reviews, only: [:show, :destroy]
+    get 'films/by_tmdb_id/:tmdb_id', to: 'films#find_by_tmdb_id'
     patch '/reviews', to: 'reviews#update'
     delete '/likes', to: 'likes#destroy'
     get '/browse', to: 'films#browse'
