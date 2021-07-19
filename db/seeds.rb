@@ -5,13 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Film.destroy_all
-Person.destroy_all
-FilmCrew.destroy_all
+# Film.destroy_all
+# Person.destroy_all
+# FilmCrew.destroy_all
 User.destroy_all
 
-
-Film::populate_films!(6609,592,473033,9603,615457,129,496243,389,769,346,510,378064,342857,599,128,3082,598,901,5156,398818,299536,490,508442,694,629)
+# Film::populate_films!(6609,592,473033,9603,615457,129,496243,389,769,346,510,378064,342857,599,128,3082,598,901,5156,398818,299536,490,508442,694,629)
 
 keoma = Film.find_by(tmdb_id: 6609)
 uncutgems = Film.find_by(tmdb_id: 473033)
