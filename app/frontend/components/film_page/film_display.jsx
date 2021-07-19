@@ -6,7 +6,7 @@ import ReviewList from "../embeds/review_list";
 import FilmInteractionMenuContainer from "./film_interaction_menu_container"
 
 const FilmDisplay = ({film, crewHash, reviews, getFilm, match}) => {
-  useEffect(() => getFilm(match.params.filmId),[]);
+  useEffect(() => getFilm(match.params.filmId),[match]);
   return !film || Object.keys(crewHash).length === 0 ? "" : (
     <>
       <div className="splash-container">

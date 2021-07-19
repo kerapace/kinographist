@@ -5,11 +5,13 @@ import UserProfile from './user_profile';
 
 const mapStateToProps = (state,ownProps) => {
   const user = state.entities.users[ownProps.match.params.userId];
+  const [ratings, reviews] = userRatings(state, !user ? undefined : user.id);
   return {
     user,
     currentUser: state.entities.users[state.session.currentUserId],
     loggedIn: Boolean(state.session.currentUserId),
-    ratings: userRatings(state,!user ? undefined : user.id),
+    ratings,
+    reviews,
     likes: userLikes(state,!user ? undefined : user.id),
   };
 };

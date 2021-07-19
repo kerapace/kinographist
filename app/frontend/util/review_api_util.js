@@ -17,7 +17,7 @@ export const deleteReview = (id) => ($.ajax({
 }));
 
 export const editReview = (review) => ($.ajax({
-  url: `api/reviews/${review.id}`,
+  url: `api/reviews/`,
   method: `PATCH`,
   data: {
     review,

@@ -24,28 +24,21 @@ div.border {
 }
 
 .film-review {
-  display: grid;
   color: $font-grey;
-  grid-template-columns: 100px auto;
-  grid-template-rows: 50px 100px auto auto;
-  grid-template-areas: 
-    "poster-or-avatar header-info"
-    "like-button review"
-    ". review"
-    "bottom-border bottom-border";
-  grid-gap: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 0.5em;
 }
 
-.film-review > header {
-  grid-area: header-info;
+.film-review > section {
+  margin-left: 1em;
+  line-height: 1.2em;
 }
 
-.film-review > aside {
-  grid-area: poster-or-avatar;
-}
-
-.film-review > button.like-button {
-  grid-area: like-button;
+.film-review > section > p {
+  font-size: 14px;
+  margin-bottom: 0.2em;
 }
 
 .film-review > p {
@@ -55,11 +48,7 @@ div.border {
   font-size: 14px;
 }
 
-.film-review > div {
-  grid-area: bottom-border;
-}
-
-.film-review > header > div > p {
+.film-review > section > header > div > p {
   color: #9ab;
   font-size: 15px;
   font-weight: 500;
@@ -67,29 +56,34 @@ div.border {
   margin-right: 0.5em;
 }
 
-.film-review > header > div > a {
+.film-review > section > header > div > a {
   margin-right: 0.5em;
 }
 
-.film-review > header > div > a:hover {
+.film-review > section > header > div > a:hover {
   color: $font-white;
 }
 
-.film-review > header > div {
+.film-review > section > header > div {
   display: flex;
   fill: #5e7;
   stroke: #5e7;
-  margin-bottom: 10px;
+  margin: 0.2em 0;
 }
 
 .film-review > div.border {
   border-bottom: 1px solid $shale-blue;
 }
 
-.film-review > div > h3 {
+.film-review h3 {
   font-size: 18px;
   font-weight: bold;
-  margin-left: 1em;
+}
+
+.film-review h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0.3em;
 }
 
 .film-review > header > div > .rating > * {
@@ -98,6 +92,56 @@ div.border {
   width: 14px;
 }
 
+article.film-review span.rating {
+  margin-right: 1em;
+}
+
+.review-footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.review-footer > * {
+  margin-right: 0.8em;
+  font-family: $sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 a.user-link {
   color: $font-white;
+}
+
+.review-like-button > svg {
+  fill-rule: nonzero;
+  fill: $font-grey;
+}
+
+button.review-like-button.clicked > svg {
+  fill: #d45;
+}
+
+.film-entry h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0.5em;
+}
+
+.film-entry {
+  color: $font-grey;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.film-entry > header {
+  margin-top: 0.5em;
+}
+
+.film-entry > header > div {
+  fill: #5e7;
+  stroke: #5e7;
+  display: flex;
+  flex-direction: row;
 }

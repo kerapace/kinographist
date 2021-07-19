@@ -3,13 +3,18 @@ import React, {useState, useEffect} from "react";
 import {Eye, Heart} from "../svg_elements";
 import Poster from "../poster";
 
-const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, currentUser, review, updateReview, film}) => {
+const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked, likeFilm, unlikeFilm, currentUser, review, updateReview, film}) => {
   return (
     <>
       {!loggedIn || !modalDisplayed ? "" : <ReviewModal userId={currentUser.id} film={film} review={review} updateReview={updateReview} toggleReviewModal={toggleReviewModal}/>}
       <nav className="film-interaction-menu">
         <div className="state-buttons-container">
-          {!loggedIn ? "" : <StateButtons watched={review ? review.watched : false} userId={currentUser.id} filmId={film.id} updateReview={updateReview}/>}
+          {!loggedIn ? "" : (
+            <>
+              <WatchButton watched={review ? review.watched : false} userId={currentUser.id} filmId={film.id} updateReview={updateReview}/>
+              <FilmLikeButton liked={liked} like={likeFilm} unlike={unlikeFilm} userId={currentUser.id} likeableId={film.id} updateReview={updateReview}/>
+            </>
+          )}
         </div>
         <div className="rating-button-container">
           {!loggedIn ? "" : <RatingButton rating={review ? review.rating : 0} userId={currentUser.id} filmId={film.id} updateReview={updateReview}/>}
@@ -21,6 +26,23 @@ const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, curre
     </>
   )
 };
+
+const FilmLikeButton = ({liked, likeableId, userId, like, unlike, updateReview}) => {
+  const toggleLike = () => {
+    if(liked) { 
+      unlike(likeableId,userId);
+    } else {
+      like(likeableId,userId);
+      updateReview({filmId: likeableId, userId, watched: true});
+    }
+  }
+  return (
+    <button className={classNames("like-button",{"clicked": liked})} onClick={() => toggleLike()}>
+      <Heart height={36} width={36}/>
+      <p>{liked ? "Liked" : "Like"}</p>
+    </button>
+  );
+}
 
 const ReviewModal = ({userId, film, review, updateReview, toggleReviewModal}) => {
   const [title, setTitle] = useState(review && review.title ? review.title : "");
@@ -63,7 +85,7 @@ const ReviewModal = ({userId, film, review, updateReview, toggleReviewModal}) =>
     </div>
 )};
 
-const StateButtons = ({watched, userId, filmId, updateReview}) => (
+const WatchButton = ({watched, userId, filmId, updateReview}) => (
   <>
     <button className={classNames("watch-button",{"clicked": watched})} onClick={() => updateReview({userId,filmId,watched: !watched})}>
       <Eye height={36} width={36}/>
@@ -74,6 +96,7 @@ const StateButtons = ({watched, userId, filmId, updateReview}) => (
 
 const RatingButton = ({rating, userId, filmId, updateReview}) => {
   const [hoverRating, setHoverRating] = useState(rating);
+  const [displayRating, setDisplayRating] = useState(rating);
   return (
     <>
       <div className="exit-button">
@@ -82,19 +105,22 @@ const RatingButton = ({rating, userId, filmId, updateReview}) => {
           setHoverRating(0);
         }}>X</a>
       </div>
-      <div className={classNames("rating-button",{"rated": rating !== 0 && rating === hoverRating})}
-        onMouseLeave={() => setHoverRating(rating)}>
+      <div className={classNames("rating-button",{"rated": rating !== 0 && displayRating === hoverRating})}
+        onMouseLeave={() => setHoverRating(displayRating)}>
         <div className="visible-rating" style={{width: `${hoverRating*20}%`}}/>
         {[...Array(10)].map((_,idx) => (
-          <RatingIncrement key={idx} rating={(idx+1)/2} updateReview={updateReview} userId={userId} filmId={filmId} setHoverRating={setHoverRating}/>
+          <RatingIncrement key={idx} rating={(idx+1)/2} {...{updateReview,userId,filmId,setHoverRating,setDisplayRating}}/>
         ))}
       </div>
     </>
   );
 }
 
-const RatingIncrement = ({rating,updateReview, userId, filmId, setHoverRating}) => (
-  <div className="rating-increment" onMouseEnter={() => setHoverRating(rating)} onClick={() => updateReview({rating,userId,filmId,watched: true})}/>
+const RatingIncrement = ({rating,updateReview, userId, filmId, setHoverRating, setDisplayRating}) => (
+  <div className="rating-increment" onMouseEnter={() => setHoverRating(rating)} onClick={() => {
+    setDisplayRating(rating);
+    updateReview({rating,userId,filmId,watched: true});
+  }}/>
 );
 
 export default FilmInteractionMenu;

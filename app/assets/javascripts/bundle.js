@@ -838,22 +838,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _poster__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../poster */ "./app/frontend/components/poster.jsx");
+/* harmony import */ var _svg_elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../svg_elements */ "./app/frontend/components/svg_elements.jsx");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 
 
 var FilmEntry = function FilmEntry(_ref) {
-  var film = _ref.film;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
+  var film = _ref.film,
+      rating = _ref.rating;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
     className: "film-entry"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null, !film ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: "/film/".concat(film.id)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, film.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, film.releaseYear))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_1__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_1__.default, {
     size: "small",
-    film: film
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    film: film,
+    hoverable: true
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null, !film ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    to: "/film/".concat(film.id)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, film.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, film.releaseYear), !rating ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "rating "
+  }, _toConsumableArray(Array(Math.floor(rating))).map(function (_, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Star, {
+      key: idx,
+      height: 12,
+      width: 12
+    });
+  }), rating - Math.floor(rating) === 0 ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Half, {
+    key: "half",
+    height: 12,
+    width: 12
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "border"
   }));
 };
@@ -891,11 +921,13 @@ var MultitypeList = function MultitypeList(_ref) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_review_container__WEBPACK_IMPORTED_MODULE_1__.default, {
           page: "like",
           context: "list",
+          key: entry.id,
           review: entry
         });
 
       case "Film":
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_film_entry__WEBPACK_IMPORTED_MODULE_2__.default, {
+          key: entry.id,
           film: entry
         });
 
@@ -906,6 +938,40 @@ var MultitypeList = function MultitypeList(_ref) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MultitypeList);
+
+/***/ }),
+
+/***/ "./app/frontend/components/embeds/rating_list.jsx":
+/*!********************************************************!*\
+  !*** ./app/frontend/components/embeds/rating_list.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _film_entry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./film_entry */ "./app/frontend/components/embeds/film_entry.jsx");
+
+
+
+var RatingList = function RatingList(_ref) {
+  var ratings = _ref.ratings;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+    key: "rating",
+    className: "review-list-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Recently Seen"), !ratings ? "" : ratings.map(function (review) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_film_entry__WEBPACK_IMPORTED_MODULE_1__.default, {
+      key: review.id,
+      film: review.film,
+      rating: review.rating
+    });
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RatingList);
 
 /***/ }),
 
@@ -921,20 +987,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _svg_elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../svg_elements */ "./app/frontend/components/svg_elements.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _poster__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../poster */ "./app/frontend/components/poster.jsx");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _svg_elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../svg_elements */ "./app/frontend/components/svg_elements.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _poster__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../poster */ "./app/frontend/components/poster.jsx");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -944,38 +1021,98 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var Review = function Review(_ref) {
   var page = _ref.page,
       context = _ref.context,
-      review = _ref.review;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
+      review = _ref.review,
+      loggedIn = _ref.loggedIn,
+      currentUser = _ref.currentUser,
+      userLike = _ref.userLike,
+      like = _ref.like,
+      unlike = _ref.unlike;
+  debugger;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(review.likesCount === null ? 0 : review.likesCount),
+      _useState2 = _slicedToArray(_useState, 2),
+      likeCount = _useState2[0],
+      setLikeCount = _useState2[1];
+
+  return !review ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("article", {
     className: "film-review"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, page === "user" && context === "list" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    key: "user"
-  }, "Review by ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    className: "user-link",
-    to: "/user/".concat(review.userId)
-  }, review.username)), page === "film" && context === "list" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    to: "/film/".concat(review.film.id)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, review.film.title)), !review.rating ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "rating "
-  }, _toConsumableArray(Array(Math.floor(review.rating))).map(function (_, idx) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_1__.Star, {
-      key: idx,
-      height: 14,
-      width: 14
-    });
-  }), review.rating - Math.floor(review.rating) === 0 ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_1__.Half, {
-    key: "half",
-    height: 14,
-    width: 14
-  }))), page !== "review" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    key: "created"
-  }, "Reviewed ", review.created), page !== "review" || review.updated === review.created ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
-    key: "updated"
-  }, "Edited ", review.updated), !review.title ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, review.title)), page === "film" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }, page === "film" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("aside", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_3__.default, {
     size: "small",
     film: review.film,
     hoverable: true
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, review.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null, page === "film" && context === "list" ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    to: "/film/".concat(review.film.id)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, review.film.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, !review.rating ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "rating "
+  }, _toConsumableArray(Array(Math.floor(review.rating))).map(function (_, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Star, {
+      key: idx,
+      height: 12,
+      width: 12
+    });
+  }), review.rating - Math.floor(review.rating) === 0 ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Half, {
+    key: "half",
+    height: 12,
+    width: 12
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    key: "user"
+  }, "Review by ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    className: "user-link",
+    to: "/user/".concat(review.userId)
+  }, review.username))), !review.title ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, review.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, review.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
+    className: "review-footer"
+  }, !loggedIn || review.userId === currentUser.id ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ReviewLikeButton, {
+    liked: userLike,
+    likeableId: review.id,
+    userId: currentUser.id,
+    like: like,
+    unlike: unlike,
+    likeCount: likeCount,
+    setLikeCount: setLikeCount
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "".concat(likeCount, " ").concat(likeCount === 1 ? "like" : "likes")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    key: "created"
+  }, "Reviewed ", review.updated)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "border"
+  }));
+};
+
+var ReviewLikeButton = function ReviewLikeButton(_ref2) {
+  var liked = _ref2.liked,
+      likeableId = _ref2.likeableId,
+      userId = _ref2.userId,
+      like = _ref2.like,
+      unlike = _ref2.unlike,
+      likeCount = _ref2.likeCount,
+      setLikeCount = _ref2.setLikeCount;
+  var isLoaded = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return function () {
+      return isLoaded.current = false;
+    };
+  }, []);
+
+  var toggleLike = function toggleLike() {
+    if (liked) {
+      unlike(likeableId, userId).then(function () {
+        return isLoaded.current ? setLikeCount(likeCount - 1) : null;
+      });
+    } else {
+      like(likeableId, userId).then(function () {
+        return isLoaded.current ? setLikeCount(likeCount + 1) : null;
+      });
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("review-like-button", {
+      "clicked": liked
+    }),
+    onClick: function onClick() {
+      return toggleLike();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Heart, {
+    height: 18,
+    width: 18
   }));
 };
 
@@ -995,33 +1132,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/like_actions */ "./app/frontend/actions/like_actions.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _review__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./review */ "./app/frontend/components/embeds/review.jsx");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _review__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./review */ "./app/frontend/components/embeds/review.jsx");
 
 
 
 
-var mapStateToProps = function mapStateToProps(_ref) {
-  var entities = _ref.entities,
-      session = _ref.session;
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var review = _ref.review;
+  var currentUser = state.entities.users[state.session.currentUserId];
   return {
-    loggedIn: Boolean(session.currentUserId),
-    currentUser: entities.users[session.currentUserId]
+    loggedIn: Boolean(currentUser),
+    currentUser: currentUser,
+    userLike: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_1__.userLike)(state, currentUser ? currentUser.id : null, "Review", review.id)
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    likeReview: function likeReview(reviewId, userId) {
+    like: function like(reviewId, userId) {
       return dispatch((0,_actions_like_actions__WEBPACK_IMPORTED_MODULE_0__.likeReview)(reviewId, userId));
     },
-    unlikeReview: function unlikeReview(reviewId, userId) {
+    unlike: function unlike(reviewId, userId) {
       return dispatch((0,_actions_like_actions__WEBPACK_IMPORTED_MODULE_0__.unlikeReview)(reviewId, userId));
     }
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(_review__WEBPACK_IMPORTED_MODULE_2__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps)(_review__WEBPACK_IMPORTED_MODULE_3__.default));
 
 /***/ }),
 
@@ -1123,7 +1263,7 @@ var FilmDisplay = function FilmDisplay(_ref) {
       match = _ref.match;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return getFilm(match.params.filmId);
-  }, []);
+  }, [match]);
   return !film || Object.keys(crewHash).length === 0 ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("figure", {
@@ -1398,6 +1538,9 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
   var modalDisplayed = _ref.modalDisplayed,
       toggleReviewModal = _ref.toggleReviewModal,
       loggedIn = _ref.loggedIn,
+      liked = _ref.liked,
+      likeFilm = _ref.likeFilm,
+      unlikeFilm = _ref.unlikeFilm,
       currentUser = _ref.currentUser,
       review = _ref.review,
       updateReview = _ref.updateReview,
@@ -1412,12 +1555,19 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
     className: "film-interaction-menu"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "state-buttons-container"
-  }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(StateButtons, {
+  }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(WatchButton, {
     watched: review ? review.watched : false,
     userId: currentUser.id,
     filmId: film.id,
     updateReview: updateReview
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(FilmLikeButton, {
+    liked: liked,
+    like: likeFilm,
+    unlike: unlikeFilm,
+    userId: currentUser.id,
+    likeableId: film.id,
+    updateReview: updateReview
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "rating-button-container"
   }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(RatingButton, {
     rating: review ? review.rating : 0,
@@ -1433,12 +1583,46 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
   }, "Click to review"))));
 };
 
-var ReviewModal = function ReviewModal(_ref2) {
-  var userId = _ref2.userId,
-      film = _ref2.film,
-      review = _ref2.review,
-      updateReview = _ref2.updateReview,
-      toggleReviewModal = _ref2.toggleReviewModal;
+var FilmLikeButton = function FilmLikeButton(_ref2) {
+  var liked = _ref2.liked,
+      likeableId = _ref2.likeableId,
+      userId = _ref2.userId,
+      like = _ref2.like,
+      unlike = _ref2.unlike,
+      updateReview = _ref2.updateReview;
+
+  var toggleLike = function toggleLike() {
+    if (liked) {
+      unlike(likeableId, userId);
+    } else {
+      like(likeableId, userId);
+      updateReview({
+        filmId: likeableId,
+        userId: userId,
+        watched: true
+      });
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("like-button", {
+      "clicked": liked
+    }),
+    onClick: function onClick() {
+      return toggleLike();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.Heart, {
+    height: 36,
+    width: 36
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, liked ? "Liked" : "Like"));
+};
+
+var ReviewModal = function ReviewModal(_ref3) {
+  var userId = _ref3.userId,
+      film = _ref3.film,
+      review = _ref3.review,
+      updateReview = _ref3.updateReview,
+      toggleReviewModal = _ref3.toggleReviewModal;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.title ? review.title : ""),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1507,11 +1691,11 @@ var ReviewModal = function ReviewModal(_ref2) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", null, "Submit Review")))));
 };
 
-var StateButtons = function StateButtons(_ref3) {
-  var watched = _ref3.watched,
-      userId = _ref3.userId,
-      filmId = _ref3.filmId,
-      updateReview = _ref3.updateReview;
+var WatchButton = function WatchButton(_ref4) {
+  var watched = _ref4.watched,
+      userId = _ref4.userId,
+      filmId = _ref4.filmId,
+      updateReview = _ref4.updateReview;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("watch-button", {
       "clicked": watched
@@ -1529,16 +1713,21 @@ var StateButtons = function StateButtons(_ref3) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, watched ? "Watched" : "Watch")));
 };
 
-var RatingButton = function RatingButton(_ref4) {
-  var rating = _ref4.rating,
-      userId = _ref4.userId,
-      filmId = _ref4.filmId,
-      updateReview = _ref4.updateReview;
+var RatingButton = function RatingButton(_ref5) {
+  var rating = _ref5.rating,
+      userId = _ref5.userId,
+      filmId = _ref5.filmId,
+      updateReview = _ref5.updateReview;
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
       _useState6 = _slicedToArray(_useState5, 2),
       hoverRating = _useState6[0],
       setHoverRating = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
+      _useState8 = _slicedToArray(_useState7, 2),
+      displayRating = _useState8[0],
+      setDisplayRating = _useState8[1];
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "exit-button"
@@ -1553,10 +1742,10 @@ var RatingButton = function RatingButton(_ref4) {
     }
   }, "X")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("rating-button", {
-      "rated": rating !== 0 && rating === hoverRating
+      "rated": rating !== 0 && displayRating === hoverRating
     }),
     onMouseLeave: function onMouseLeave() {
-      return setHoverRating(rating);
+      return setHoverRating(displayRating);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "visible-rating",
@@ -1570,24 +1759,27 @@ var RatingButton = function RatingButton(_ref4) {
       updateReview: updateReview,
       userId: userId,
       filmId: filmId,
-      setHoverRating: setHoverRating
+      setHoverRating: setHoverRating,
+      setDisplayRating: setDisplayRating
     });
   })));
 };
 
-var RatingIncrement = function RatingIncrement(_ref5) {
-  var rating = _ref5.rating,
-      updateReview = _ref5.updateReview,
-      userId = _ref5.userId,
-      filmId = _ref5.filmId,
-      setHoverRating = _ref5.setHoverRating;
+var RatingIncrement = function RatingIncrement(_ref6) {
+  var rating = _ref6.rating,
+      updateReview = _ref6.updateReview,
+      userId = _ref6.userId,
+      filmId = _ref6.filmId,
+      setHoverRating = _ref6.setHoverRating,
+      setDisplayRating = _ref6.setDisplayRating;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "rating-increment",
     onMouseEnter: function onMouseEnter() {
       return setHoverRating(rating);
     },
     onClick: function onClick() {
-      return updateReview({
+      setDisplayRating(rating);
+      updateReview({
         rating: rating,
         userId: userId,
         filmId: filmId,
@@ -1615,9 +1807,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_review_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/review_actions */ "./app/frontend/actions/review_actions.js");
 /* harmony import */ var _actions_ui_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/ui_actions */ "./app/frontend/actions/ui_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
-/* harmony import */ var _reducers_ui_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../reducers/ui_reducer */ "./app/frontend/reducers/ui_reducer.js");
-/* harmony import */ var _film_interaction_menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./film_interaction_menu */ "./app/frontend/components/film_page/film_interaction_menu.jsx");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/like_actions */ "./app/frontend/actions/like_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
+/* harmony import */ var _reducers_ui_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers/ui_reducer */ "./app/frontend/reducers/ui_reducer.js");
+/* harmony import */ var _film_interaction_menu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./film_interaction_menu */ "./app/frontend/components/film_page/film_interaction_menu.jsx");
+
 
 
 
@@ -1627,10 +1821,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, _ref) {
   var film = _ref.film;
+  var currentUserId = state.session.currentUserId;
   return {
-    loggedIn: Boolean(state.session.currentUserId),
-    currentUser: state.entities.users[state.session.currentUserId],
-    review: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__.userReview)(state, state.session.currentUserId, film.id),
+    loggedIn: Boolean(currentUserId),
+    currentUser: state.entities.users[currentUserId],
+    review: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__.userReview)(state, currentUserId, film.id),
+    liked: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__.userLike)(state, currentUserId, "Film", film.id),
     modalDisplayed: state.ui.reviewModalDisplay
   };
 };
@@ -1642,11 +1838,17 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     toggleReviewModal: function toggleReviewModal() {
       return dispatch((0,_actions_ui_actions__WEBPACK_IMPORTED_MODULE_2__.toggleReviewModal)());
+    },
+    likeFilm: function likeFilm(userId, filmId) {
+      return dispatch((0,_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__.likeFilm)(userId, filmId));
+    },
+    unlikeFilm: function unlikeFilm(userId, filmId) {
+      return dispatch((0,_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__.unlikeFilm)(userId, filmId));
     }
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_film_interaction_menu__WEBPACK_IMPORTED_MODULE_5__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_film_interaction_menu__WEBPACK_IMPORTED_MODULE_6__.default));
 
 /***/ }),
 
@@ -2357,6 +2559,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _embeds_review_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../embeds/review_list */ "./app/frontend/components/embeds/review_list.jsx");
 /* harmony import */ var _embeds_multitype_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../embeds/multitype_list */ "./app/frontend/components/embeds/multitype_list.jsx");
+/* harmony import */ var _embeds_rating_list__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../embeds/rating_list */ "./app/frontend/components/embeds/rating_list.jsx");
+
 
 
 
@@ -2366,20 +2570,23 @@ var UserProfile = function UserProfile(_ref) {
       currentUser = _ref.currentUser,
       loggedIn = _ref.loggedIn,
       ratings = _ref.ratings,
+      reviews = _ref.reviews,
       likes = _ref.likes,
       getProfile = _ref.getProfile,
       match = _ref.match;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return getProfile(match.params.userId);
-  }, []);
+  }, [match]);
   return !user ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
     className: "user-profile"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, user.username), !user.bio ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("aside", {
     className: "user-sidebar"
   }, user.bio), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "user-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_review_list__WEBPACK_IMPORTED_MODULE_1__.default, {
-    reviews: ratings,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_rating_list__WEBPACK_IMPORTED_MODULE_3__.default, {
+    ratings: ratings
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_review_list__WEBPACK_IMPORTED_MODULE_1__.default, {
+    reviews: reviews,
     page: "user"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_multitype_list__WEBPACK_IMPORTED_MODULE_2__.default, {
     title: "Recent Likes",
@@ -2406,6 +2613,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
 /* harmony import */ var _user_profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user_profile */ "./app/frontend/components/profile/user_profile.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -2413,11 +2632,18 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var user = state.entities.users[ownProps.match.params.userId];
+
+  var _userRatings = (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__.userRatings)(state, !user ? undefined : user.id),
+      _userRatings2 = _slicedToArray(_userRatings, 2),
+      ratings = _userRatings2[0],
+      reviews = _userRatings2[1];
+
   return {
     user: user,
     currentUser: state.entities.users[state.session.currentUserId],
     loggedIn: Boolean(state.session.currentUserId),
-    ratings: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__.userRatings)(state, !user ? undefined : user.id),
+    ratings: ratings,
+    reviews: reviews,
     likes: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__.userLikes)(state, !user ? undefined : user.id)
   };
 };
@@ -2486,12 +2712,13 @@ var Heart = function Heart(_ref3) {
       height = _ref3.height;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
-    width: width,
-    height: height,
     fillRule: "evenodd",
-    viewBox: "0 0 24 24"
+    clipRule: "evenodd",
+    viewBox: "0 0 24 24",
+    width: width,
+    height: height
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
-    d: "M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"
+    d: "M 12,20.6337 C 17.2776,15.4344 21.9,11.334 21.9,7.6719 21.9,4.4679 19.4394,3.009 17.1534,3.009 16.0176,3.009 13.431,3.4401 12,7.0113 10.5888,3.4509 8.0337,3 6.8529,3 4.8612,3 2.1,4.26 2.1,7.6719 c 0,3.6945 4.833,7.9767 9.9,12.9618 M 17.1534,2.109 C 15.1707,2.109 13.152,3.0468 12,5.0232 10.8435,3.0378 8.8302,2.1 6.8529,2.1 3.9882,2.1 1.2,4.0683 1.2,7.6719 1.2,11.8668 6.2139,16.158 12,21.9 17.787,16.158 22.8,11.8668 22.8,7.6719 22.8,4.062 20.0145,2.109 17.1534,2.109"
   }));
 };
 var Half = function Half(_ref4) {
@@ -2615,6 +2842,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
 /* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+/* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/like_actions */ "./app/frontend/actions/like_actions.js");
+
 
 
 
@@ -2635,6 +2864,16 @@ var likesReducer = function likesReducer() {
       Object.values(action.filmData.likes).forEach(function (like) {
         return newState[like.id] = like;
       });
+      return newState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_LIKE:
+      newState = Object.assign({}, state);
+      newState[action.like.id] = action.like;
+      return newState;
+
+    case _actions_like_actions__WEBPACK_IMPORTED_MODULE_2__.DELETE_LIKE:
+      newState = Object.assign({}, state);
+      delete newState[action.likeId];
       return newState;
 
     default:
@@ -2963,6 +3202,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "filmReviewsWithUserData": () => (/* binding */ filmReviewsWithUserData),
 /* harmony export */   "filmReviews": () => (/* binding */ filmReviews),
 /* harmony export */   "userReview": () => (/* binding */ userReview),
+/* harmony export */   "userLike": () => (/* binding */ userLike),
 /* harmony export */   "userRatings": () => (/* binding */ userRatings),
 /* harmony export */   "userLikes": () => (/* binding */ userLikes),
 /* harmony export */   "filmAssociatedPeople": () => (/* binding */ filmAssociatedPeople)
@@ -2978,7 +3218,7 @@ var addDataIfRightType = function addDataIfRightType(like, state) {
     case "Review":
       return Object.assign(like, {
         film: state.entities.films[like.filmId],
-        user: film.state.entities.users[like.userId]
+        user: state.entities.users[like.userId]
       });
 
     case "List":
@@ -3028,8 +3268,15 @@ var userReview = function userReview(state, userId, filmId) {
     return review.filmId === filmId && review.userId === userId;
   });
 };
+var userLike = function userLike(state, userId, likeableType, likeableId) {
+  return Object.values(state.entities.likes).find(function (like) {
+    return like.userId === userId && like.likeableType === likeableType && like.likeableId === likeableId;
+  });
+};
 var userRatings = function userRatings(state, userId) {
-  return Object.values(state.entities.reviews).filter(function (review) {
+  var ratings = [];
+  var reviews = [];
+  var userFilmData = Object.values(state.entities.reviews).filter(function (review) {
     return review.userId === userId && review.watched;
   }).map(function (review) {
     return Object.assign({}, review, {
@@ -3039,6 +3286,10 @@ var userRatings = function userRatings(state, userId) {
   }).sort(function (a, b) {
     return new Date(b.updated_at) - new Date(a.updated_at);
   });
+  userFilmData.forEach(function (review) {
+    return review.body ? reviews.push(review) : ratings.push(review);
+  });
+  return [ratings, reviews];
 };
 var userLikes = function userLikes(state, userId) {
   var types = likeTypes(state);
@@ -3276,7 +3527,7 @@ var likeReview = function likeReview(likeableId, userId) {
     url: "api/likes",
     method: "POST",
     data: {
-      type: 'review',
+      type: 'Review',
       userId: userId,
       likeableId: likeableId
     }
@@ -3287,7 +3538,7 @@ var unlikeReview = function unlikeReview(likeableId, userId) {
     url: "api/likes",
     method: "DELETE",
     data: {
-      type: 'review',
+      type: 'Review',
       userId: userId,
       likeableId: likeableId
     }
@@ -3298,7 +3549,7 @@ var likeFilm = function likeFilm(likeableId, userId) {
     url: "api/likes",
     method: "POST",
     data: {
-      type: 'film',
+      type: 'Film',
       userId: userId,
       likeableId: likeableId
     }
@@ -3309,7 +3560,7 @@ var unlikeFilm = function unlikeFilm(likeableId, userId) {
     url: "api/likes",
     method: "DELETE",
     data: {
-      type: 'film',
+      type: 'Film',
       userId: userId,
       likeableId: likeableId
     }
@@ -3375,7 +3626,7 @@ var deleteReview = function deleteReview(id) {
 };
 var editReview = function editReview(review) {
   return $.ajax({
-    url: "api/reviews/".concat(review.id),
+    url: "api/reviews/",
     method: "PATCH",
     data: {
       review: review

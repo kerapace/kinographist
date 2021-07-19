@@ -9,7 +9,7 @@
 const addDataIfRightType = (like,state) => {
   switch(like.type) {
     case "Review":
-      return Object.assign(like,{film: state.entities.films[like.filmId],user: film.state.entities.users[like.userId]})
+      return Object.assign(like,{film: state.entities.films[like.filmId],user: state.entities.users[like.userId]})
     case "List":
     default:
       return like;
@@ -42,11 +42,19 @@ export const userReview = (state,userId,filmId) => (
   Object.values(state.entities.reviews).find(review => review.filmId === filmId && review.userId === userId)
 );
 
+export const userLike = (state,userId,likeableType,likeableId) => (
+  Object.values(state.entities.likes).find(like => like.userId === userId && like.likeableType === likeableType && like.likeableId === likeableId)
+);
+
 export const userRatings = (state,userId) => {
-  return Object.values(state.entities.reviews)
+  const ratings = [];
+  const reviews = [];
+  const userFilmData = Object.values(state.entities.reviews)
     .filter(review => review.userId === userId && review.watched)
     .map(review => Object.assign({},review,{username: state.entities.users[review.userId].username, film: state.entities.films[review.filmId]}))
-    .sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at))
+    .sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+  userFilmData.forEach(review => review.body ? reviews.push(review) : ratings.push(review));
+  return [ratings, reviews];
 };
 
 export const userLikes = (state,userId) => {

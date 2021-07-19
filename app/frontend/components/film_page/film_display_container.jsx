@@ -4,7 +4,7 @@ import {getFilm} from "../../actions/film_actions";
 import FilmDisplay from "./film_display";
 
 const mapStateToProps = (state, ownProps) => {
-  const film = state.entities.films[ownProps.match.params.filmId]
+  const film = state.entities.films[ownProps.match.params.filmId];
   return {
   film,
   crewHash: crewListGroupedByRole(state),

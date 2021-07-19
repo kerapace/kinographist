@@ -9,9 +9,9 @@ const MultitypeList = ({title, entries}) => (
       entries.map(entry => {
         switch(entry.type) {
           case "Review":
-            return <ReviewContainer page={"like"} context={"list"} review={entry}/>;
+            return <ReviewContainer page={"like"} context={"list"} key={entry.id} review={entry}/>;
           case "Film":
-            return <FilmEntry film={entry}/>;
+            return <FilmEntry key={entry.id} film={entry}/>;
           default:
             return "";
         }

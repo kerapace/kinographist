@@ -3,18 +3,18 @@ class Api::LikesController < ApplicationController
   before_action :require_login
 
   def create
-    LikeClass = like_class(params[:type])
-    if !LikeClass
+    like_class = like_class(params[:type])
+    if !like_class
       render json: ["Invalid class type"], status: 422
     else
       user = User.find_by(id: params[:userId])
-      likeable = LikeClass.find_by(id: params[:likeableId])
-      if user && likeable
-        like = Like.create(user_id: user.id, likeable: likeable)
-        if like.save
-          render json: like
+      likeable = like_class.find_by(id: params[:likeableId])
+      if user && likeable && user.id == current_user.id
+        @like = Like.create(user_id: user.id, likeable: likeable)
+        if @like.save
+          render :show
         else
-          render json: like.errors.full_messages, status: 422
+          render json: @like.errors.full_messages, status: 422
         end
       elsif !user
         render json: ["User not found"], status: 404
@@ -50,9 +50,9 @@ class Api::LikesController < ApplicationController
   private
   def like_class(type)
     case type
-    when "review"
+    when "Review"
       Review
-    when "film"
+    when "Film"
       Film
     end
   end

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     resources :films, only: [:create, :update, :show]
     resources :likes, only: [:create, :index]
     resources :people, only: [:show]
-    resources :reviews, only: [:create, :update, :show, :destroy]
+    resources :reviews, only: [:show, :destroy]
+    patch '/reviews', to: 'reviews#update'
     delete '/likes', to: 'likes#destroy'
     get '/browse', to: 'films#browse'
   end

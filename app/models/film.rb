@@ -28,7 +28,7 @@ class Film < ApplicationRecord
   has_one_attached :backdrop
 
   def update_watch_count
-    self.update(watch_count: self.watched.length)
+    self.update(watch_count: self.watchers.length)
     self.save
   end
 

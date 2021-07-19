@@ -58,16 +58,24 @@ nav.film-interaction-menu > div.state-buttons-container {
   min-height: 20px;
 }
 
-.watch-button {
+.watch-button, .like-button {
   height: 100%;
   padding: 10px;
-  border-left: 1px solid #456;
   border-right: 1px solid #456;
   width: 70px;
 }
 
+.watch-button {
+  border-left: 1px solid #456;
+}
+
 button.watch-button.clicked > svg {
   fill: #5e7;
+  fill-rule: nonzero;
+}
+
+button.like-button.clicked > svg {
+  fill: #d45;
   fill-rule: nonzero;
 }
 

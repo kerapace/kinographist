@@ -1,0 +1,27 @@
+$dark-grey: #283038;
+$shale-blue:#578;
+$font-white: #ccc;
+$lighter-grey: #334455;
+$font-grey: #aab;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
+
+main.user-profile {
+  margin-top: 15vh;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.user-profile h1 {
+  font-family: $title;
+  font-size: 36px;
+  color: $font-white;
+  text-transform: uppercase;
+}
+
+section.user-content {
+  width: 75%;
+  margin: 0 auto;
+}

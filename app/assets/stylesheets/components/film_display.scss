@@ -62,7 +62,7 @@ main.film-page {
   grid-template-columns: 1fr 425px 1fr;
   grid-template-rows: auto 1fr;
   grid-gap: 20px;
-  grid-template-areas: "left-sidebar info rating-sidebar" ". reviews reviews"
+  grid-template-areas: "left-sidebar info rating-sidebar" "left-sidebar reviews reviews"
 }
 
 section.film-info {
