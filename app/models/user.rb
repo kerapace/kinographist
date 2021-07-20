@@ -16,13 +16,12 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :review_likes, through: :reviews, source: :likes
+  has_one :watch_list,->{where(is_watch_list: true)}, class_name: :List
 
   has_many :watched, -> {watched}, class_name: :Review
 
   def create_watch_list
     list = List.create(user_id: self.id, is_watch_list: true, title: "#{self.username}'s Watchlist")
-    self.watch_list = list.id
-    self.save
   end
 
   def update_watch_count

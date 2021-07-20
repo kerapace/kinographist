@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     resources :people, only: [:show]
     resources :reviews, only: [:show, :destroy]
     resources :lists, only: [:create, :show, :update, :destroy]
+    resources :list_elements, only: [:create, :destroy]
     get 'films/by_tmdb_id/:tmdb_id', to: 'films#find_by_tmdb_id'
     patch '/reviews', to: 'reviews#update'
     delete '/likes', to: 'likes#destroy'
     get '/browse', to: 'films#browse'
-    patch '/lists/add/:list_id', to: 'lists#add'
   end
 end

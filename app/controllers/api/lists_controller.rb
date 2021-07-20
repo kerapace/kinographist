@@ -1,12 +1,20 @@
 class Api::ListsController < ApplicationController
 
-  before_action :require_login, only: [:create, :add, :update, :destroy]
+  before_action :require_login, only: [:create, :update, :destroy]
 
   def create
-    if list_params.user_id == current_user.id
-      @list = List.new(list_params)
+    if Integer(list_params[:userId]) == current_user.id
+      @list = List.new(list_params.transform_keys(&:underscore))
       @list.is_watch_list = false
       if @list.save
+        elements = (element_params[:elements] || [])
+        elements.each do |el|
+          new_el = ListElement.new(list_id: @list.id, film_id: el[1][:filmId], ord: @list.max_ord + 1 + Integer(el[0]))
+          if !new_el.save
+            render new_el.errors.full_messages, status: 422
+            break
+          end
+        end
         render :show
       else
         render json: @list.errors.full_messages, status: 422
@@ -25,35 +33,24 @@ class Api::ListsController < ApplicationController
     end
   end
 
-  def add
-    if Integer(element_params[:userId]) == current_user.id
-      list = List.find_by(id: element_params[:listId])
-      @element = ListElement.create(film_id: element_params[:filmId], list_id: list.id, ord: num_elements + 1)
-      if @element
-        render :add
-      else
-        render json: @element.errors.full_messages, status: 422
-      end
-    else
-      render json: ["Invalid permissions"], status: 403
-    end
-  end
-
   def update
-    list_params = new_list_params
-    if Integer(list_params[:userId] == current_user.id)
+    if Integer(list_params[:userId]) == current_user.id
       list = List.find_by(id: params[:id])
-      list.elements.destroy_all
-      params[:list].each do |el|
-        list_el = ListElement.new({film_id: el[:filmId], list_id: @list.id, ord: el[:ord]})
-        if !list_el.save
-          render list_el.errors.full_messages, status: 422
-          failure = true
+      list.update(list_params.transform_keys(&:underscore))
+      list.max_ord = 0
+      if list.save 
+        list.elements.destroy_all
+        elements = (element_params[:elements] || [])
+        elements.each do |el|
+          new_el = ListElement.new(list_id: list.id, film_id: el[1][:filmId], ord:  list.max_ord + 1 + Integer(el[0]))
+          if !new_el.save
+            return render new_el.errors.full_messages, status: 422
+          end
         end
-      end
-      if !failure
         @list = List.includes(:elements).find_by(id: params[:id])
         render :show
+      else
+        render json: list.errors.full_messages, status: 422
       end
     else
       render json: ["Invalid permissions"], status: 403
@@ -61,12 +58,16 @@ class Api::ListsController < ApplicationController
   end
 
   def destroy
-    @list = List.find_by(params[:list_id])
-    if Integer(@list.user_id == current_user.id)
-      if @list.destroy
-        render json: {listId: @list.id}
+    @list = List.find_by(id: params[:id])
+    if Integer(@list.user_id) == current_user.id
+      if @list.is_watch_list
+        render json: ["Cannot manually destroy watch list"], status: 403
       else
-        render json: @list.errors.full_messages, status: 422
+        if @list.destroy
+          render json: {listId: @list.id}
+        else
+          render json: @list.errors.full_messages, status: 422
+        end
       end
     else
       render json: ["Invalid permissions"], status: 403
@@ -74,10 +75,11 @@ class Api::ListsController < ApplicationController
   end
 
   private
-  def element_params
-    params.require(:element).permit(:filmId,:listId)
+  def list_params
+    params.require(:list).permit(:userId,:title,:blurb,:ordered)
   end
-  def new_list_params
-    params.require(:list).permit(:userId,:title,:blurb,:ordered,elements: [:filmId,:ord])
+
+  def element_params
+    params.permit(elements: [:filmId])
   end
 end

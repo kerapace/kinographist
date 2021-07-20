@@ -54,6 +54,8 @@ class Api::LikesController < ApplicationController
       Review
     when "Film"
       Film
+    when "List"
+      List
     end
   end
 end

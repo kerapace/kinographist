@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    return render json: {} if !logged_in?
+    return render json: ["Forbidden"], status: 401 if !logged_in?
   end
 
   def require_logout

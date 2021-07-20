@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_173611) do
+ActiveRecord::Schema.define(version: 2021_07_20_225349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,13 +85,14 @@ ActiveRecord::Schema.define(version: 2021_07_20_173611) do
 
   create_table "lists", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.boolean "is_watch_list", null: false
+    t.boolean "is_watch_list", default: false, null: false
     t.string "title"
     t.text "blurb"
-    t.boolean "ordered"
+    t.boolean "ordered", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "num_elements"
+    t.integer "max_ord", default: 0
   end
 
   create_table "people", force: :cascade do |t|
@@ -126,7 +127,6 @@ ActiveRecord::Schema.define(version: 2021_07_20_173611) do
     t.datetime "updated_at", null: false
     t.text "bio"
     t.integer "watch_count"
-    t.integer "watch_list"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token"
     t.index ["username"], name: "index_users_on_username", unique: true
