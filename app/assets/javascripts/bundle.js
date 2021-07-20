@@ -923,7 +923,9 @@ var MultitypeList = function MultitypeList(_ref) {
       entries = _ref.entries;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "review-list-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, title), !entries ? "" : entries.map(function (entry) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "border"
+  }), !entries ? "" : entries.map(function (entry) {
     switch (entry.type) {
       case "Review":
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_review_container__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -970,7 +972,9 @@ var RatingList = function RatingList(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     key: "rating",
     className: "review-list-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Recently Seen"), !ratings ? "" : ratings.map(function (review) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Recent Ratings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "border"
+  }), !ratings ? "" : ratings.map(function (review) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_film_entry__WEBPACK_IMPORTED_MODULE_1__.default, {
       key: review.id,
       film: review.film,
@@ -1035,7 +1039,6 @@ var Review = function Review(_ref) {
       userLike = _ref.userLike,
       like = _ref.like,
       unlike = _ref.unlike;
-  debugger;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(review.likesCount === null ? 0 : review.likesCount),
       _useState2 = _slicedToArray(_useState, 2),
@@ -1062,12 +1065,12 @@ var Review = function Review(_ref) {
     key: "half",
     height: 12,
     width: 12
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  })), !review.user ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     key: "user"
   }, "Review by ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
     className: "user-link",
     to: "/user/".concat(review.userId)
-  }, review.username))), !review.title ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, review.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, review.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
+  }, review.user.username))), !review.title ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, review.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, review.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
     className: "review-footer"
   }, !loggedIn || review.userId === currentUser.id ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ReviewLikeButton, {
     liked: userLike,
@@ -3269,7 +3272,7 @@ var crewListGroupedByRole = function crewListGroupedByRole(state) {
 var filmReviewsWithUserData = function filmReviewsWithUserData(state, filmId) {
   return filmReviews(state, filmId).map(function (review) {
     return Object.assign({}, review, {
-      username: state.entities.users[review.userId].username
+      user: state.entities.users[review.userId]
     });
   });
 };
@@ -3471,7 +3474,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default));
 });
 
 /***/ }),

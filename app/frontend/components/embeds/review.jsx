@@ -5,8 +5,7 @@ import {Link} from 'react-router-dom';
 import Poster from '../poster';
 
 const Review = ({page, context, review, loggedIn, currentUser, userLike, like, unlike}) => {
-  debugger
-  const [likeCount, setLikeCount] = useState(review.likesCount === null ? 0 : review.likesCount)
+  const [likeCount, setLikeCount] = useState(review.likesCount === null ? 0 : review.likesCount);
   return (!review ? "" : 
   <>
     <article className="film-review">
@@ -25,7 +24,9 @@ const Review = ({page, context, review, loggedIn, currentUser, userLike, like, u
               {review.rating - Math.floor(review.rating) === 0 ? "" : <Half key={"half"} height={12} width={12}/>}
             </span>)
           }
-          <p key={"user"}>Review by <Link className="user-link" to={`/user/${review.userId}`}>{review.username}</Link></p>
+          {!review.user ? "" :
+            <p key={"user"}>Review by <Link className="user-link" to={`/user/${review.userId}`}>{review.user.username}</Link></p>
+          }
           </div>
           {!review.title ? "" : <h4>{review.title}</h4>}
         </header>

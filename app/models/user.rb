@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  validates :username, :email, presence: true, uniqueness: true
+  validates :username, :email, presence: true, uniqueness: {case_sensitive: false}
   validates :session_token, :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
   validates :bio, length: {maximum: 500, allow_nil: true}
@@ -13,6 +13,8 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :review_likes, through: :reviews, source: :likes
+  has_many :shared_likes, through: :likes, source: :sibling_likes
 
   has_many :watched, -> {watched}, class_name: :Review
 

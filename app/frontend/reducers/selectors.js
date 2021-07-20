@@ -9,7 +9,12 @@
 const addDataIfRightType = (like,state) => {
   switch(like.type) {
     case "Review":
-      return Object.assign(like,{film: state.entities.films[like.filmId],user: state.entities.users[like.userId]})
+      return Object.assign(like,
+        {
+          film: state.entities.films[like.filmId],
+          user: state.entities.users[like.userId],
+        }
+      )
     case "List":
     default:
       return like;
@@ -32,7 +37,7 @@ export const crewListGroupedByRole = (state) => {
 
 export const filmReviewsWithUserData = (state, filmId) => 
   (filmReviews(state,filmId).map(review => 
-    Object.assign({},review,{username: state.entities.users[review.userId].username})))
+    Object.assign({},review,{user: state.entities.users[review.userId]})))
 
 export const filmReviews = (state, filmId) => (
   Object.values(state.entities.reviews).filter(review => review.filmId === filmId)

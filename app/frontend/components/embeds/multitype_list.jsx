@@ -5,6 +5,7 @@ import FilmEntry from './film_entry';
 const MultitypeList = ({title, entries}) => (
   <section className="review-list-container">
     <h2>{title}</h2>
+    <div className="border"/>
     {!entries ? "" :
       entries.map(entry => {
         switch(entry.type) {

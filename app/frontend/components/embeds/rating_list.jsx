@@ -3,7 +3,8 @@ import FilmEntry from './film_entry';
 
 const RatingList = ({ratings}) => (
   <section key={"rating"} className="review-list-container">
-    <h2>Recently Seen</h2>
+    <h2>Recent Ratings</h2>
+    <div className="border"/>
     {!ratings ? "" :
       ratings.map(review => <FilmEntry key={review.id} film={review.film} rating={review.rating}/>)
     }

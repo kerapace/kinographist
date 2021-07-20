@@ -24,8 +24,9 @@ json.users do
     json.extract! @user, :id, :username, :bio
   end
   like_obj["Review"].each do |like|
-    json.set! like.user_id do
-      json.extract! like.user, :id, :username
+    review = like.likeable
+    json.set! review.user_id do
+      json.extract! review.user, :id, :username, :bio
     end
   end
 end
@@ -36,6 +37,15 @@ json.likes do
       json.extract! like, :id, :user_id, :likeable_type, :likeable_id
       json.created_at like.created_at.to_s
       json.created Time.at(like.created_at).strftime("%B %e, %Y at %I:%M")
+    end
+  end
+  if current_user
+    current_user.likes.each do |like|
+      json.set! like.id do
+        json.extract! like, :id, :user_id, :likeable_type, :likeable_id
+        json.created_at like.created_at.to_s
+        json.created Time.at(like.created_at).strftime("%B %e, %Y at %I:%M")
+      end
     end
   end
 end
