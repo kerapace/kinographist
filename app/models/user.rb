@@ -11,12 +11,19 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
 
+  after_create :create_watch_list
+
   has_many :likes, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :review_likes, through: :reviews, source: :likes
-  has_many :shared_likes, through: :likes, source: :sibling_likes
 
   has_many :watched, -> {watched}, class_name: :Review
+
+  def create_watch_list
+    list = List.create(user_id: self.id, is_watch_list: true, title: "#{self.username}'s Watchlist")
+    self.watch_list = list.id
+    self.save
+  end
 
   def update_watch_count
     self.update(watch_count: self.watched.length)

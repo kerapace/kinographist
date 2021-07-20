@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_13_025342) do
+ActiveRecord::Schema.define(version: 2021_07_20_173611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,25 @@ ActiveRecord::Schema.define(version: 2021_07_13_025342) do
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
   end
 
+  create_table "list_elements", force: :cascade do |t|
+    t.integer "film_id", null: false
+    t.integer "list_id", null: false
+    t.integer "ord", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.boolean "is_watch_list", null: false
+    t.string "title"
+    t.text "blurb"
+    t.boolean "ordered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "num_elements"
+  end
+
   create_table "people", force: :cascade do |t|
     t.integer "tmdb_id", null: false
     t.string "name", null: false
@@ -107,6 +126,7 @@ ActiveRecord::Schema.define(version: 2021_07_13_025342) do
     t.datetime "updated_at", null: false
     t.text "bio"
     t.integer "watch_count"
+    t.integer "watch_list"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token"
     t.index ["username"], name: "index_users_on_username", unique: true
