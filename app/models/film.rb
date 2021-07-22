@@ -22,6 +22,13 @@ class Film < ApplicationRecord
   has_many :watchers, -> { watched }, class_name: :Review
 
   has_many :likes, as: :likeable
+
+  has_many :list_appearances,
+    class_name: :ListElement
+
+  has_many :lists,
+    through: :list_appearances,
+    source: :list
   
   has_one_attached :poster
 

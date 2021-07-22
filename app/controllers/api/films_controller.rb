@@ -3,7 +3,7 @@ require 'net/http'
 
 class Api::FilmsController < ApplicationController
   def create
-    @film = populate_film!(params[:tmdbId])
+    @film = Film.populate_film!(params[:tmdbId])
     if @film.save
       render :show
     else
@@ -28,8 +28,11 @@ class Api::FilmsController < ApplicationController
 
   def show
     @user = current_user
-    @film = Film.includes(:contributions,:crewmembers, reviews: [:user, :user_like]).find_by(id: params[:id])
+    @film = Film.includes(:contributions, :crewmembers, :list_appearances, lists: [:elements], reviews: [:user, :user_like]).find_by(id: params[:id])
     if @film
+      if @user
+        @user_list_appearances = @film.list_appearances.merge(@user.list_elements)
+      end
       @backdrop = url_for(@film.backdrop)
       @poster = url_for(@film.poster)
       render :show

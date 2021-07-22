@@ -13,7 +13,7 @@ const HomeSplash = ({splashHeaderFilm,loggedIn,toggleSignupModal,getFilm,tmdbId}
             <div className="bottom-gradient"/>
             <div className="right-gradient"/>
             <img src={splashHeaderFilm.backdrop}/>
-            <Link to={`/film/${splashHeaderFilm.id}`}><p>{`${splashHeaderFilm.title}`}</p></Link>
+            <Link to={`/film/${splashHeaderFilm.id}`}>{`${splashHeaderFilm.title}`}</Link>
           </figure>
         </div>
       }

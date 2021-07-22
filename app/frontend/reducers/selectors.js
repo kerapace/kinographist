@@ -71,6 +71,20 @@ export const userLikes = (state,userId) => {
     .map(like => addDataIfRightType(like,state));
 };
 
+export const userListFilmElements = (state,userId,filmId) => {
+  const userListData = Object.values(state.entities.lists)
+    .filter(list => list.userId === userId)
+    .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+    .map(list => Object.assign({},list, {elementId: filmElement(state,list.id,filmId) || null}))
+  const watchListIndex = userListData.findIndex(list => list.isWatchList)
+  return [watchListIndex !== -1 ? userListData.splice(watchListIndex,1)[0] : null, userListData]
+}
+
+export const filmElement = (state,listId,filmId) => {
+  const element = Object.values(state.entities.listElements).find(element => element.listId === listId && element.filmId === filmId)
+  return element === undefined ? null : element.id;
+};
+
 export const filmAssociatedPeople = (state) => (
   Object.values(state.entities.people)
 );

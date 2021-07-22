@@ -16,9 +16,12 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :review_likes, through: :reviews, source: :likes
-  has_one :watch_list,->{where(is_watch_list: true)}, class_name: :List
+  has_one :watch_list, ->{where(is_watch_list: true)}, class_name: :List
+  has_many :lists
 
   has_many :watched, -> {watched}, class_name: :Review
+
+  has_many :list_elements, through: :lists, source: :elements
 
   def create_watch_list
     list = List.create(user_id: self.id, is_watch_list: true, title: "#{self.username}'s Watchlist")

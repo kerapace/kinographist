@@ -11,8 +11,7 @@ class Api::ListsController < ApplicationController
         elements.each do |el|
           new_el = ListElement.new(list_id: @list.id, film_id: el[1][:filmId], ord: @list.max_ord + 1 + Integer(el[0]))
           if !new_el.save
-            render new_el.errors.full_messages, status: 422
-            break
+            return render new_el.errors.full_messages, status: 422
           end
         end
         render :show

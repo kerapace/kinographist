@@ -5,4 +5,4 @@ import rootReducer from "../reducers/root_reducer";
 
 
 
-export default (preloadedState = {}) => createStore(rootReducer,preloadedState,applyMiddleware(thunk));
+export default (preloadedState = {}) => createStore(rootReducer,preloadedState,applyMiddleware(thunk,logger));

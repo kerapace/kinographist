@@ -328,6 +328,105 @@ var unlikeReview = function unlikeReview(reviewId, userId) {
 
 /***/ }),
 
+/***/ "./app/frontend/actions/list_actions.js":
+/*!**********************************************!*\
+  !*** ./app/frontend/actions/list_actions.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_LIST_DATA": () => (/* binding */ RECEIVE_LIST_DATA),
+/* harmony export */   "DESTROY_LIST": () => (/* binding */ DESTROY_LIST),
+/* harmony export */   "ADD_ITEM_TO_LIST": () => (/* binding */ ADD_ITEM_TO_LIST),
+/* harmony export */   "REMOVE_ITEM_FROM_LIST": () => (/* binding */ REMOVE_ITEM_FROM_LIST),
+/* harmony export */   "receiveListData": () => (/* binding */ receiveListData),
+/* harmony export */   "destroyList": () => (/* binding */ destroyList),
+/* harmony export */   "addElementToList": () => (/* binding */ addElementToList),
+/* harmony export */   "destroyElement": () => (/* binding */ destroyElement),
+/* harmony export */   "createList": () => (/* binding */ createList),
+/* harmony export */   "updateList": () => (/* binding */ updateList),
+/* harmony export */   "getList": () => (/* binding */ getList),
+/* harmony export */   "removeList": () => (/* binding */ removeList),
+/* harmony export */   "addItemToList": () => (/* binding */ addItemToList),
+/* harmony export */   "removeItemFromList": () => (/* binding */ removeItemFromList)
+/* harmony export */ });
+/* harmony import */ var _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/list_api_util */ "./app/frontend/util/list_api_util.js");
+
+var RECEIVE_LIST_DATA = "RECEIVE_LIST_DATA";
+var DESTROY_LIST = "DESTROY_LIST";
+var ADD_ITEM_TO_LIST = "ADD_ITEM_TO_LIST";
+var REMOVE_ITEM_FROM_LIST = "REMOVE_ITEM_FROM_LIST";
+var receiveListData = function receiveListData(listData) {
+  return {
+    type: RECEIVE_LIST_DATA,
+    listData: listData
+  };
+};
+var destroyList = function destroyList(listId) {
+  return {
+    type: DESTROY_LIST,
+    listId: listId
+  };
+};
+var addElementToList = function addElementToList(elementData) {
+  return {
+    type: ADD_ITEM_TO_LIST,
+    elementData: elementData
+  };
+};
+var destroyElement = function destroyElement(elementData) {
+  return {
+    type: REMOVE_ITEM_FROM_LIST,
+    elementData: elementData
+  };
+};
+var createList = function createList(listData, elements) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.createList(listData, elements).then(function (listData) {
+      return dispatch(receiveListData(listData));
+    });
+  };
+};
+var updateList = function updateList(id, listData, elements) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.updateList(id, listData, elements).then(function (listData) {
+      return dispatch(receiveListData(listData));
+    });
+  };
+};
+var getList = function getList(id) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.getList(id).then(function (listData) {
+      return dispatch(receiveListData(listData));
+    });
+  };
+};
+var removeList = function removeList(listId) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteList(listId).then(function (listId) {
+      return dispatch(destroyList(listId));
+    });
+  };
+};
+var addItemToList = function addItemToList(element) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.addItemToList(element).then(function (elementData) {
+      return dispatch(addElementToList(elementData));
+    });
+  };
+};
+var removeItemFromList = function removeItemFromList(elementId) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.removeItemFromList(elementId).then(function (elementData) {
+      return dispatch(destroyElement(elementData));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./app/frontend/actions/person_actions.js":
 /*!************************************************!*\
   !*** ./app/frontend/actions/person_actions.js ***!
@@ -1552,6 +1651,10 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
       liked = _ref.liked,
       likeFilm = _ref.likeFilm,
       unlikeFilm = _ref.unlikeFilm,
+      watchList = _ref.watchList,
+      userLists = _ref.userLists,
+      addItemToList = _ref.addItemToList,
+      removeItemFromList = _ref.removeItemFromList,
       currentUser = _ref.currentUser,
       review = _ref.review,
       updateReview = _ref.updateReview,
@@ -1578,6 +1681,12 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
     userId: currentUser.id,
     likeableId: film.id,
     updateReview: updateReview
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(WatchListButton, {
+    watchList: watchList,
+    userId: currentUser.id,
+    filmId: film.id,
+    addItemToList: addItemToList,
+    removeItemFromList: removeItemFromList
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "rating-button-container"
   }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(RatingButton, {
@@ -1628,22 +1737,66 @@ var FilmLikeButton = function FilmLikeButton(_ref2) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, liked ? "Liked" : "Like"));
 };
 
-var ReviewModal = function ReviewModal(_ref3) {
-  var userId = _ref3.userId,
-      film = _ref3.film,
-      review = _ref3.review,
-      updateReview = _ref3.updateReview,
-      toggleReviewModal = _ref3.toggleReviewModal;
+var WatchListButton = function WatchListButton(_ref3) {
+  var watchList = _ref3.watchList,
+      userId = _ref3.userId,
+      filmId = _ref3.filmId,
+      addItemToList = _ref3.addItemToList,
+      removeItemFromList = _ref3.removeItemFromList;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.title ? review.title : ""),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      title = _useState2[0],
-      setTitle = _useState2[1];
+      hovered = _useState2[0],
+      trackHover = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.body ? review.body : ""),
+  var toggleWatchList = function toggleWatchList() {
+    if (!watchList.elementId) {
+      addItemToList({
+        userId: userId,
+        filmId: filmId,
+        listId: watchList.id
+      });
+    } else {
+      removeItemFromList(watchList.elementId);
+    }
+  };
+
+  return watchList === null ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("watch-list-button", {
+      "clicked": watchList.elementId !== null
+    }),
+    onClick: toggleWatchList,
+    onMouseEnter: function onMouseEnter() {
+      return trackHover(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      return trackHover(false);
+    }
+  }, watchList.elementId === null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.PlusSign, {
+    height: 36,
+    width: 36
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_svg_elements__WEBPACK_IMPORTED_MODULE_2__.MinusSign, {
+    height: 36,
+    width: 36
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, hovered && watchList.elementId ? "Remove" : "Watchlist"));
+};
+
+var ReviewModal = function ReviewModal(_ref4) {
+  var userId = _ref4.userId,
+      film = _ref4.film,
+      review = _ref4.review,
+      updateReview = _ref4.updateReview,
+      toggleReviewModal = _ref4.toggleReviewModal;
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.title ? review.title : ""),
       _useState4 = _slicedToArray(_useState3, 2),
-      body = _useState4[0],
-      setBody = _useState4[1];
+      title = _useState4[0],
+      setTitle = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.body ? review.body : ""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      body = _useState6[0],
+      setBody = _useState6[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     document.body.style.overflow = 'hidden';
@@ -1702,11 +1855,11 @@ var ReviewModal = function ReviewModal(_ref3) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", null, "Submit Review")))));
 };
 
-var WatchButton = function WatchButton(_ref4) {
-  var watched = _ref4.watched,
-      userId = _ref4.userId,
-      filmId = _ref4.filmId,
-      updateReview = _ref4.updateReview;
+var WatchButton = function WatchButton(_ref5) {
+  var watched = _ref5.watched,
+      userId = _ref5.userId,
+      filmId = _ref5.filmId,
+      updateReview = _ref5.updateReview;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("watch-button", {
       "clicked": watched
@@ -1724,21 +1877,21 @@ var WatchButton = function WatchButton(_ref4) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, watched ? "Watched" : "Watch")));
 };
 
-var RatingButton = function RatingButton(_ref5) {
-  var rating = _ref5.rating,
-      userId = _ref5.userId,
-      filmId = _ref5.filmId,
-      updateReview = _ref5.updateReview;
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
-      _useState6 = _slicedToArray(_useState5, 2),
-      hoverRating = _useState6[0],
-      setHoverRating = _useState6[1];
+var RatingButton = function RatingButton(_ref6) {
+  var rating = _ref6.rating,
+      userId = _ref6.userId,
+      filmId = _ref6.filmId,
+      updateReview = _ref6.updateReview;
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
       _useState8 = _slicedToArray(_useState7, 2),
-      displayRating = _useState8[0],
-      setDisplayRating = _useState8[1];
+      hoverRating = _useState8[0],
+      setHoverRating = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
+      _useState10 = _slicedToArray(_useState9, 2),
+      displayRating = _useState10[0],
+      setDisplayRating = _useState10[1];
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "exit-button"
@@ -1776,13 +1929,13 @@ var RatingButton = function RatingButton(_ref5) {
   })));
 };
 
-var RatingIncrement = function RatingIncrement(_ref6) {
-  var rating = _ref6.rating,
-      updateReview = _ref6.updateReview,
-      userId = _ref6.userId,
-      filmId = _ref6.filmId,
-      setHoverRating = _ref6.setHoverRating,
-      setDisplayRating = _ref6.setDisplayRating;
+var RatingIncrement = function RatingIncrement(_ref7) {
+  var rating = _ref7.rating,
+      updateReview = _ref7.updateReview,
+      userId = _ref7.userId,
+      filmId = _ref7.filmId,
+      setHoverRating = _ref7.setHoverRating,
+      setDisplayRating = _ref7.setDisplayRating;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "rating-increment",
     onMouseEnter: function onMouseEnter() {
@@ -1819,9 +1972,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_review_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/review_actions */ "./app/frontend/actions/review_actions.js");
 /* harmony import */ var _actions_ui_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/ui_actions */ "./app/frontend/actions/ui_actions.js");
 /* harmony import */ var _actions_like_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/like_actions */ "./app/frontend/actions/like_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
-/* harmony import */ var _reducers_ui_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers/ui_reducer */ "./app/frontend/reducers/ui_reducer.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
 /* harmony import */ var _film_interaction_menu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./film_interaction_menu */ "./app/frontend/components/film_page/film_interaction_menu.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -1833,11 +1998,19 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state, _ref) {
   var film = _ref.film;
   var currentUserId = state.session.currentUserId;
+
+  var _userListFilmElements = (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_5__.userListFilmElements)(state, currentUserId, film.id),
+      _userListFilmElements2 = _slicedToArray(_userListFilmElements, 2),
+      watchList = _userListFilmElements2[0],
+      userLists = _userListFilmElements2[1];
+
   return {
     loggedIn: Boolean(currentUserId),
     currentUser: state.entities.users[currentUserId],
-    review: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__.userReview)(state, currentUserId, film.id),
-    liked: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__.userLike)(state, currentUserId, "Film", film.id),
+    review: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_5__.userReview)(state, currentUserId, film.id),
+    liked: (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_5__.userLike)(state, currentUserId, "Film", film.id),
+    watchList: watchList,
+    userLists: userLists,
     modalDisplayed: state.ui.reviewModalDisplay
   };
 };
@@ -1855,6 +2028,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     unlikeFilm: function unlikeFilm(userId, filmId) {
       return dispatch((0,_actions_like_actions__WEBPACK_IMPORTED_MODULE_3__.unlikeFilm)(userId, filmId));
+    },
+    addItemToList: function addItemToList(element) {
+      return dispatch((0,_actions_list_actions__WEBPACK_IMPORTED_MODULE_4__.addItemToList)(element));
+    },
+    removeItemFromList: function removeItemFromList(elementId) {
+      return dispatch((0,_actions_list_actions__WEBPACK_IMPORTED_MODULE_4__.removeItemFromList)(elementId));
     }
   };
 };
@@ -2265,7 +2444,7 @@ var HomeSplash = function HomeSplash(_ref) {
     src: splashHeaderFilm.backdrop
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/film/".concat(splashHeaderFilm.id)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "".concat(splashHeaderFilm.title))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
+  }, "".concat(splashHeaderFilm.title)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
     className: classnames__WEBPACK_IMPORTED_MODULE_1___default()("main-splash", {
       "loaded": splashHeaderFilm
     })
@@ -2690,7 +2869,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Star": () => (/* binding */ Star),
 /* harmony export */   "Eye": () => (/* binding */ Eye),
 /* harmony export */   "Heart": () => (/* binding */ Heart),
-/* harmony export */   "Half": () => (/* binding */ Half)
+/* harmony export */   "Half": () => (/* binding */ Half),
+/* harmony export */   "PlusSign": () => (/* binding */ PlusSign),
+/* harmony export */   "MinusSign": () => (/* binding */ MinusSign)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
  // export const InvertedStar = ({width, height}) => (
@@ -2758,6 +2939,31 @@ var Half = function Half(_ref4) {
     vectorEffect: "non-scaling-stroke"
   })));
 };
+var PlusSign = function PlusSign(_ref5) {
+  var width = _ref5.width,
+      height = _ref5.height;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: width,
+    height: height,
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"
+  }));
+};
+var MinusSign = function MinusSign(_ref6) {
+  var width = _ref6.width,
+      height = _ref6.height;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: width,
+    height: height,
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M 12,1 C 5.9252501,1 1,5.9252501 1,12 1,18.07475 5.9252501,23 12,23 18.07475,23 23,18.07475 23,12 23,5.9252501 18.07475,1 12,1 Z m 5.5,11.916666 H 6.5000001 V 11.083333 H 17.5 Z",
+    id: "path863"
+  }));
+};
 
 /***/ }),
 
@@ -2806,7 +3012,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
-/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
+
 
 
 
@@ -2831,9 +3039,16 @@ var filmsReducer = function filmsReducer() {
       });
       return newState;
 
-    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_PROFILE_DATA:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_PROFILE_DATA:
       newState = {};
       Object.values(action.profileData.films).forEach(function (film) {
+        return newState[film.id] = film;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__.ADD_ITEM_TO_LIST:
+      newState = Object.assign({}, state);
+      Object.values(action.elementData.films).forEach(function (film) {
         return newState[film.id] = film;
       });
       return newState;
@@ -2900,6 +3115,134 @@ var likesReducer = function likesReducer() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (likesReducer);
+
+/***/ }),
+
+/***/ "./app/frontend/reducers/entities/list_elements_reducer.js":
+/*!*****************************************************************!*\
+  !*** ./app/frontend/reducers/entities/list_elements_reducer.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+
+
+
+
+var listElementsReducer = function listElementsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = {};
+
+  switch (action.type) {
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_PROFILE_DATA:
+      Object.values(action.profileData.listElements).forEach(function (element) {
+        return newState[element.id] = element;
+      });
+      return newState;
+
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_VERBOSE_FILM_DATA:
+      Object.values(action.filmData.listElements).forEach(function (element) {
+        return newState[element.id] = element;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_LIST_DATA:
+      newState = Object.assign({}, state);
+      Object.values(action.listData.listElements).forEach(function (element) {
+        return newState[element.id] = element;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.ADD_ITEM_TO_LIST:
+      newState = Object.assign({}, state);
+      Object.values(action.elementData.listElements).forEach(function (element) {
+        return newState[element.id] = element;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_ITEM_FROM_LIST:
+      newState = Object.assign({}, state);
+      Object.values(action.elementData.listElements).forEach(function (element) {
+        return delete newState[element.id];
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.DESTROY_LIST:
+      return state.filter(function (element) {
+        return element.listId !== action.listId;
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listElementsReducer);
+
+/***/ }),
+
+/***/ "./app/frontend/reducers/entities/lists_reducer.js":
+/*!*********************************************************!*\
+  !*** ./app/frontend/reducers/entities/lists_reducer.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
+/* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
+
+
+
+
+var listsReducer = function listsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = {};
+
+  switch (action.type) {
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_PROFILE_DATA:
+      Object.values(action.profileData.lists).forEach(function (list) {
+        return newState[list.id] = list;
+      });
+      return newState;
+
+    case _actions_film_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_VERBOSE_FILM_DATA:
+      Object.values(action.filmData.lists).forEach(function (list) {
+        return newState[list.id] = list;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_LIST_DATA:
+      newState = Object.assign({}, state);
+      newState[action.listData.id] = action.listData;
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.DESTROY_LIST:
+      newState = Object.assign({}, state);
+      delete newState[action.listId];
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listsReducer);
 
 /***/ }),
 
@@ -3091,13 +3434,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _entities_users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./entities/users_reducer */ "./app/frontend/reducers/entities/users_reducer.js");
 /* harmony import */ var _entities_films_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./entities/films_reducer */ "./app/frontend/reducers/entities/films_reducer.js");
 /* harmony import */ var _entities_film_crew_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./entities/film_crew_reducer */ "./app/frontend/reducers/entities/film_crew_reducer.js");
 /* harmony import */ var _entities_people_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./entities/people_reducer */ "./app/frontend/reducers/entities/people_reducer.js");
 /* harmony import */ var _entities_reviews_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./entities/reviews_reducer */ "./app/frontend/reducers/entities/reviews_reducer.js");
 /* harmony import */ var _entities_likes_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./entities/likes_reducer */ "./app/frontend/reducers/entities/likes_reducer.js");
+/* harmony import */ var _entities_lists_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./entities/lists_reducer */ "./app/frontend/reducers/entities/lists_reducer.js");
+/* harmony import */ var _entities_list_elements_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./entities/list_elements_reducer */ "./app/frontend/reducers/entities/list_elements_reducer.js");
 
 
 
@@ -3105,13 +3450,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_8__.combineReducers)({
   users: _entities_users_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
   reviews: _entities_reviews_reducer__WEBPACK_IMPORTED_MODULE_4__.default,
   films: _entities_films_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
   filmCrew: _entities_film_crew_reducer__WEBPACK_IMPORTED_MODULE_2__.default,
   people: _entities_people_reducer__WEBPACK_IMPORTED_MODULE_3__.default,
-  likes: _entities_likes_reducer__WEBPACK_IMPORTED_MODULE_5__.default
+  likes: _entities_likes_reducer__WEBPACK_IMPORTED_MODULE_5__.default,
+  lists: _entities_lists_reducer__WEBPACK_IMPORTED_MODULE_6__.default,
+  listElements: _entities_list_elements_reducer__WEBPACK_IMPORTED_MODULE_7__.default
 }));
 
 /***/ }),
@@ -3223,6 +3572,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "userLike": () => (/* binding */ userLike),
 /* harmony export */   "userRatings": () => (/* binding */ userRatings),
 /* harmony export */   "userLikes": () => (/* binding */ userLikes),
+/* harmony export */   "userListFilmElements": () => (/* binding */ userListFilmElements),
+/* harmony export */   "filmElement": () => (/* binding */ filmElement),
 /* harmony export */   "filmAssociatedPeople": () => (/* binding */ filmAssociatedPeople)
 /* harmony export */ });
 // export const orderedCastList = (state) => (
@@ -3322,6 +3673,27 @@ var userLikes = function userLikes(state, userId) {
   }).map(function (like) {
     return addDataIfRightType(like, state);
   });
+};
+var userListFilmElements = function userListFilmElements(state, userId, filmId) {
+  var userListData = Object.values(state.entities.lists).filter(function (list) {
+    return list.userId === userId;
+  }).sort(function (a, b) {
+    return new Date(b.created_at) - new Date(a.created_at);
+  }).map(function (list) {
+    return Object.assign({}, list, {
+      elementId: filmElement(state, list.id, filmId) || null
+    });
+  });
+  var watchListIndex = userListData.findIndex(function (list) {
+    return list.isWatchList;
+  });
+  return [watchListIndex !== -1 ? userListData.splice(watchListIndex, 1)[0] : null, userListData];
+};
+var filmElement = function filmElement(state, listId, filmId) {
+  var element = Object.values(state.entities.listElements).find(function (element) {
+    return element.listId === listId && element.filmId === filmId;
+  });
+  return element === undefined ? null : element.id;
 };
 var filmAssociatedPeople = function filmAssociatedPeople(state) {
   return Object.values(state.entities.people);
@@ -3474,7 +3846,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
 });
 
 /***/ }),
@@ -3545,7 +3917,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "likeReview": () => (/* binding */ likeReview),
 /* harmony export */   "unlikeReview": () => (/* binding */ unlikeReview),
 /* harmony export */   "likeFilm": () => (/* binding */ likeFilm),
-/* harmony export */   "unlikeFilm": () => (/* binding */ unlikeFilm)
+/* harmony export */   "unlikeFilm": () => (/* binding */ unlikeFilm),
+/* harmony export */   "likeList": () => (/* binding */ likeList),
+/* harmony export */   "unlikeList": () => (/* binding */ unlikeList)
 /* harmony export */ });
 var likeReview = function likeReview(likeableId, userId) {
   return $.ajax({
@@ -3589,6 +3963,94 @@ var unlikeFilm = function unlikeFilm(likeableId, userId) {
       userId: userId,
       likeableId: likeableId
     }
+  });
+};
+var likeList = function likeList(likeableId, userId) {
+  return $.ajax({
+    url: "api/likes",
+    method: "POST",
+    data: {
+      type: 'List',
+      userId: userId,
+      likeableId: likeableId
+    }
+  });
+};
+var unlikeList = function unlikeList(likeableId, userId) {
+  return $.ajax({
+    url: "api/likes",
+    method: "POST",
+    data: {
+      type: 'List',
+      userId: userId,
+      likeableId: likeableId
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./app/frontend/util/list_api_util.js":
+/*!********************************************!*\
+  !*** ./app/frontend/util/list_api_util.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createList": () => (/* binding */ createList),
+/* harmony export */   "getList": () => (/* binding */ getList),
+/* harmony export */   "updateList": () => (/* binding */ updateList),
+/* harmony export */   "deleteList": () => (/* binding */ deleteList),
+/* harmony export */   "addItemToList": () => (/* binding */ addItemToList),
+/* harmony export */   "removeItemFromList": () => (/* binding */ removeItemFromList)
+/* harmony export */ });
+var createList = function createList(list, elements) {
+  return $.ajax({
+    url: "api/lists",
+    method: 'POST',
+    data: {
+      list: list,
+      elements: elements
+    }
+  });
+};
+var getList = function getList(id) {
+  return $.ajax({
+    url: "api/lists/".concat(id),
+    method: 'GET'
+  });
+};
+var updateList = function updateList(id, list, elements) {
+  return $.ajax({
+    url: "api/lists/".concat(id),
+    method: 'PATCH',
+    data: {
+      list: list,
+      elements: elements
+    }
+  });
+};
+var deleteList = function deleteList(id) {
+  return $.ajax({
+    url: "api/lists/".concat(id),
+    method: 'DELETE'
+  });
+};
+var addItemToList = function addItemToList(element) {
+  return $.ajax({
+    url: 'api/list_elements',
+    method: 'POST',
+    data: {
+      element: element
+    }
+  });
+};
+var removeItemFromList = function removeItemFromList(elementId) {
+  return $.ajax({
+    url: "api/list_elements/".concat(elementId),
+    method: 'DELETE'
   });
 };
 

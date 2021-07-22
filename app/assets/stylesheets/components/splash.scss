@@ -6,6 +6,7 @@ $title: 'Rubik', sans-serif;
 
 .main-splash {
   color: $font-white;
+  margin-top: 20vh;
   section.introduction {
     display: flex;
     flex-direction: column;
@@ -33,7 +34,9 @@ $title: 'Rubik', sans-serif;
   }
 }
 
-.main-splash.loaded {
+
+
+main.main-splash.loaded {
   margin-top: -5em;
 }
 
@@ -45,9 +48,9 @@ $title: 'Rubik', sans-serif;
   -o-user-select: none;
 }
 
-figure.film-splash-header > a > p {
+figure.film-splash-header > a {
   transform-style: flat;
-  display: inline-block;
+  // display: inline-block;
   font-family: $sans-serif;
   color: $font-white;
   cursor: pointer;

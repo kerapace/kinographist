@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import React, {useState, useEffect} from "react";
-import {Eye, Heart} from "../svg_elements";
+import {Eye, Heart, PlusSign, MinusSign} from "../svg_elements";
 import Poster from "../poster";
 
-const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked, likeFilm, unlikeFilm, currentUser, review, updateReview, film}) => {
+const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked, likeFilm, unlikeFilm, watchList, userLists, addItemToList, removeItemFromList, currentUser, review, updateReview, film}) => {
   return (
     <>
       {!loggedIn || !modalDisplayed ? "" : <ReviewModal userId={currentUser.id} film={film} review={review} updateReview={updateReview} toggleReviewModal={toggleReviewModal}/>}
@@ -13,6 +13,7 @@ const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked
             <>
               <WatchButton watched={review ? review.watched : false} userId={currentUser.id} filmId={film.id} updateReview={updateReview}/>
               <FilmLikeButton liked={liked} like={likeFilm} unlike={unlikeFilm} userId={currentUser.id} likeableId={film.id} updateReview={updateReview}/>
+              <WatchListButton {...{watchList, userId: currentUser.id, filmId: film.id, addItemToList, removeItemFromList}}/>
             </>
           )}
         </div>
@@ -40,6 +41,27 @@ const FilmLikeButton = ({liked, likeableId, userId, like, unlike, updateReview})
     <button className={classNames("like-button",{"clicked": liked})} onClick={() => toggleLike()}>
       <Heart height={36} width={36}/>
       <p>{liked ? "Liked" : "Like"}</p>
+    </button>
+  );
+}
+
+const WatchListButton = ({watchList, userId, filmId, addItemToList, removeItemFromList}) => {
+  const [hovered, trackHover] = useState(false)
+  const toggleWatchList = () => {
+    if(!watchList.elementId) {
+      addItemToList({userId,filmId,listId: watchList.id});
+    } else {
+      removeItemFromList(watchList.elementId);
+    }
+  }
+  return watchList === null ? "" : (
+    <button className={classNames("watch-list-button",{"clicked": watchList.elementId !== null})}
+      onClick={toggleWatchList}
+      onMouseEnter={() => trackHover(true)}
+      onMouseLeave={() => trackHover(false)}
+    >
+      {watchList.elementId === null ? <PlusSign height={36} width={36}/> : <MinusSign height={36} width={36}/>}
+      <p>{hovered && watchList.elementId ? "Remove" : "Watchlist"}</p>
     </button>
   );
 }

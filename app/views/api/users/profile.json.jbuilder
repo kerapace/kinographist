@@ -3,6 +3,8 @@ json.key_format! camelize: :lower
 like_obj = @user.likes.group_by(&:likeable_type)
 ["Review","Film","List"].each{|key| like_obj[key] ||= []}
 
+json.reviews({})
+
 json.reviews do
   like_obj["Review"].each do |like|
     review = like.likeable
@@ -17,7 +19,7 @@ json.reviews do
   end
 end
 
-json.reviews({}) if @user.reviews.empty? && @user.likes.where(likeable_type: "Review").empty?
+
 
 json.users do
   json.set! @user.id do

@@ -37,3 +37,23 @@ export const unlikeFilm = (likeableId, userId) => ($.ajax({
     likeableId,
   },
 }));
+
+export const likeList = (likeableId, userId) => ($.ajax({
+  url: `api/likes`,
+  method: `POST`,
+  data: {
+    type: 'List',
+    userId,
+    likeableId,
+  },
+}));
+
+export const unlikeList = (likeableId, userId) => ($.ajax({
+  url: `api/likes`,
+  method: `POST`,
+  data: {
+    type: 'List',
+    userId,
+    likeableId,
+  }
+}))

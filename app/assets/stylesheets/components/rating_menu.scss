@@ -38,7 +38,7 @@ nav.film-interaction-menu {
   border-radius: 20px;
   overflow: hidden;
   font-family: $sans-serif;
-  width: 180px;
+  width: 210px;
 }
 
 nav.film-interaction-menu > div {
@@ -58,7 +58,7 @@ nav.film-interaction-menu > div.state-buttons-container {
   min-height: 20px;
 }
 
-.watch-button, .like-button {
+.watch-button, .like-button, .watch-list-button {
   height: 100%;
   padding: 10px;
   border-right: 1px solid #456;
@@ -89,6 +89,10 @@ button.like-button.clicked > svg {
 
 .rating-inset > .exit-button {
   float: left;
+}
+
+.rating-button {
+  margin: 0 2.5em;
 }
 
 nav.film-interaction-menu > div:last-child {

@@ -3,7 +3,7 @@ json.key_format! camelize: :lower
 json.films do
   json.set! @film.id do
     json.extract! @film, :id, :tmdb_id, :title, :tagline, :release_year, :blurb, :studio, :languages, :country, :genres, :likes_count
-    json.poster @poster
+      json.poster @poster
     json.backdrop @backdrop
   end
 end
@@ -45,6 +45,7 @@ end
 json.users({}) if @film.reviews.empty?
 
 film_likes = @film.reviews.map{|review| review.user_like}
+
 json.likes({})
 json.likes do
   film_likes.each do |like|
@@ -55,16 +56,46 @@ json.likes do
     end
   end
   if @user
-    user_like = Like.find_by(
-      user_id: @user.id,
-      likeable_type: "Film",
-      likeable_id: @film.id
-    )
-    if user_like
-      json.set! user_like.id do
-        json.extract! user_like, :id, :user_id, :likeable_id, :likeable_type
+    @user.likes.each do |like|
+      json.set! like.id do
+        json.extract! like, :id, :user_id, :likeable_id, :likeable_type
       end
+    end
+  end
+  # if @user
+  #   user_like = Like.find_by(
+  #     user_id: @user.id,
+  #     likeable_type: "Film",
+  #     likeable_id: @film.id
+  #   )
+  #   if user_like
+  #     json.set! user_like.id do
+  #       json.extract! user_like, :id, :user_id, :likeable_id, :likeable_type
+  #     end
+  #   end
+  # end
+end
+
+@film.lists.each do |list|
+  json.partial! 'api/lists/preview', list: list
+end
+
+json.list_elements({})
+json.list_elements do
+  @film.list_appearances.each do |el|
+    json.set! el.id do
+      json.extract! el, :id, :list_id, :film_id, :ord
     end
   end
 end
 
+json.lists({})
+if @user
+  json.lists do
+    @user.lists.each do |list|
+      json.set! list.id do
+        json.extract! list, :id, :user_id, :is_watch_list, :title, :blurb, :ordered, :num_elements
+      end
+    end
+  end
+end

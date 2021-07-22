@@ -36,5 +36,5 @@ export const addItemToList = (element) => ($.ajax({
 
 export const removeItemFromList = (elementId) => ($.ajax({
   url: `api/list_elements/${elementId}`,
-  method: 'DELETE',
+  method: 'DELETE'
 }));

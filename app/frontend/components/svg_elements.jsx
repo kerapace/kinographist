@@ -35,3 +35,13 @@ export const Half = ({width, height}) => (
     </g>
   </svg>
 );
+
+export const PlusSign = ({width, height}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+);
+
+export const MinusSign = ({width, height}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
+   <path d="M 12,1 C 5.9252501,1 1,5.9252501 1,12 1,18.07475 5.9252501,23 12,23 18.07475,23 23,18.07475 23,12 23,5.9252501 18.07475,1 12,1 Z m 5.5,11.916666 H 6.5000001 V 11.083333 H 17.5 Z" id="path863"/>
+  </svg>
+);

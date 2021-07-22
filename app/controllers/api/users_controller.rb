@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(likes: {likeable: :user}, reviews: [:film, :likes]).with_attached_avatar.find_by(id: params[:id])
+    @user = User.includes(lists: [:user, {elements: :film}], likes: {likeable: :user}, reviews: [:film, :likes]).with_attached_avatar.find_by(id: params[:id])
     if @user
       render :profile
     else
