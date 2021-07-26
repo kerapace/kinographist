@@ -12,6 +12,11 @@ export const getList = (id) => ($.ajax({
   method: 'GET'
 }));
 
+export const getWatchList = (userId) => ($.ajax({
+  url: `api/watchlist/${userId}`,
+  method: 'GET'
+}))
+
 export const updateList = (id, list, elements) => ($.ajax({
   url: `api/lists/${id}`,
   method: 'PATCH',

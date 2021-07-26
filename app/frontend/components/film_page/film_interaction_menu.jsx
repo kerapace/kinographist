@@ -23,6 +23,7 @@ const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked
         <div className="review-button-container">
           {!loggedIn ? <p>Log in to rate and review...</p> : <a onClick={() => toggleReviewModal()}>Click to review</a>}
         </div>
+        <ListAccordion {...{userLists, userId: currentUser.id, filmId: film.id, addItemToList, removeItemFromList}}/>
       </nav>
     </>
   )
@@ -64,7 +65,39 @@ const WatchListButton = ({watchList, userId, filmId, addItemToList, removeItemFr
       <p>{hovered && watchList.elementId ? "Remove" : "Watchlist"}</p>
     </button>
   );
-}
+};
+
+const ListAccordion = ({userLists, userId, filmId, addItemToList, removeItemFromList}) => {
+  const [listDisplay, setListDisplay] = useState(false);
+  const toggleList = (list) => {
+    if(!list.elementId) {
+      addItemToList({userId,filmId,listId: list.id});
+    }
+    else {
+      removeItemFromList(list.elementId);
+    }
+  }
+  return (<>
+    <div className="list-data-toggler"
+      onClick={() => setListDisplay(!listDisplay)}
+    >
+      <p>
+      {!listDisplay ? "Add film to list..." : "Hide lists..."}
+      </p>
+    </div>
+    {!listDisplay ? "" : userLists.map(list => 
+      <div key={list.id} onClick={() => toggleList(list)}>
+        <p>
+          {list.elementId === undefined ? 
+            `Add film to ${list.title}` :
+            `Remove film from ${list.title}`
+          }
+        </p>
+      </div>
+    )}
+  </>
+  );
+};
 
 const ReviewModal = ({userId, film, review, updateReview, toggleReviewModal}) => {
   const [title, setTitle] = useState(review && review.title ? review.title : "");
@@ -119,6 +152,10 @@ const WatchButton = ({watched, userId, filmId, updateReview}) => (
 const RatingButton = ({rating, userId, filmId, updateReview}) => {
   const [hoverRating, setHoverRating] = useState(rating);
   const [displayRating, setDisplayRating] = useState(rating);
+  useEffect(() => {
+    setDisplayRating(rating);
+    setHoverRating(rating)
+  },[rating]);
   return (
     <>
       <div className="exit-button">
@@ -136,7 +173,7 @@ const RatingButton = ({rating, userId, filmId, updateReview}) => {
       </div>
     </>
   );
-}
+};
 
 const RatingIncrement = ({rating,updateReview, userId, filmId, setHoverRating, setDisplayRating}) => (
   <div className="rating-increment" onMouseEnter={() => setHoverRating(rating)} onClick={() => {

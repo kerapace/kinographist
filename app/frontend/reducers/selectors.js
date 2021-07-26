@@ -80,6 +80,17 @@ export const userListFilmElements = (state,userId,filmId) => {
   return [watchListIndex !== -1 ? userListData.splice(watchListIndex,1)[0] : null, userListData]
 }
 
+export const listWithFilmData = (state,listId) => {
+  return Object.values(state.entities.listElements)
+    .filter(element => element.listId === listId)
+    .sort((a,b) => a.ord - b.ord)
+    .map(element => Object.assign({},{elementId: element.id},state.entities.films[element.filmId]))
+};
+
+export const watchList = (state,userId) => {
+  return Object.values(state.entities.lists).find(list => list.isWatchList && list.userId === parseInt(userId))
+}
+
 export const filmElement = (state,listId,filmId) => {
   const element = Object.values(state.entities.listElements).find(element => element.listId === listId && element.filmId === filmId)
   return element === undefined ? null : element.id;

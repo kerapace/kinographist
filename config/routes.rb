@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :lists, only: [:create, :show, :update, :destroy]
     resources :list_elements, only: [:create, :destroy]
     get 'films/by_tmdb_id/:tmdb_id', to: 'films#find_by_tmdb_id'
+    get '/watchlist/:user_id', to: 'lists#get_watchlist'
     patch '/reviews', to: 'reviews#update'
     delete '/likes', to: 'likes#destroy'
     get '/browse', to: 'films#browse'

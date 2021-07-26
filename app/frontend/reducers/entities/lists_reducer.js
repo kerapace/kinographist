@@ -16,7 +16,8 @@ const listsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_LIST_DATA:
       newState = Object.assign({},state);
-      newState[action.listData.id] = action.listData;
+      Object.values(action.listData.lists).forEach(list =>
+        newState[list.id] = list);
       return newState;
     case DESTROY_LIST:
       newState = Object.assign({},state);

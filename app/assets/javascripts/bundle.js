@@ -348,6 +348,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "createList": () => (/* binding */ createList),
 /* harmony export */   "updateList": () => (/* binding */ updateList),
 /* harmony export */   "getList": () => (/* binding */ getList),
+/* harmony export */   "getWatchList": () => (/* binding */ getWatchList),
 /* harmony export */   "removeList": () => (/* binding */ removeList),
 /* harmony export */   "addItemToList": () => (/* binding */ addItemToList),
 /* harmony export */   "removeItemFromList": () => (/* binding */ removeItemFromList)
@@ -399,6 +400,13 @@ var updateList = function updateList(id, listData, elements) {
 var getList = function getList(id) {
   return function (dispatch) {
     return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.getList(id).then(function (listData) {
+      return dispatch(receiveListData(listData));
+    });
+  };
+};
+var getWatchList = function getWatchList(userId) {
+  return function (dispatch) {
+    return _util_list_api_util__WEBPACK_IMPORTED_MODULE_0__.getWatchList(userId).then(function (listData) {
       return dispatch(receiveListData(listData));
     });
   };
@@ -611,11 +619,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TOGGLE_SIGNUP_MODAL": () => (/* binding */ TOGGLE_SIGNUP_MODAL),
 /* harmony export */   "TOGGLE_REVIEW_MODAL": () => (/* binding */ TOGGLE_REVIEW_MODAL),
+/* harmony export */   "TOGGLE_CREATE_LIST_MODAL": () => (/* binding */ TOGGLE_CREATE_LIST_MODAL),
 /* harmony export */   "toggleSignupModal": () => (/* binding */ toggleSignupModal),
-/* harmony export */   "toggleReviewModal": () => (/* binding */ toggleReviewModal)
+/* harmony export */   "toggleReviewModal": () => (/* binding */ toggleReviewModal),
+/* harmony export */   "toggleCreateListModal": () => (/* binding */ toggleCreateListModal)
 /* harmony export */ });
 var TOGGLE_SIGNUP_MODAL = "TOGGLE_SIGNUP_MODAL";
 var TOGGLE_REVIEW_MODAL = "TOGGLE_REVIEW_MODAL";
+var TOGGLE_CREATE_LIST_MODAL = "TOGGLE_CREATE_LIST_MODAL";
 var toggleSignupModal = function toggleSignupModal() {
   return {
     type: TOGGLE_SIGNUP_MODAL
@@ -624,6 +635,11 @@ var toggleSignupModal = function toggleSignupModal() {
 var toggleReviewModal = function toggleReviewModal() {
   return {
     type: TOGGLE_REVIEW_MODAL
+  };
+};
+var toggleCreateListModal = function toggleCreateListModal() {
+  return {
+    type: TOGGLE_CREATE_LIST_MODAL
   };
 };
 
@@ -672,7 +688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util/route_util */ "./app/frontend/util/route_util.jsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _components_header_header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/header/header */ "./app/frontend/components/header/header.jsx");
@@ -681,6 +697,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_browse_film_browse_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/browse/film_browse_container */ "./app/frontend/components/browse/film_browse_container.jsx");
 /* harmony import */ var _components_homepage_home_splash_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/homepage/home_splash_container */ "./app/frontend/components/homepage/home_splash_container.jsx");
 /* harmony import */ var _components_profile_user_profile_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/profile/user_profile_container */ "./app/frontend/components/profile/user_profile_container.jsx");
+/* harmony import */ var _components_lists_watch_list_display_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/lists/watch_list_display_container */ "./app/frontend/components/lists/watch_list_display_container.jsx");
+
 
 
 
@@ -696,9 +714,9 @@ var App = function App(props) {
     document.body.style.overflow = 'unset';
     document.body.style.height = 'auto';
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     path: "/"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_header_header__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_homepage_signup_modal_container__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_header_header__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_homepage_signup_modal_container__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     exact: true,
     path: "/",
     render: function render() {
@@ -706,23 +724,27 @@ var App = function App(props) {
         tmdbId: 378064
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     path: "/film/:filmId",
     component: _components_film_page_film_display_container__WEBPACK_IMPORTED_MODULE_4__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     path: "/films/browse",
     component: _components_browse_film_browse_container__WEBPACK_IMPORTED_MODULE_5__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+    exact: true,
     path: "/user/:userId",
     component: _components_profile_user_profile_container__WEBPACK_IMPORTED_MODULE_7__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+    path: "/user/:userId/watchlist",
+    component: _components_lists_watch_list_display_container__WEBPACK_IMPORTED_MODULE_8__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     path: "/",
     render: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Redirect, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
         to: "/"
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
     path: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "footer"
@@ -1700,7 +1722,13 @@ var FilmInteractionMenu = function FilmInteractionMenu(_ref) {
     onClick: function onClick() {
       return toggleReviewModal();
     }
-  }, "Click to review"))));
+  }, "Click to review")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(ListAccordion, {
+    userLists: userLists,
+    userId: currentUser.id,
+    filmId: film.id,
+    addItemToList: addItemToList,
+    removeItemFromList: removeItemFromList
+  })));
 };
 
 var FilmLikeButton = function FilmLikeButton(_ref2) {
@@ -1781,22 +1809,61 @@ var WatchListButton = function WatchListButton(_ref3) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, hovered && watchList.elementId ? "Remove" : "Watchlist"));
 };
 
-var ReviewModal = function ReviewModal(_ref4) {
-  var userId = _ref4.userId,
-      film = _ref4.film,
-      review = _ref4.review,
-      updateReview = _ref4.updateReview,
-      toggleReviewModal = _ref4.toggleReviewModal;
+var ListAccordion = function ListAccordion(_ref4) {
+  var userLists = _ref4.userLists,
+      userId = _ref4.userId,
+      filmId = _ref4.filmId,
+      addItemToList = _ref4.addItemToList,
+      removeItemFromList = _ref4.removeItemFromList;
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.title ? review.title : ""),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      title = _useState4[0],
-      setTitle = _useState4[1];
+      listDisplay = _useState4[0],
+      setListDisplay = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.body ? review.body : ""),
+  var toggleList = function toggleList(list) {
+    if (!list.elementId) {
+      addItemToList({
+        userId: userId,
+        filmId: filmId,
+        listId: list.id
+      });
+    } else {
+      removeItemFromList(list.elementId);
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "list-data-toggler",
+    onClick: function onClick() {
+      return setListDisplay(!listDisplay);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, !listDisplay ? "Add film to list..." : "Hide lists...")), !listDisplay ? "" : userLists.map(function (list) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      key: list.id,
+      onClick: function onClick() {
+        return toggleList(list);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, list.elementId === undefined ? "Add film to ".concat(list.title) : "Remove film from ".concat(list.title)));
+  }));
+};
+
+var ReviewModal = function ReviewModal(_ref5) {
+  var userId = _ref5.userId,
+      film = _ref5.film,
+      review = _ref5.review,
+      updateReview = _ref5.updateReview,
+      toggleReviewModal = _ref5.toggleReviewModal;
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.title ? review.title : ""),
       _useState6 = _slicedToArray(_useState5, 2),
-      body = _useState6[0],
-      setBody = _useState6[1];
+      title = _useState6[0],
+      setTitle = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(review && review.body ? review.body : ""),
+      _useState8 = _slicedToArray(_useState7, 2),
+      body = _useState8[0],
+      setBody = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     document.body.style.overflow = 'hidden';
@@ -1855,11 +1922,11 @@ var ReviewModal = function ReviewModal(_ref4) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", null, "Submit Review")))));
 };
 
-var WatchButton = function WatchButton(_ref5) {
-  var watched = _ref5.watched,
-      userId = _ref5.userId,
-      filmId = _ref5.filmId,
-      updateReview = _ref5.updateReview;
+var WatchButton = function WatchButton(_ref6) {
+  var watched = _ref6.watched,
+      userId = _ref6.userId,
+      filmId = _ref6.filmId,
+      updateReview = _ref6.updateReview;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("watch-button", {
       "clicked": watched
@@ -1877,22 +1944,26 @@ var WatchButton = function WatchButton(_ref5) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, watched ? "Watched" : "Watch")));
 };
 
-var RatingButton = function RatingButton(_ref6) {
-  var rating = _ref6.rating,
-      userId = _ref6.userId,
-      filmId = _ref6.filmId,
-      updateReview = _ref6.updateReview;
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
-      _useState8 = _slicedToArray(_useState7, 2),
-      hoverRating = _useState8[0],
-      setHoverRating = _useState8[1];
+var RatingButton = function RatingButton(_ref7) {
+  var rating = _ref7.rating,
+      userId = _ref7.userId,
+      filmId = _ref7.filmId,
+      updateReview = _ref7.updateReview;
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
       _useState10 = _slicedToArray(_useState9, 2),
-      displayRating = _useState10[0],
-      setDisplayRating = _useState10[1];
+      hoverRating = _useState10[0],
+      setHoverRating = _useState10[1];
 
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(rating),
+      _useState12 = _slicedToArray(_useState11, 2),
+      displayRating = _useState12[0],
+      setDisplayRating = _useState12[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setDisplayRating(rating);
+    setHoverRating(rating);
+  }, [rating]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "exit-button"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("a", {
@@ -1929,13 +2000,13 @@ var RatingButton = function RatingButton(_ref6) {
   })));
 };
 
-var RatingIncrement = function RatingIncrement(_ref7) {
-  var rating = _ref7.rating,
-      updateReview = _ref7.updateReview,
-      userId = _ref7.userId,
-      filmId = _ref7.filmId,
-      setHoverRating = _ref7.setHoverRating,
-      setDisplayRating = _ref7.setDisplayRating;
+var RatingIncrement = function RatingIncrement(_ref8) {
+  var rating = _ref8.rating,
+      updateReview = _ref8.updateReview,
+      userId = _ref8.userId,
+      filmId = _ref8.filmId,
+      setHoverRating = _ref8.setHoverRating,
+      setDisplayRating = _ref8.setDisplayRating;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "rating-increment",
     onMouseEnter: function onMouseEnter() {
@@ -2363,7 +2434,9 @@ var UserDropdown = function UserDropdown(_ref) {
     className: "dropdown-options"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: "/"
-  }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+  }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    to: "/user/".concat(user.id, "/watchlist")
+  }, "Watchlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     onClick: logout
   }, "Sign Out"))));
 };
@@ -2646,7 +2719,9 @@ var SignupModal = function SignupModal(_ref) {
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_errors_error_display__WEBPACK_IMPORTED_MODULE_1__.default, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "pretty-button large"
+  }, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_errors_error_display__WEBPACK_IMPORTED_MODULE_1__.default, {
     errors: sessionErrors
   })));
 };
@@ -2704,6 +2779,170 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./app/frontend/components/lists/list_display.jsx":
+/*!********************************************************!*\
+  !*** ./app/frontend/components/lists/list_display.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _poster__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../poster */ "./app/frontend/components/poster.jsx");
+/* harmony import */ var _svg_elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../svg_elements */ "./app/frontend/components/svg_elements.jsx");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var WatchListDisplay = function WatchListDisplay(_ref) {
+  var loggedIn = _ref.loggedIn,
+      currentUser = _ref.currentUser,
+      list = _ref.list,
+      listUser = _ref.listUser,
+      getWatchList = _ref.getWatchList,
+      updateReview = _ref.updateReview,
+      removeItemFromList = _ref.removeItemFromList;
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useParams)(),
+      userId = _useParams.userId;
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return getWatchList(userId);
+  }, [userId]);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(list ? _toConsumableArray(list) : ""),
+      _useState2 = _slicedToArray(_useState, 2),
+      displayList = _useState2[0],
+      updateDisplayList = _useState2[1];
+
+  var clearElement = function clearElement(idx) {
+    removeItemFromList(displayList[idx].elementId);
+    updateDisplayList(displayList.slice(0, idx).concat(displayList.slice(idx + 1)));
+  };
+
+  var embedProps = {
+    updateReview: updateReview,
+    clearElement: clearElement
+  };
+  return !list ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+    className: "film-browser"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "".concat(listUser.username, "'s Watchlist")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "border"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "film-browse-container"
+  }, !list ? "" : list.map(function (element, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+      key: idx,
+      to: "/film/".concat(element.id)
+    }, loggedIn && currentUser.id === userId ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_1__.default, {
+      size: "medium",
+      hoverable: true,
+      film: element,
+      component: WatchListPosterEmbed,
+      embedProps: embedProps
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_poster__WEBPACK_IMPORTED_MODULE_1__.default, {
+      size: "medium",
+      hoverable: true,
+      film: element
+    }));
+  })));
+};
+
+var WatchListPosterEmbed = function WatchListPosterEmbed(_ref2) {
+  var film = _ref2.film,
+      updateReview = _ref2.updateReview,
+      removeItemFromList = _ref2.removeItemFromList;
+
+  /*#__PURE__*/
+  react__WEBPACK_IMPORTED_MODULE_0__.createElement("figure", {
+    "class": "poster-embed"
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WatchListDisplay);
+
+/***/ }),
+
+/***/ "./app/frontend/components/lists/watch_list_display_container.jsx":
+/*!************************************************************************!*\
+  !*** ./app/frontend/components/lists/watch_list_display_container.jsx ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./app/frontend/reducers/selectors.js");
+/* harmony import */ var _actions_review_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/review_actions */ "./app/frontend/actions/review_actions.js");
+/* harmony import */ var _actions_ui_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/ui_actions */ "./app/frontend/actions/ui_actions.js");
+/* harmony import */ var _list_display__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./list_display */ "./app/frontend/components/lists/list_display.jsx");
+
+
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var match = _ref.match;
+  var wList = (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__.watchList)(state, match.params.userId);
+  return {
+    loggedIn: Boolean(state.session.currentUserId),
+    listUser: state.entities.users[match.params.userId],
+    currentUser: state.entities.users[state.session.currentUserId],
+    list: wList ? (0,_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__.listWithFilmData)(state, wList.id) : null
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getWatchList: function getWatchList(userId) {
+      return dispatch((0,_actions_list_actions__WEBPACK_IMPORTED_MODULE_1__.getWatchList)(userId));
+    },
+    updateReview: function updateReview(review) {
+      return dispatch((0,_actions_review_actions__WEBPACK_IMPORTED_MODULE_3__.updateReview)(review));
+    },
+    removeItemFromList: function removeItemFromList(elementId) {
+      return dispatch((0,_actions_list_actions__WEBPACK_IMPORTED_MODULE_1__.removeItemFromList)(elementId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_list_display__WEBPACK_IMPORTED_MODULE_5__.default));
+
+/***/ }),
+
 /***/ "./app/frontend/components/poster.jsx":
 /*!********************************************!*\
   !*** ./app/frontend/components/poster.jsx ***!
@@ -2724,8 +2963,9 @@ __webpack_require__.r(__webpack_exports__);
 var Poster = function Poster(_ref) {
   var size = _ref.size,
       hoverable = _ref.hoverable,
-      displayInfo = _ref.displayInfo,
-      film = _ref.film;
+      film = _ref.film,
+      Component = _ref.component,
+      embedProps = _ref.embedProps;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("poster", "poster-".concat(size), {
       hoverable: hoverable
@@ -2733,9 +2973,7 @@ var Poster = function Poster(_ref) {
     style: {
       backgroundImage: "url(" + film.poster + ")"
     }
-  }, !displayInfo ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    className: "poster-info-display"
-  }));
+  }, !Component ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Component, embedProps));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Poster);
@@ -3046,6 +3284,13 @@ var filmsReducer = function filmsReducer() {
       });
       return newState;
 
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_LIST_DATA:
+      newState = {};
+      Object.values(action.listData.films).forEach(function (film) {
+        return newState[film.id] = film;
+      });
+      return newState;
+
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_1__.ADD_ITEM_TO_LIST:
       newState = Object.assign({}, state);
       Object.values(action.elementData.films).forEach(function (film) {
@@ -3229,7 +3474,9 @@ var listsReducer = function listsReducer() {
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_LIST_DATA:
       newState = Object.assign({}, state);
-      newState[action.listData.id] = action.listData;
+      Object.values(action.listData.lists).forEach(function (list) {
+        return newState[list.id] = list;
+      });
       return newState;
 
     case _actions_list_actions__WEBPACK_IMPORTED_MODULE_0__.DESTROY_LIST:
@@ -3369,6 +3616,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_film_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/film_actions */ "./app/frontend/actions/film_actions.js");
 /* harmony import */ var _actions_review_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/review_actions */ "./app/frontend/actions/review_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./app/frontend/actions/user_actions.js");
+/* harmony import */ var _actions_list_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/list_actions */ "./app/frontend/actions/list_actions.js");
+
 
 
 
@@ -3410,6 +3659,13 @@ var usersReducer = function usersReducer() {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.RECEIVE_PROFILE_DATA:
       newState = Object.assign({}, state);
       Object.values(action.profileData.users).forEach(function (user) {
+        return newState[user.id] = user;
+      });
+      return newState;
+
+    case _actions_list_actions__WEBPACK_IMPORTED_MODULE_4__.RECEIVE_LIST_DATA:
+      newState = Object.assign({}, state);
+      Object.values(action.listData.users).forEach(function (user) {
         return newState[user.id] = user;
       });
       return newState;
@@ -3573,6 +3829,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "userRatings": () => (/* binding */ userRatings),
 /* harmony export */   "userLikes": () => (/* binding */ userLikes),
 /* harmony export */   "userListFilmElements": () => (/* binding */ userListFilmElements),
+/* harmony export */   "listWithFilmData": () => (/* binding */ listWithFilmData),
+/* harmony export */   "watchList": () => (/* binding */ watchList),
 /* harmony export */   "filmElement": () => (/* binding */ filmElement),
 /* harmony export */   "filmAssociatedPeople": () => (/* binding */ filmAssociatedPeople)
 /* harmony export */ });
@@ -3689,6 +3947,22 @@ var userListFilmElements = function userListFilmElements(state, userId, filmId) 
   });
   return [watchListIndex !== -1 ? userListData.splice(watchListIndex, 1)[0] : null, userListData];
 };
+var listWithFilmData = function listWithFilmData(state, listId) {
+  return Object.values(state.entities.listElements).filter(function (element) {
+    return element.listId === listId;
+  }).sort(function (a, b) {
+    return a.ord - b.ord;
+  }).map(function (element) {
+    return Object.assign({}, {
+      elementId: element.id
+    }, state.entities.films[element.filmId]);
+  });
+};
+var watchList = function watchList(state, userId) {
+  return Object.values(state.entities.lists).find(function (list) {
+    return list.isWatchList && list.userId === parseInt(userId);
+  });
+};
 var filmElement = function filmElement(state, listId, filmId) {
   var element = Object.values(state.entities.listElements).find(function (element) {
     return element.listId === listId && element.filmId === filmId;
@@ -3760,7 +4034,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var initialState = {
   signupModalDisplay: false,
-  reviewModalDisplay: false
+  reviewModalDisplay: false,
+  createListModalDisplay: false
 };
 
 var uiReducer = function uiReducer() {
@@ -3778,6 +4053,11 @@ var uiReducer = function uiReducer() {
     case _actions_ui_actions__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_REVIEW_MODAL:
       newState = Object.assign({}, state);
       newState.reviewModalDisplay = !newState.reviewModalDisplay;
+      return newState;
+
+    case _actions_ui_actions__WEBPACK_IMPORTED_MODULE_0__.TOGGLE_CREATE_LIST_MODAL:
+      newState = Object.assign({}, state);
+      newState.createListModalDisplay = !newState.createListModalDisplay;
       return newState;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_CURRENT_USER:
@@ -4001,6 +4281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createList": () => (/* binding */ createList),
 /* harmony export */   "getList": () => (/* binding */ getList),
+/* harmony export */   "getWatchList": () => (/* binding */ getWatchList),
 /* harmony export */   "updateList": () => (/* binding */ updateList),
 /* harmony export */   "deleteList": () => (/* binding */ deleteList),
 /* harmony export */   "addItemToList": () => (/* binding */ addItemToList),
@@ -4019,6 +4300,12 @@ var createList = function createList(list, elements) {
 var getList = function getList(id) {
   return $.ajax({
     url: "api/lists/".concat(id),
+    method: 'GET'
+  });
+};
+var getWatchList = function getWatchList(userId) {
+  return $.ajax({
+    url: "api/watchlist/".concat(userId),
     method: 'GET'
   });
 };

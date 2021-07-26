@@ -32,6 +32,15 @@ class Api::ListsController < ApplicationController
     end
   end
 
+  def get_watchlist
+    @list = User.includes(watch_list: [:user, elements: {film: {poster_attachment: :blob, backdrop_attachment: :blob}}]).find_by(id: params[:user_id]).watch_list
+    if @list
+      render :show
+    else
+      render json: ["Could not find watchlist for given user ID"], status: 404
+    end
+  end
+
   def update
     if Integer(list_params[:userId]) == current_user.id
       list = List.find_by(id: params[:id])

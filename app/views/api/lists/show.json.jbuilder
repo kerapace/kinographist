@@ -15,13 +15,15 @@ json.films do
 end
 
 json.lists do
-  json.extract! @list, :id, :user_id, :is_watch_list, :title, :blurb, :ordered, :num_elements
+  json.set! @list.id do
+    json.extract! @list, :id, :user_id, :is_watch_list, :title, :blurb, :ordered, :num_elements
+  end
 end
 
 json.list_elements do
   @list.elements.each do |el|
     json.set! el.id do
-      json.extract! el, :film_id, :list_id, :ord
+      json.extract! el, :id, :film_id, :list_id, :ord
     end
   end
 end

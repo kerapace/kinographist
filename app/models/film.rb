@@ -16,6 +16,8 @@ class Film < ApplicationRecord
   has_many :actors, -> { merge(FilmCrew.actor) },
     through: :contributions,
     source: :person
+  
+  has_one :user, -> { none } 
 
   has_many :reviews, dependent: :destroy
 

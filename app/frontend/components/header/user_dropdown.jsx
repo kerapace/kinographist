@@ -6,6 +6,7 @@ const UserDropdown = ({user, logout}) => (
     <Link to={`/user/${user.id}`}>{user.username}</Link>
     <ul className="dropdown-options">
       <li><Link to="/">Home</Link></li>
+      <li><Link to={`/user/${user.id}/watchlist`}>Watchlist</Link></li>
       <li><a onClick={logout}>Sign Out</a></li>
     </ul>
   </div>

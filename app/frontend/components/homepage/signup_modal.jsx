@@ -42,7 +42,7 @@ const SignupModal = ({sessionErrors,isDisplayed,signup,toggleSignupModal,flushSe
           <label><p>Password:</p>
             <input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)}/>
           </label>
-          <button>Sign Up</button>
+          <button className="pretty-button large">Sign Up</button>
         </form>
           <ErrorDisplay errors={sessionErrors}/>
       </section>

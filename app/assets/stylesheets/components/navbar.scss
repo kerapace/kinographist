@@ -1,3 +1,10 @@
+$dark-grey: #283038;
+$shale-blue:#578;
+$font-white: #ccc;
+$lighter-grey: #345;
+$rating-menu-grey: #456;
+$sans-serif: 'Lato', sans-serif;
+
 nav.header-nav {
   width: 500px;
   display: flex;
@@ -36,14 +43,12 @@ nav.header-nav {
   height: 2em;
 }
 
-input[type="text"], input[type="password"], textarea {
-  background-color: #345;
-  border-right: 0;
-  border-bottom: 1px grey;
-  border-bottom-left-radius: 2px grey;
-  border-bottom-right-radius: 2px grey;
-  border-radius: 2px;
-  color: #ccc;
+input[type=text], input[type=password], textarea {
+  border-radius: 5px;
+  background-color: $dark-grey;
+  color: $font-white;
+  font-family: $sans-serif;
+  font-size: 12px;
 }
 
 label {

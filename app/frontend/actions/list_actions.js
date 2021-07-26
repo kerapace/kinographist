@@ -37,6 +37,10 @@ export const getList = id => dispatch => (
   ListApiUtil.getList(id).then(listData => dispatch(receiveListData(listData)))
 );
 
+export const getWatchList = userId => dispatch => (
+  ListApiUtil.getWatchList(userId).then(listData => dispatch(receiveListData(listData)))
+);
+
 export const removeList = listId => dispatch => (
   ListApiUtil.deleteList(listId).then(listId => dispatch(destroyList(listId)))
 );

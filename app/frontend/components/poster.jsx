@@ -1,12 +1,11 @@
 import classNames from "classnames";
 import React from "react";
 
-const Poster = ({size, hoverable, displayInfo, film}) => {
+const Poster = ({size, hoverable, film, component: Component, embedProps}) => {
   return (<div className={classNames(`poster`,`poster-${size}`,{hoverable})} style={{backgroundImage: "url("+film.poster+")"}}>
-    {!displayInfo ? "" : (
-      <div className={"poster-info-display"}>
-      </div>
-    )}
+    {!Component ? "" :
+      <Component {...embedProps}/>
+    }
   </div>);
 };
 

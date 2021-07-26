@@ -81,4 +81,8 @@ json.films do
   end
 end
 
+json.lists({})
+
+json.list_elements({})
+
 json.films({}) if @user.reviews.empty? && @user.likes.empty?
