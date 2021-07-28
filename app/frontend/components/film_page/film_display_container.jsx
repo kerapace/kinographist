@@ -7,6 +7,7 @@ const mapStateToProps = (state, ownProps) => {
   const film = state.entities.films[ownProps.match.params.filmId];
   return {
   film,
+  currentUserId: state.session.currentUserId,
   crewHash: crewListGroupedByRole(state),
   reviews: filmReviewsWithUserData(state, !film ? undefined : film.id),
   }

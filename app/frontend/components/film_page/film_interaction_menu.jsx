@@ -23,7 +23,7 @@ const FilmInteractionMenu = ({modalDisplayed, toggleReviewModal, loggedIn, liked
         <div className="review-button-container">
           {!loggedIn ? <p>Log in to rate and review...</p> : <a onClick={() => toggleReviewModal()}>Click to review</a>}
         </div>
-        <ListAccordion {...{userLists, userId: currentUser.id, filmId: film.id, addItemToList, removeItemFromList}}/>
+        {!userLists || !currentUser ? "" : <ListAccordion {...{userLists, userId: currentUser.id, filmId: film.id, addItemToList, removeItemFromList}}/>}
       </nav>
     </>
   )
@@ -81,18 +81,18 @@ const ListAccordion = ({userLists, userId, filmId, addItemToList, removeItemFrom
     <div className="list-data-toggler"
       onClick={() => setListDisplay(!listDisplay)}
     >
-      <p>
+      <a>
       {!listDisplay ? "Add film to list..." : "Hide lists..."}
-      </p>
+      </a>
     </div>
     {!listDisplay ? "" : userLists.map(list => 
       <div key={list.id} onClick={() => toggleList(list)}>
-        <p>
+        <a>
           {list.elementId === undefined ? 
             `Add film to ${list.title}` :
             `Remove film from ${list.title}`
           }
-        </p>
+        </a>
       </div>
     )}
   </>
@@ -166,7 +166,7 @@ const RatingButton = ({rating, userId, filmId, updateReview}) => {
       </div>
       <div className={classNames("rating-button",{"rated": rating !== 0 && displayRating === hoverRating})}
         onMouseLeave={() => setHoverRating(displayRating)}>
-        <div className="visible-rating" style={{width: `${hoverRating*20}%`}}/>
+        <div className="visible-rating" style={{width: `${hoverRating*30}px`}}/>
         {[...Array(10)].map((_,idx) => (
           <RatingIncrement key={idx} rating={(idx+1)/2} {...{updateReview,userId,filmId,setHoverRating,setDisplayRating}}/>
         ))}

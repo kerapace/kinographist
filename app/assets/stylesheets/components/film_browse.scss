@@ -1,12 +1,15 @@
-$dark-grey: #283038;
+$dark-grey: #223;
 $font-white: #ccc;
 $sans-serif: 'Lato', sans-serif;
 $serif: 'Merriweather', serif;
 $title: 'Rubik', sans-serif;
 
 .film-browser {
-  margin: 15vh 20vh 0;
+  margin: 15vh 100px 0;
   font-family: $title;
+  background-color: $dark-grey;
+  padding: 2em;
+  border-radius: 5px;
   h1 {
     font-size: 24px;
     text-transform: capitalize;
@@ -28,5 +31,5 @@ $title: 'Rubik', sans-serif;
   grid-gap: 15px;
   justify-items: center;
   margin-bottom: 20px;
-  max-width: 900px;
+  min-width: 900px;
 }

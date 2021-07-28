@@ -6,6 +6,7 @@ import Poster from '../poster';
 
 const Review = ({page, context, review, loggedIn, currentUser, userLike, like, unlike}) => {
   const [likeCount, setLikeCount] = useState(review.likesCount === null ? 0 : review.likesCount);
+  useEffect(() => {setLikeCount(review.likesCount === null ? 0 : review.likesCount)},[review.likesCount])
   return (!review ? "" : 
   <>
     <article className="film-review">
@@ -23,6 +24,11 @@ const Review = ({page, context, review, loggedIn, currentUser, userLike, like, u
               {[...Array(Math.floor(review.rating))].map((_,idx) => <Star key={idx} height={12} width={12}/>)}
               {review.rating - Math.floor(review.rating) === 0 ? "" : <Half key={"half"} height={12} width={12}/>}
             </span>)
+          }
+          {!review.filmLike ? "" : 
+            <span className="like">
+              <Heart width={14} height={14}></Heart>
+            </span>
           }
           {!review.user ? "" :
             <p key={"user"}>Review by <Link className="user-link" to={`/user/${review.userId}`}>{review.user.username}</Link></p>

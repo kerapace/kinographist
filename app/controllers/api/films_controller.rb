@@ -28,11 +28,12 @@ class Api::FilmsController < ApplicationController
 
   def show
     @user = current_user
-    @film = Film.includes(:contributions, :crewmembers, :list_appearances, lists: [:elements], reviews: [:user, :user_like]).find_by(id: params[:id])
+    @film = Film.includes(:contributions, :crewmembers, :list_appearances, lists: [:elements], reviews: [:user]).find_by(id: params[:id])
     if @film
       if @user
         @user_list_appearances = @film.list_appearances.merge(@user.list_elements)
       end
+      @review_film_likes = Like.find(Review.joined_user_like.merge(@film.reviews).pluck("film_likes.id"))
       @backdrop = url_for(@film.backdrop)
       @poster = url_for(@film.poster)
       render :show

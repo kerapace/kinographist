@@ -19,8 +19,6 @@ json.reviews do
   end
 end
 
-
-
 json.users do
   json.set! @user.id do
     json.extract! @user, :id, :username, :bio
@@ -33,26 +31,22 @@ json.users do
   end
 end
 
-json.likes do
-  @user.likes.each do |like|
-    json.set! like.id do
-      json.extract! like, :id, :user_id, :likeable_type, :likeable_id
-      json.created_at like.created_at.to_s
-      json.created Time.at(like.created_at).strftime("%B %e, %Y at %I:%M")
-    end
+json.likes({})
+@user.likes.each do |like|
+  json.partial! 'api/likes/like', like: like
+end
+if current_user
+  current_user.likes.each do |like|
+    json.partial! 'api/likes/like', like: like
   end
-  if current_user
-    current_user.likes.each do |like|
-      json.set! like.id do
-        json.extract! like, :id, :user_id, :likeable_type, :likeable_id
-        json.created_at like.created_at.to_s
-        json.created Time.at(like.created_at).strftime("%B %e, %Y at %I:%M")
-      end
+end
+[@user_review_likes,@liked_review_likes].each do |like_collection|
+  like_collection.each do |like|
+    if like
+      json.partial! 'api/likes/like', like: like
     end
   end
 end
-
-json.likes({}) if @user.likes.empty?
 
 json.films do
   @user.reviews.each do |review|

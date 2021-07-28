@@ -13,6 +13,7 @@ const addDataIfRightType = (like,state) => {
         {
           film: state.entities.films[like.filmId],
           user: state.entities.users[like.userId],
+          filmLike: userLike(state,like.userId,"Film",like.filmId)
         }
       )
     case "List":
@@ -37,7 +38,12 @@ export const crewListGroupedByRole = (state) => {
 
 export const filmReviewsWithUserData = (state, filmId) => 
   (filmReviews(state,filmId).map(review => 
-    Object.assign({},review,{user: state.entities.users[review.userId]})))
+    Object.assign(
+      {},
+      review,
+      {user: state.entities.users[review.userId],
+      filmLike: userLike(state,review.userId,"Film",filmId)},
+    )))
 
 export const filmReviews = (state, filmId) => (
   Object.values(state.entities.reviews).filter(review => review.filmId === filmId)
@@ -56,7 +62,12 @@ export const userRatings = (state,userId) => {
   const reviews = [];
   const userFilmData = Object.values(state.entities.reviews)
     .filter(review => review.userId === userId && review.watched)
-    .map(review => Object.assign({},review,{username: state.entities.users[review.userId].username, film: state.entities.films[review.filmId]}))
+    .map(review => Object.assign({},
+      review,
+      {username: state.entities.users[review.userId].username,
+      film: state.entities.films[review.filmId],
+      filmLike: userLike(state,userId,"Film",review.filmId)
+      }))
     .sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
   userFilmData.forEach(review => review.body ? reviews.push(review) : ratings.push(review));
   return [ratings, reviews];
@@ -66,7 +77,7 @@ export const userLikes = (state,userId) => {
   const types = likeTypes(state);
   return Object.values(state.entities.likes)
     .filter(like => like.userId === userId)
-    .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+    .sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
     .map(like => Object.assign({},{type: like.likeableType},types[like.likeableType][like.likeableId]))
     .map(like => addDataIfRightType(like,state));
 };

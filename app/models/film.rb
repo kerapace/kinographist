@@ -17,7 +17,9 @@ class Film < ApplicationRecord
     through: :contributions,
     source: :person
   
-  has_one :user, -> { none } 
+  has_one :user, -> { none }
+
+  has_one :film, -> { none }
 
   has_many :reviews, dependent: :destroy
 

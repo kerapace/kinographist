@@ -8,6 +8,7 @@ import FilmBrowseContainer from "./components/browse/film_browse_container";
 import HomeSplashContainer from "./components/homepage/home_splash_container";
 import UserProfileContainer from "./components/profile/user_profile_container";
 import WatchListDisplayContainer from "./components/lists/watch_list_display_container";
+import CreateListModalContainer from "./components/homepage/create_list_modal_container";
 
 const App = (props) => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const App = (props) => {
     <>
       <Route path="/">
         <Header/>
+        <CreateListModalContainer/>
         <SignupModalContainer/>
       </Route>
       <Switch>

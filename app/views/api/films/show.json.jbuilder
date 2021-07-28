@@ -34,6 +34,11 @@ end
 json.reviews({}) if @film.reviews.empty?
 
 json.users do
+  if @user
+    json.set! @user.id do
+      json.extract! @user, :id, :username
+    end
+  end
   @film.reviews.each do |review|
     user = review.user
     json.set! user.id do
@@ -44,14 +49,12 @@ end
 
 json.users({}) if @film.reviews.empty?
 
-film_likes = @film.reviews.map{|review| review.user_like}
-
 json.likes({})
 json.likes do
-  film_likes.each do |like|
+  @review_film_likes.each do |like|
     if like
       json.set! like.id do
-        json.extract! :id, :user_id, :likeable_id, :likeable_type
+        json.extract! like, :id, :user_id, :likeable_id, :likeable_type
       end
     end
   end

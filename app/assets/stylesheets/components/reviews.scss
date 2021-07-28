@@ -66,9 +66,18 @@ div.border {
 
 .film-review > section > header > div {
   display: flex;
+  margin: 0.2em 0;
+}
+
+.film-review > section > header > div > span.rating {
   fill: #5e7;
   stroke: #5e7;
-  margin: 0.2em 0;
+}
+
+.film-review span.like > svg {
+  fill: #d45;
+  stroke: #d45;
+  fill-rule: nonzero;
 }
 
 .film-review > div.border {
@@ -93,7 +102,12 @@ div.border {
 }
 
 article.film-review span.rating {
-  margin-right: 1em;
+  margin-right: 0.3em;
+}
+
+article.film-review span.like {
+  margin-top: 0.1em;
+  margin-right: 0.3em;
 }
 
 .review-footer {
