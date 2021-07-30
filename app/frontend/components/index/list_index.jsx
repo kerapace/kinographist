@@ -5,8 +5,12 @@ const ListIndex = ({lists,loggedIn,getAllLists,toggleCreateListModal}) => {
   useEffect(() => getAllLists(),[]);
   return (
     <main className="index">
-      {!loggedIn ? "" : <a onClick={toggleCreateListModal}><h2>Create a New List</h2></a>}
-      <div className="border"/>
+      {!loggedIn ? "" : 
+        <>
+          <a onClick={toggleCreateListModal}><h2>Create a New List</h2></a>
+          <div className="border"/>
+        </>
+      }
       <ListPreviewList title={"Recent Lists"} entries={lists}/>
     </main>
   );

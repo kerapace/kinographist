@@ -209,12 +209,16 @@ article.user-entry > header {
   justify-content: flex-start;
   align-items: center;
   padding: 0.5em;
+  color: $font-white;
   h3 {
     margin-right: 1em;
-    color: $font-white;
     font-family: $sans-serif;
     font-weight: bold;
     font-size: 20px;
+  }
+
+  h3:hover {
+    $color: white;
   }
 
   p {

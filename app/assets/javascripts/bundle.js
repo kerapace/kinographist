@@ -3185,11 +3185,11 @@ var ListIndex = function ListIndex(_ref) {
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
     className: "index"
-  }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+  }, !loggedIn ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     onClick: toggleCreateListModal
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Create a New List")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "border"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_list_preview_list__WEBPACK_IMPORTED_MODULE_1__.default, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_list_preview_list__WEBPACK_IMPORTED_MODULE_1__.default, {
     title: "Recent Lists",
     entries: lists
   }));
@@ -3373,7 +3373,9 @@ var ListDisplay = function ListDisplay(_ref) {
       setLikeCount = _useState2[1];
 
   if (likeCount === null && list) {
-    setLikeCount(list.likesCount);
+    (function () {
+      return setLikeCount(list.likesCount);
+    });
   }
 
   return !list ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, !list.isWatchList ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Redirect, {
@@ -3558,7 +3560,7 @@ var WatchListDisplay = function WatchListDisplay(_ref) {
     }
   }, []);
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(list.elements ? _toConsumableArray(list.elements) : ""),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(list && list.elements ? _toConsumableArray(list.elements) : []),
       _useState2 = _slicedToArray(_useState, 2),
       displayList = _useState2[0],
       updateDisplayList = _useState2[1];

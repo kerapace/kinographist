@@ -6,7 +6,7 @@ import { Eye } from "../svg_elements";
 const WatchListDisplay = ({loggedIn,currentUser,list,listUser,getWatchList,updateReview,removeItemFromList}) => {
   const {userId} = useParams();
   useEffect(() => {if(userId) {getWatchList(userId)}},[]);
-  const [displayList, updateDisplayList] = useState(list.elements ? [...list.elements] : "");
+  const [displayList, updateDisplayList] = useState(list && list.elements ? [...list.elements] : []);
   const clearElement = (idx) => {
     removeItemFromList(displayList[idx].elementId);
     updateDisplayList(displayList.slice(0,idx).concat(displayList.slice(idx+1)))

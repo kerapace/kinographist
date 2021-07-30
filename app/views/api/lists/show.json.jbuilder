@@ -1,5 +1,7 @@
 json.key_format! camelize: :lower
 
+json.partial! 'api/reset'
+
 json.users do
   json.set! @list.user.id do
     json.partial! '/api/users/user', user: @list.user

@@ -7,7 +7,7 @@ import {Heart} from '../svg_elements';
 const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, liked, like, unlike}) => {
   useEffect(() => {if(match.params.listId) {getList(match.params.listId)}},[match]);
   const [likeCount, setLikeCount] = useState(null);
-  if (likeCount === null && list) {setLikeCount(list.likesCount)}
+  if (likeCount === null && list) {() => setLikeCount(list.likesCount)}
   return !list ? "" : (
     <>
       {!list.isWatchList ? "" : <Redirect to={`/user/${list.userId}/watchlist`} />}
