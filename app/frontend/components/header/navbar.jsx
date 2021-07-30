@@ -22,6 +22,7 @@ const Navbar = ({currentUser, toggleSignupModal}) => {
            :
           <>
             <UserDropdownContainer user={currentUser}/>
+            <a></a>
             {/* <Link to="/activity">Activity</Link> */}
           </>
         }
