@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
+import { Redirect } from "react-router-dom";
 
 const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) => {
   const [title,setTitle] = useState("");
   const [blurb,setBlurb] = useState("");
   const [ordered,setOrdered] = useState(true);
+  const [redirect, redirectOnSubmit] = useState(false);
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.height = '100vh';
@@ -14,6 +16,7 @@ const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) =>
   },[])
   return (!displayed ? "" :
   <div className="modal-background">
+    {redirect ? <Redirect to="/lists/:listId"/> : ""}
     <section className="list-form-container">
       <div className="exit-button">
         <a onClick={toggleCreateListModal}>
@@ -24,6 +27,7 @@ const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) =>
       <form onSubmit={e => {
         e.preventDefault();
         createList({userId,title,blurb,ordered},[]);
+        redirectOnSubmit(true);
         toggleCreateListModal();
       }}>
         <input type="text" value={title} placeholder="Title..." onChange={e => setTitle(e.target.value)}/>

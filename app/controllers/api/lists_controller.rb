@@ -14,6 +14,7 @@ class Api::ListsController < ApplicationController
             return render new_el.errors.full_messages, status: 422
           end
         end
+        @like = nil
         render :show
       else
         render json: @list.errors.full_messages, status: 422
