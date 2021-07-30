@@ -1,0 +1,47 @@
+$dark-grey: #283038;
+$shale-blue:#578;
+$font-white: #ccc;
+$lighter-grey: #345;
+$rating-menu-grey: #456;
+$sans-serif: 'Lato', sans-serif;
+$serif: 'Merriweather', serif;
+$title: 'Rubik', sans-serif;
+
+section.list-form-container {
+  font-family: $serif;
+  background-color: $rating-menu-grey;
+  color: $font-white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 400px;
+  height: 150px;
+  h2 {
+    font-family: $sans-serif;
+    text-transform: uppercase;
+  }
+  input[type=text], textarea {
+    margin-top: 1em;
+    width: 80%;
+  }
+
+  label {
+    margin-top: 1em;
+  }
+
+
+  label > input {
+    margin-left: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .exit-button {
+    font-family: $sans-serif;
+    float: right;
+  }
+
+  form {
+    button {
+      margin: 0 auto;
+    }
+  }
+}

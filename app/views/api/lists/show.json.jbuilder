@@ -27,3 +27,7 @@ json.list_elements do
     end
   end
 end
+
+if @like
+  json.partial! 'api/likes/like', like: @like
+end

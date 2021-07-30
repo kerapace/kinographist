@@ -23,9 +23,10 @@ json.lists do
 end
 
 json.list_elements do
-  preview.each do |el|
+  preview.each_with_index do |el,idx|
     json.set! el.id do
-      json.extract! el, :id,   :film_id, :list_id, :ord
+      json.extract! el, :id, :film_id, :list_id
+      json.ord idx
     end
   end
 end

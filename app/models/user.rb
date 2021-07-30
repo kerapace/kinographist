@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :review_likes, through: :reviews, source: :likes
   has_many :liked_reviews, through: :likes, source: :likeable, source_type: :Review
+  has_many :liked_films, through: :likes, source: :likeable, source_type: :Film
+  has_many :liked_lists, through: :lists, source: :likeable, source_type: :List
   has_one :watch_list, ->{where(is_watch_list: true)}, class_name: :List
   has_many :lists
 

@@ -7,7 +7,7 @@ $sans-serif: 'Lato', sans-serif;
 $serif: 'Merriweather', serif;
 $title: 'Rubik', sans-serif;
 
-.review-list-container {
+.review-list-container, .list-previews-container {
   padding: 20px;
   font-family: $serif;
   color: $font-white;
@@ -158,4 +158,47 @@ button.review-like-button.clicked > svg {
   stroke: #5e7;
   display: flex;
   flex-direction: row;
+}
+
+.list-preview {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 30px 1fr;
+  grid-template-areas: "poster title" "poster bio";
+  color: $font-grey;
+  margin-bottom: 10px;
+  font-family: $serif;
+  header {
+    margin-top: 0.5em;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0.25em;
+  }
+}
+
+aside.poster-preview {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  grid-area: poster;
+}
+
+aside.poster-preview > div {
+  width: 40px;
+}
+
+.list-preview header {
+  grid-area: title;
+  border-bottom: 1px solid $font-white;
+}
+
+.list-preview .list-blurb-preview {
+  margin-top: 0.5em;
+  grid-area: bio;
+  font-size: 14px;
+  white-space: no-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

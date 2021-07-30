@@ -102,3 +102,10 @@ if @user
     end
   end
 end
+
+@film.lists.each do |list|
+  json.partial! '/api/lists/preview', list: list
+end
+
+
+

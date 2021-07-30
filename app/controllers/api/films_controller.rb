@@ -48,6 +48,7 @@ class Api::FilmsController < ApplicationController
     if @film
       @backdrop = url_for(@film.backdrop)
       @poster = url_for(@film.poster)
+      @review_film_likes = []
       render :show
     else
       render json: ["Film not found"], status: 404

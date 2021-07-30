@@ -21,7 +21,7 @@ class Api::LikesController < ApplicationController
       elsif user.id != current_user.id
         render json: ["Invalid user"], status: 403
       else 
-        render json: ["#{LikeClass} not found"], status: 404
+        render json: ["#{like_class} not found"], status: 404
       end
     end
   end

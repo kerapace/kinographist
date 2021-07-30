@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { getWatchList } from "../../actions/list_actions";
-import { listWithFilmData, watchList } from "../../reducers/selectors";
+import { listByListId, listWithFilmData, watchList } from "../../reducers/selectors";
 import { updateReview } from "../../actions/review_actions";
 import { removeItemFromList } from "../../actions/list_actions";
 import { toggleReviewModal } from "../../actions/ui_actions";
-import WatchListDisplay from "./list_display";
+import WatchListDisplay from "./watch_list_display";
 
 const mapStateToProps = (state,{match}) => {
   const wList = watchList(state,match.params.userId);
@@ -12,7 +12,7 @@ const mapStateToProps = (state,{match}) => {
     loggedIn: Boolean(state.session.currentUserId),
     listUser: state.entities.users[match.params.userId],
     currentUser: state.entities.users[state.session.currentUserId],
-    list: wList ? listWithFilmData(state,wList.id) : null
+    list: wList ? listByListId(state,wList.id) : null
   };
 };
 

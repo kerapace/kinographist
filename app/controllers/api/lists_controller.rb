@@ -25,6 +25,7 @@ class Api::ListsController < ApplicationController
 
   def show
     @list = List.includes(:user, elements: :film).find_by(id: params[:id])
+    @like = Like.find_by(likeable_type: "List", likeable_id: @list.id)
     if @list
       render :show
     else

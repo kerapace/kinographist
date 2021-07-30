@@ -20,3 +20,7 @@ export const unlikeFilm = (filmId,userId) => dispatch => LikeApiUtil.unlikeFilm(
 export const likeReview = (reviewId,userId) => dispatch => LikeApiUtil.likeReview(reviewId,userId).then(like => dispatch(receiveLike(like)));
 
 export const unlikeReview = (reviewId,userId) => dispatch => LikeApiUtil.unlikeReview(reviewId,userId).then(like => dispatch(deleteLike(like.id)));
+
+export const likeList = (listId,userId) => dispatch => LikeApiUtil.likeList(listId,userId).then(like => dispatch(receiveLike(like)));
+
+export const unlikeList = (listId,userId) => dispatch => LikeApiUtil.unlikeList(listId,userId).then(like => dispatch(deleteLike(like.id)));

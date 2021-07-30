@@ -20,7 +20,7 @@ const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) =>
           X
         </a>
       </div>
-      <h2>Create New List...</h2>
+      <h2>Create New List</h2>
       <form onSubmit={e => {
         e.preventDefault();
         createList({userId,title,blurb,ordered},[]);
@@ -28,8 +28,8 @@ const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) =>
       }}>
         <input type="text" value={title} placeholder="Title..." onChange={e => setTitle(e.target.value)}/>
         <textarea value={blurb} placeholder="Say a little something about the list" onChange={e => setBlurb(e.target.value)}/>
-        <input type="checkbox" value={"ordered"} onChange={e => setOrdered(e.target.checked)} defaultChecked={ordered}/>
-        <button>Create List</button>
+        <label>Ordered<input type="checkbox" value={"ordered"} onChange={e => setOrdered(e.target.checked)} defaultChecked={ordered}/></label>
+        <button className="pretty-button large">Create List</button>
       </form>
     </section>
   </div>

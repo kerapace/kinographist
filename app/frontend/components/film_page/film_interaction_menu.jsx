@@ -86,9 +86,9 @@ const ListAccordion = ({userLists, userId, filmId, addItemToList, removeItemFrom
       </a>
     </div>
     {!listDisplay ? "" : userLists.map(list => 
-      <div key={list.id} onClick={() => toggleList(list)}>
+      <div key={list.id} className="toggle-list-presence-button" onClick={() => toggleList(list)}>
         <a>
-          {list.elementId === undefined ? 
+          {list.elementId === null ? 
             `Add film to ${list.title}` :
             `Remove film from ${list.title}`
           }
@@ -181,5 +181,6 @@ const RatingIncrement = ({rating,updateReview, userId, filmId, setHoverRating, s
     updateReview({rating,userId,filmId,watched: true});
   }}/>
 );
+
 
 export default FilmInteractionMenu;

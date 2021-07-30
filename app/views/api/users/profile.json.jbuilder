@@ -70,7 +70,7 @@ json.films do
     film = review.film
     json.set! film.id do
       json.extract! film, :id, :title
-      json.poster url_for(film.poster) if film.poster.attached?
+        json.poster url_for(film.poster) if film.poster.attached?
     end
   end
 end
@@ -78,5 +78,9 @@ end
 json.lists({})
 
 json.list_elements({})
+
+@user.lists.each do |list|
+  json.partial! 'api/lists/preview', list: list
+end
 
 json.films({}) if @user.reviews.empty? && @user.likes.empty?

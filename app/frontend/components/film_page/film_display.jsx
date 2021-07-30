@@ -4,9 +4,10 @@ import FilmInfoDisplay from "./film_info_display";
 import Poster from "../poster";
 import ReviewList from "../embeds/review_list";
 import FilmInteractionMenuContainer from "./film_interaction_menu_container"
+import ListPreviewList from "../embeds/list_preview_list";
 
-const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId}) => {
-  useEffect(() => getFilm(match.params.filmId),[match,currentUserId]);
+const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId,listPreviews}) => {
+  useEffect(() => {if(match.params.filmId) {getFilm(match.params.filmId)}},[match,currentUserId]);
   return !film || Object.keys(crewHash).length === 0 ? "" : (
     <>
       <div className="splash-container">
@@ -43,6 +44,7 @@ const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId}) =
         </section>
         <section className="reviews-container">
           <ReviewList page={"film"} reviews={reviews}/>
+          <ListPreviewList title={"Lists"} entries={listPreviews}/>
         </section>
       </main>
       </>

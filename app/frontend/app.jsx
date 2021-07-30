@@ -9,6 +9,7 @@ import HomeSplashContainer from "./components/homepage/home_splash_container";
 import UserProfileContainer from "./components/profile/user_profile_container";
 import WatchListDisplayContainer from "./components/lists/watch_list_display_container";
 import CreateListModalContainer from "./components/homepage/create_list_modal_container";
+import ListDisplayContainer from "./components/lists/list_display_container";
 
 const App = (props) => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App = (props) => {
         <Route path="/film/:filmId" component={FilmDisplayContainer}/>
         <Route path="/films/browse" component={FilmBrowseContainer}/>
         <Route exact path="/user/:userId" component={UserProfileContainer}/>
+        <Route path="/list/:listId" component={ListDisplayContainer}/>
         <Route path ="/user/:userId/watchlist" component={WatchListDisplayContainer}/>
         <Route path="/" render={() => (<Redirect to="/"/>)}/>
       </Switch>

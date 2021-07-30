@@ -17,12 +17,18 @@ const addDataIfRightType = (like,state) => {
         }
       )
     case "List":
+      return Object.assign(like,
+        {
+          user: state.entities.users[like.userId],
+          elements: listWithFilmData(state,like.id).slice(0,5)
+        }
+      )
     default:
       return like;
   }
 };
 
-const likeTypes = (state) => ({"Review": state.entities.reviews, "Film": state.entities.films});
+const likeTypes = (state) => ({"Review": state.entities.reviews, "Film": state.entities.films, "List": state.entities.lists});
 
 export const crewListGroupedByRole = (state) => {
   const crewHash = {};
@@ -106,6 +112,35 @@ export const filmElement = (state,listId,filmId) => {
   const element = Object.values(state.entities.listElements).find(element => element.listId === listId && element.filmId === filmId)
   return element === undefined ? null : element.id;
 };
+
+export const listPreviewsByUserId = (state,userId) => {
+  const lists = Object.values(state.entities.lists)
+    .filter(list => list.userId === userId)
+    .map(list => Object.assign({},list,
+      {elements: listWithFilmData(state,list.id).slice(0,5)}
+    ));
+  return lists;
+}
+
+export const listPreviewsByFilmId = (state,filmId) => {
+  const lists = Object.values(state.entities.listElements)
+    .filter(element => element.filmId === filmId)
+    .map(element => state.entities.lists[element.listId])
+    .filter(list => !list.isWatchList)
+    .map(list => Object.assign({},list,
+      {elements: listWithFilmData(state,list.id).slice(0,5)}
+    ));
+  return lists;
+}
+
+export const listByListId = (state,listId) => {
+  const list = state.entities.lists[listId];
+  return !list ? null : Object.assign({},list,{elements: listWithFilmData(state,listId)});
+}
+
+export const listPreviewElements = (state,listId) => {
+  return listWithFilmData(state,listId).slice(0,5);
+}
 
 export const filmAssociatedPeople = (state) => (
   Object.values(state.entities.people)

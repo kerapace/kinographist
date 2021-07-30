@@ -10,6 +10,13 @@ $title: 'Rubik', sans-serif;
   background-color: $dark-grey;
   padding: 2em;
   border-radius: 5px;
+  p {
+    font-family: $sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: $font-white;
+    margin-bottom: 0.2em;
+  }
   h1 {
     font-size: 24px;
     text-transform: capitalize;
@@ -19,6 +26,13 @@ $title: 'Rubik', sans-serif;
   h2 {
     font-size: 16px;
     text-transform: uppercase;
+  }
+  section.blurb > p {
+    font-size: 14px;
+    font-family: $serif;
+    font-weight: normal;
+    color: #aab;
+    padding: 1em 0.5em;
   }
 }
 

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {crewListGroupedByRole, filmReviewsWithUserData} from "../../reducers/selectors";
+import {crewListGroupedByRole, filmReviewsWithUserData, listPreviewsByFilmId} from "../../reducers/selectors";
 import {getFilm} from "../../actions/film_actions";
 import FilmDisplay from "./film_display";
 
@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   currentUserId: state.session.currentUserId,
   crewHash: crewListGroupedByRole(state),
   reviews: filmReviewsWithUserData(state, !film ? undefined : film.id),
+  listPreviews: listPreviewsByFilmId(state,!film ? undefined : film.id)
   }
 };
 

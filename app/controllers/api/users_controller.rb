@@ -10,9 +10,13 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(liked_reviews: {film: {poster_attachment: :blob}}, lists: {elements: {film: {poster_attachment: :blob}}}, likes: {likeable: [:user,:film]}, reviews: [{film: {poster_attachment: :blob}}, :likes]).with_attached_avatar.find_by(id: params[:id])
-    @user_review_likes = Like.find(Review.joined_user_like.merge(@user.reviews).pluck("film_likes.id"))
-    @liked_review_likes = Like.find(Review.joined_user_like.merge(@user.liked_reviews).pluck("film_likes.id"))
+    @user = User.includes(
+      liked_reviews: {film: {poster_attachment: :blob}},
+      lists: {elements: {film: {poster_attachment: :blob}}},
+      likes: {likeable: [:user,film: {poster_attachment: :blob}]},
+      reviews: [{film: {poster_attachment: :blob}}, :likes]).with_attached_avatar.find_by(id: params[:id])
+    @user_review_likes = Like.find(@user.reviews.joined_user_like.pluck("film_likes.id"))
+    @liked_review_likes = Like.find(@user.liked_reviews.joined_user_like.pluck("film_likes.id"))
     if @user
       render :profile
     else

@@ -38,7 +38,7 @@ const Review = ({page, context, review, loggedIn, currentUser, userLike, like, u
         </header>
         <p>{review.body}</p>
         <footer className="review-footer">
-          {!loggedIn || review.userId === currentUser.id ? "" :
+          {!loggedIn || review.userId === currentUser.id || page === "like" ? "" :
             <ReviewLikeButton liked={userLike} likeableId={review.id} userId={currentUser.id} {...{like, unlike, likeCount, setLikeCount}}/>
           }
           <p>{`${likeCount} ${likeCount === 1 ? "like" : "likes"}`}</p>
@@ -55,7 +55,7 @@ const ReviewLikeButton = ({liked, likeableId, userId, like, unlike, likeCount, s
   const isLoaded = useRef(true);
   useEffect(() => {return () => isLoaded.current = false;},[])
   const toggleLike = () => {
-    if(liked) { 
+    if(liked) {
       unlike(likeableId,userId).then(() => isLoaded.current ? setLikeCount(likeCount-1) : null);
     } else {
       like(likeableId,userId).then(() => isLoaded.current ? setLikeCount(likeCount+1) : null);
