@@ -7,6 +7,14 @@
     <%= favicon_link_tag asset_path('film_icon.svg') %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+     <meta property="og:title" content="Kinographist" />
+     <meta property='og:image' content="<%= image_url('site_image.png') %>"/>
+     <meta property="og:description"
+       content="Film cataloguing and review site."
+     />
+     <meta property="og:url"
+       content="https://kinographist.herokuapp.com/"
+     />
   </head>
 
   <body>

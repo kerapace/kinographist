@@ -16,7 +16,7 @@ const CreateListModal = ({displayed,userId,toggleCreateListModal,createList}) =>
   },[])
   return (!displayed ? "" :
   <div className="modal-background">
-    {redirect ? <Redirect to="/lists/:listId"/> : ""}
+    {redirect ? <Redirect to="/list/:listId"/> : ""}
     <section className="list-form-container">
       <div className="exit-button">
         <a onClick={toggleCreateListModal}>
