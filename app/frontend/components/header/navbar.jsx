@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import LoginFormContainer from "./login_form_container";
 import UserDropdownContainer from "./user_dropdown_container";
@@ -22,7 +22,7 @@ const Navbar = ({currentUser, toggleSignupModal}) => {
            :
           <>
             <UserDropdownContainer user={currentUser}/>
-            <Link to="/activity">Activity</Link>
+            {/* <Link to="/activity">Activity</Link> */}
           </>
         }
         <Link to="/films/browse">Films</Link>
