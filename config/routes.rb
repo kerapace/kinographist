@@ -3,12 +3,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do 
     resource :session, only: [:create, :destroy]
-    resources :users, only: [:create, :show]
+    resources :users, only: [:create, :show, :index]
     resources :films, only: [:create, :update, :show]
     resources :likes, only: [:create, :index]
     resources :people, only: [:show]
     resources :reviews, only: [:show, :destroy]
-    resources :lists, only: [:create, :show, :update, :destroy]
+    resources :lists, only: [:create, :show, :index, :update, :destroy]
     resources :list_elements, only: [:create, :destroy]
     get 'films/by_tmdb_id/:tmdb_id', to: 'films#find_by_tmdb_id'
     get '/watchlist/:user_id', to: 'lists#get_watchlist'

@@ -5,8 +5,9 @@ import classNames from "classnames";
 import {Heart} from '../svg_elements';
 
 const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, liked, like, unlike}) => {
-  useEffect(() => {if(match.params.listId) {getList(match.params.listId).then(() => setLikeCount(list.likesCount === null ? 0 : list.likesCount))}},[match]);
-  const [likeCount, setLikeCount] = useState(!list || list.likesCount === null ? 0 : list.likesCount);
+  useEffect(() => {if(match.params.listId) {getList(match.params.listId)}},[match]);
+  const [likeCount, setLikeCount] = useState(null);
+  if (likeCount === null && list) {setLikeCount(list.likesCount)}
   return !list ? "" : (
     <>
       {!list.isWatchList ? "" : <Redirect to={`/user/${list.userId}/watchlist`} />}
@@ -40,9 +41,9 @@ const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, lik
 const ListLikeButton = ({liked,likeableId,userId,like,unlike,likeCount,setLikeCount}) => {
   const toggleLike = () => {
     if(liked) {
-      unlike(likeableId,userId).then(setLikeCount(likeCount-1));
+      unlike(likeableId,userId).then(() => setLikeCount(likeCount-1));
     } else {
-      like(likeableId,userId).then(setLikeCount(likeCount+1));
+      like(likeableId,userId).then(() => setLikeCount(likeCount+1));
     }
   };
   return (

@@ -10,6 +10,8 @@ import UserProfileContainer from "./components/profile/user_profile_container";
 import WatchListDisplayContainer from "./components/lists/watch_list_display_container";
 import CreateListModalContainer from "./components/homepage/create_list_modal_container";
 import ListDisplayContainer from "./components/lists/list_display_container";
+import ListIndexContainer from "./components/index/list_index_container";
+import UserIndexContainer from "./components/index/user_index_container";
 
 const App = (props) => {
   useEffect(() => {
@@ -27,6 +29,8 @@ const App = (props) => {
         <Route exact path="/" render={() => <HomeSplashContainer tmdbId={378064}/>}/>
         <Route path="/film/:filmId" component={FilmDisplayContainer}/>
         <Route path="/films/browse" component={FilmBrowseContainer}/>
+        <Route exact path="/lists" component={ListIndexContainer}/>
+        <Route exact path="/users" component={UserIndexContainer}/>
         <Route exact path="/user/:userId" component={UserProfileContainer}/>
         <Route path="/list/:listId" component={ListDisplayContainer}/>
         <Route path ="/user/:userId/watchlist" component={WatchListDisplayContainer}/>

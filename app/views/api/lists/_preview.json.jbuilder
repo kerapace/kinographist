@@ -18,7 +18,7 @@ end
 
 json.lists do
   json.set! list.id do
-    json.extract! list, :id, :user_id, :is_watch_list, :title, :blurb, :ordered, :num_elements
+    json.extract! list, :id, :user_id, :is_watch_list, :title, :blurb, :ordered, :num_elements, :likes_count
   end
 end
 

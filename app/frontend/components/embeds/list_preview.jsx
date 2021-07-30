@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const ListPreview = ({list}) => {
   return (
   <>
-    <article className="list-preview">
+    <article key={list.id} className="list-preview">
       <aside className="poster-preview">
         {!list.elements ? "" :
           list.elements.slice().reverse().map(film =>

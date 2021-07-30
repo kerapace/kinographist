@@ -8,14 +8,14 @@ const MultitypeList = ({title, entries}) => (
     <h2>{title}</h2>
     <div className="border"/>
     {!entries ? "" :
-      entries.map(entry => {
+      entries.map((entry,idx) => {
         switch(entry.type) {
           case "Review":
-            return <ReviewContainer page={"like"} context={"list"} key={entry.id} review={entry}/>;
+            return <ReviewContainer page={"like"} context={"list"} key={idx} review={entry}/>;
           case "Film":
-            return <FilmEntry key={entry.id} film={entry}/>;
+            return <FilmEntry key={idx} film={entry}/>;
           case "List":
-            return <ListPreview key={entry.id} list={entry}/>;
+            return <ListPreview key={idx} list={entry}/>;
           default:
             return "";
         }

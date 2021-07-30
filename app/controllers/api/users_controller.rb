@@ -9,6 +9,11 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.with_attached_avatar
+    render :index
+  end
+
   def show
     @user = User.includes(
       liked_reviews: {film: {poster_attachment: :blob}},

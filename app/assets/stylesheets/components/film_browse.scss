@@ -39,11 +39,23 @@ $title: 'Rubik', sans-serif;
 .film-browse-container {
   padding-top: 20px;
   display: grid;
-  grid-template-rows: repeat(5,1fr);
-  grid-template-columns: repeat(5,1fr);
+  grid-auto-rows: 217px;
+  grid-template-columns: repeat(5,150px);
   grid-auto-flow: row;
   grid-gap: 15px;
   justify-items: center;
   margin-bottom: 20px;
   min-width: 900px;
+}
+
+main.index {
+  margin: 15vh auto 0;
+  max-width: 800px;
+  h2 {
+    font-size: 24px;
+    font-family: $serif;
+    color: $font-white;
+    font-weight: bold;
+    padding-bottom: 0.2em;
+  }
 }

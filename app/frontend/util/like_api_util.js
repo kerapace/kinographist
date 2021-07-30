@@ -50,7 +50,7 @@ export const likeList = (likeableId, userId) => ($.ajax({
 
 export const unlikeList = (likeableId, userId) => ($.ajax({
   url: `api/likes`,
-  method: `POST`,
+  method: `DELETE`,
   data: {
     type: 'List',
     userId,

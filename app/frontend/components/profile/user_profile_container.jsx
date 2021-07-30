@@ -7,7 +7,6 @@ import { toggleCreateListModal } from '../../actions/ui_actions';
 const mapStateToProps = (state,ownProps) => {
   const user = state.entities.users[ownProps.match.params.userId];
   const [ratings, reviews] = userRatings(state, !user ? undefined : user.id);
-  debugger
   return {
     user,
     currentUser: state.entities.users[state.session.currentUserId],

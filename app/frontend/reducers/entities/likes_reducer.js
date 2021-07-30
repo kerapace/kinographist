@@ -1,6 +1,7 @@
 import { RECEIVE_PROFILE_DATA } from "../../actions/user_actions";
 import { RECEIVE_VERBOSE_FILM_DATA } from "../../actions/film_actions";
 import { RECEIVE_LIKE, DELETE_LIKE } from "../../actions/like_actions";
+import { RECEIVE_LIST_DATA } from "../../actions/list_actions";
 const likesReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = {};
@@ -11,6 +12,10 @@ const likesReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_VERBOSE_FILM_DATA:
       Object.values(action.filmData.likes).forEach(like => 
+        newState[like.id] = like);
+      return newState;
+    case RECEIVE_LIST_DATA:
+      Object.values(action.listData.likes).forEach(like =>
         newState[like.id] = like);
       return newState;
     case RECEIVE_LIKE:

@@ -7,6 +7,11 @@ export const createList = (list, elements) => ($.ajax({
   }
 }));
 
+export const getAllLists = () => ($.ajax({
+  url: `api/lists/`,
+  method: 'GET',
+}));
+
 export const getList = (id) => ($.ajax({
   url: `api/lists/${id}`,
   method: 'GET'

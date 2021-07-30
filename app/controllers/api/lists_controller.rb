@@ -23,6 +23,11 @@ class Api::ListsController < ApplicationController
     end
   end
 
+  def index
+    @lists = List.includes(:user, elements: {film: {poster_attachment: :blob, backdrop_attachment: :blob}})
+    render :index
+  end
+
   def show
     @list = List.includes(:user, elements: :film).find_by(id: params[:id])
     @like = Like.find_by(likeable_type: "List", likeable_id: @list.id)

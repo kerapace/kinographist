@@ -145,3 +145,13 @@ export const listPreviewElements = (state,listId) => {
 export const filmAssociatedPeople = (state) => (
   Object.values(state.entities.people)
 );
+
+export const allListPreviews = (state) => {
+  return Object.values(state.entities.lists).map(list =>
+    Object.assign({},list,{elements: listWithFilmData(state,list.id).slice(0,5)})
+  );
+};
+
+export const allUsers = (state) => {
+  return Object.values(state.entities.users).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+}

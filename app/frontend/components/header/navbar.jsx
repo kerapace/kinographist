@@ -27,7 +27,7 @@ const Navbar = ({currentUser, toggleSignupModal}) => {
         }
         <Link to="/films/browse">Films</Link>
         <Link to="/lists">Lists</Link>
-        <Link to="/members">Members</Link>
+        <Link to="/users">Members</Link>
       </nav>
     </div>
   );

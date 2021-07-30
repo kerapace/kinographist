@@ -25,3 +25,10 @@ section.user-content {
   width: 75%;
   margin: 0 auto;
 }
+
+section.user-content > a > h2 {
+  font-family: $serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: $font-white;
+}
