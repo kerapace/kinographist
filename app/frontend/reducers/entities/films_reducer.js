@@ -23,7 +23,7 @@ const filmsReducer = (state = {}, action) => {
       );
       return newState;
     case RECEIVE_LIST_DATA:
-      newState = {};
+      newState = Object.assign({},state);
       Object.values(action.listData.films).forEach(film =>
         newState[film.id] = film
       );

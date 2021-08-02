@@ -7,22 +7,24 @@ import {Heart} from '../svg_elements';
 const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, liked, like, unlike}) => {
   useEffect(() => {if(match.params.listId) {getList(match.params.listId)}},[match]);
   const [likeCount, setLikeCount] = useState(null);
-  if (likeCount === null && list) {() => setLikeCount(list.likesCount)}
+  if (likeCount === null && list) {
+    setLikeCount(list.likesCount === null ? 0 : list.likesCount)
+  }
   return !list ? "" : (
     <>
       {!list.isWatchList ? "" : <Redirect to={`/user/${list.userId}/watchlist`} />}
       <section className="film-browser">
       <header>
         <h1>{`${list.title}`}</h1>
-      </header>
-      <p>Made by <Link to={`/user/${list.userId}`}>{listUser.username}</Link></p>
+        <p>Made by <Link to={`/user/${list.userId}`}>{listUser.username}</Link></p>
       <section className="blurb">
         <p>{list.blurb}</p>
       </section>
       <section className="like-menu">
-        {!loggedIn ? "" : <ListLikeButton likeableId={list.id} userId={currentUser.id} {...{liked, like, unlike, likeCount, setLikeCount}}/> }
+        {!loggedIn || listUser.id === currentUser.id ? "" : <ListLikeButton likeableId={list.id} userId={currentUser.id} {...{liked, like, unlike, likeCount, setLikeCount}}/> }
         <p>{`${likeCount} ${likeCount === 1 ? "like" : "likes"}`}</p>
       </section>
+      </header>
       <div className="border"/>
       <div className="film-browse-container">
         {!list.elements ? "" : (
@@ -48,7 +50,7 @@ const ListLikeButton = ({liked,likeableId,userId,like,unlike,likeCount,setLikeCo
   };
   return (
     <button className={classNames("review-like-button",{"clicked": liked})} onClick={toggleLike}>
-      <Heart height={30} width={30}/>
+      <Heart height={24} width={24}/>
     </button>
   );
 };

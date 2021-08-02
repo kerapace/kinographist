@@ -5,11 +5,16 @@ $serif: 'Merriweather', serif;
 $title: 'Rubik', sans-serif;
 
 .film-browser {
-  margin: 15vh 100px 0;
+  margin: 15vh auto 0;
   font-family: $title;
   background-color: $dark-grey;
   padding: 2em;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
   p {
     font-family: $sans-serif;
     font-size: 14px;
@@ -28,11 +33,16 @@ $title: 'Rubik', sans-serif;
     text-transform: uppercase;
   }
   section.blurb > p {
+    line-height: 1.4em;
     font-size: 14px;
     font-family: $serif;
     font-weight: normal;
     color: #aab;
     padding: 1em 0.5em;
+  }
+
+  header {
+    align-self: flex-start;
   }
 }
 
@@ -44,8 +54,7 @@ $title: 'Rubik', sans-serif;
   grid-auto-flow: row;
   grid-gap: 15px;
   justify-items: center;
-  margin-bottom: 20px;
-  min-width: 900px;
+  margin: 0 auto 20px;
 }
 
 main.index {
@@ -56,6 +65,18 @@ main.index {
     font-family: $serif;
     color: $font-white;
     font-weight: bold;
+    padding-bottom: 0.2em;
+  }
+}
+
+.like-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  button {
+    margin-right: 0.3em;
+  }
+  p {
     padding-bottom: 0.2em;
   }
 }

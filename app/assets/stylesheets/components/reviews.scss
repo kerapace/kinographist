@@ -33,7 +33,7 @@ div.border {
 
 .film-review > section {
   margin-left: 1em;
-  line-height: 1.2em;
+  line-height: 1.4em;
 }
 
 .film-review > section > p {
@@ -43,7 +43,7 @@ div.border {
 
 .film-review > p {
   grid-area: review;
-  line-height: 1.2em;
+  line-height: 1.4em;
   padding: 0.5em;
   font-size: 14px;
 }
@@ -163,19 +163,28 @@ button.review-like-button.clicked > svg {
 .list-preview {
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 30px 1fr;
+  grid-template-rows: 50px 1fr;
   grid-template-areas: "poster title" "poster bio";
   color: $font-grey;
   margin-bottom: 10px;
   font-family: $serif;
   header {
     margin-top: 0.5em;
+    p {
+      font-family: $sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+    }
   }
   h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 0.25em;
   }
+}
+
+section.list-blurb-preview {
+  line-height: 1.4em;
 }
 
 aside.poster-preview {
@@ -192,6 +201,12 @@ aside.poster-preview > div {
 .list-preview header {
   grid-area: title;
   border-bottom: 1px solid $font-white;
+}
+
+.preview-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .list-preview .list-blurb-preview {

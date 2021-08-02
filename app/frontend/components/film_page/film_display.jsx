@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import FilmInfoDisplay from "./film_info_display";
 import Poster from "../poster";
 import ReviewList from "../embeds/review_list";
@@ -7,7 +7,8 @@ import FilmInteractionMenuContainer from "./film_interaction_menu_container"
 import ListPreviewList from "../embeds/list_preview_list";
 
 const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId,listPreviews}) => {
-  useEffect(() => {if(match.params.filmId) {getFilm(match.params.filmId)}},[match,currentUserId]);
+  const {filmId} = useParams();
+  useEffect(() => {if(match.params.filmId) {getFilm(filmId)}},[filmId,currentUserId]);
   return !film || Object.keys(crewHash).length === 0 ? "" : (
     <>
       <div className="splash-container">

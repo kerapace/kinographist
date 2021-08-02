@@ -6,6 +6,7 @@ const Header = (props) => (
   <div className="header-container">
     <header className="main-header">
         <div className="background-gradient"></div>
+        <div className="background-gradient present"/>
         <div className="logo-container">
           <Link to="/">
             Kinographist

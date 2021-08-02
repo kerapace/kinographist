@@ -83,7 +83,7 @@ export const userLikes = (state,userId) => {
   const types = likeTypes(state);
   return Object.values(state.entities.likes)
     .filter(like => like.userId === userId)
-    .sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
+    .sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
     .map(like => Object.assign({},{type: like.likeableType},types[like.likeableType][like.likeableId]))
     .map(like => addDataIfRightType(like,state));
 };
@@ -128,7 +128,10 @@ export const listPreviewsByFilmId = (state,filmId) => {
     .map(element => state.entities.lists[element.listId])
     .filter(list => !list.isWatchList)
     .map(list => Object.assign({},list,
-      {elements: listWithFilmData(state,list.id).slice(0,5)}
+      {
+        elements: listWithFilmData(state,list.id).slice(0,5),
+        user: state.entities.users[list.userId],
+      }
     ));
   return lists;
 }
@@ -147,8 +150,13 @@ export const filmAssociatedPeople = (state) => (
 );
 
 export const allListPreviews = (state) => {
-  return Object.values(state.entities.lists).map(list =>
-    Object.assign({},list,{elements: listWithFilmData(state,list.id).slice(0,5)})
+  return Object.values(state.entities.lists)
+    .filter(list => !list.isWatchList)
+    .map(list =>
+    Object.assign({},list,{
+      user: state.entities.users[list.userId],
+      elements: listWithFilmData(state,list.id).slice(0,5),
+    })
   );
 };
 

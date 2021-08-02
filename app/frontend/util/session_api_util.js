@@ -17,4 +17,4 @@ export const login = (formUser) => ($.ajax({
 export const logout = () => ($.ajax({
   url: 'api/session',
   method: 'DELETE',
-}))
+}));
