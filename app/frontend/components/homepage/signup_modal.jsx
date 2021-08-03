@@ -44,7 +44,7 @@ const SignupModal = ({sessionErrors,isDisplayed,signup,toggleSignupModal,flushSe
           </label>
           <button className="pretty-button large">Sign Up</button>
         </form>
-          <ErrorDisplay errors={sessionErrors}/>
+          {sessionErrors.length === 0 ? "" : <ErrorDisplay errors={sessionErrors.slice(0,1)}/>}
       </section>
     </div>
   );

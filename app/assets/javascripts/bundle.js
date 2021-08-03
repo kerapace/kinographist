@@ -5138,8 +5138,8 @@ var SignupModal = function SignupModal(_ref) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: "pretty-button large"
-  }, "Sign Up")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_errors_error_display__WEBPACK_IMPORTED_MODULE_1__.default, {
-    errors: sessionErrors
+  }, "Sign Up")), sessionErrors.length === 0 ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_errors_error_display__WEBPACK_IMPORTED_MODULE_1__.default, {
+    errors: sessionErrors.slice(0, 1)
   })));
 };
 
