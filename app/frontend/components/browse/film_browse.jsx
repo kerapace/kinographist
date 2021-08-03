@@ -25,35 +25,44 @@ const languageOptions = [
 ];
 
 const FilmBrowse = ({films, getFilms, getPerson, position}) => {
-  const [year, setYear] = useState("");
   const {personId} = useParams();
-  const [genre, setGenre] = useState("");
-  const [language, setLanguage] = useState("");
+  const [decade, setDecade] = useState(null);
+  const [genre, setGenre] = useState(null);
+  const [language, setLanguage] = useState(null);
   const getFilter = () => {
-    let filter = Object.fromEntries(Object.entries({year,genre,language}).filter(([_,v]) => v !== ""));
+    let filter = Object.fromEntries(Object.entries({decade,genre,language}).filter(([_,v]) => v !== null));
     if(position !== "" && personId !== "") {filter[position] = personId}
     return filter;
   };
   useEffect(() => {if(personId !== undefined) {getPerson(personId)}},[])
-  useEffect(() => getFilms(getFilter()),[year,genre,language])
+  useEffect(() => getFilms(getFilter()),[decade,genre,language])
   return (
     <section className="film-browser">
       <header>
         <h1>Browse Films</h1>
-        <select key={"genre"} id="genre" onChange={(e) => setGenre(e.target.value)}>
-          <option key={"blank"} value={""}>Genre</option>
-          {genres.map(genre => <option key={genre} value={genre}>{genre}</option>)}
-        </select>
-        <select key={"year"} id="year" onChange={(e) => setYear(e.target.value)}>
-          <option key={"blank"} value={""}>Year</option>
-          {
-            [...Array(121)].map((_,idx) => <option key={idx+1901} value={idx+1901}>{idx+1901}</option>)
-          }
-        </select>
-        <select key={"language"} id="language" onChange={(e) => setLanguage(e.target.value)}>
-          <option key={"blank"} value={""}>Language</option>
-          {languages.map(language => <option key={language} type="select" value={language}>{language}</option>)}
-        </select>
+        <section className="selectors-menu">
+          <Select key={"genre"}
+            isClearable
+            placeholder={"Genre"}
+            value={!genre ? null : [{value: genre, label: genre}]}
+            className={"browse-selector"} 
+            options={genreOptions}
+            onChange={(e) => setGenre(e ? e.value : null)}/>
+          <Select key={"year"}
+            isClearable
+            placeholder={"Decade"}
+            value={!decade ? null : [{value: decade, label: `${decade}s`}]}
+            className={"browse-selector"}
+            options={[...Array(11)].map((_,idx) => ({value: 1920+10*idx, label: `${1920+10*idx}s`}))}
+            onChange={(e) => setDecade(e ? e.value : null)}/>
+          <Select key={"language"} 
+            isClearable
+            placeholder={"Language"}
+            value={!language ? null : [{value: language, label: language}]} 
+            className={"browse-selector"}
+            options={languageOptions} 
+            onChange={(e) => setLanguage(e ? e.value : null)}/>
+          </section>
       </header>
       <div className="film-browse-container">
         {!films ? "" : films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}

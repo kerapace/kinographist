@@ -51,6 +51,8 @@ class Film < ApplicationRecord
     case constraint[0]
     when "year"
       relation.where(release_year: Integer(constraint[1]))
+    when "decade"
+      relation.where('(release_year/10)*10 = ?',constraint[1])
     when "actor" || "director" || "writer" || "producer" || "composer"
       relation.joins(:contributions).where('position = ? AND person_id = ?',constraint[0],constraint[1])
     when "language"

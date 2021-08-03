@@ -43,6 +43,7 @@ $title: 'Rubik', sans-serif;
 
   header {
     align-self: flex-start;
+    width: 60%;
   }
 }
 
@@ -55,6 +56,15 @@ $title: 'Rubik', sans-serif;
   grid-gap: 15px;
   justify-items: center;
   margin: 0 auto 20px;
+}
+
+.selectors-menu {
+  display: flex;
+}
+
+.browse-selector {
+  width: 200px;
+  margin-right: 0.5em
 }
 
 main.index {
