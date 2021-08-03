@@ -9,7 +9,7 @@ $title: 'Rubik', sans-serif;
   font-family: $title;
   background-color: $dark-grey;
   padding: 2em;
-  border-radius: 5px;
+  border-radius: 1em;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,6 +66,9 @@ main.index {
     color: $font-white;
     font-weight: bold;
     padding-bottom: 0.2em;
+  }
+  h2:hover {
+    color: white;
   }
 }
 

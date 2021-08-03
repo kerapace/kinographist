@@ -1,9 +1,28 @@
-import React, {useState, useEffect} from "react";
+import React, {Component, useState, useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
 import Poster from "../poster";
+import Select from 'react-select';
 
 const genres = ["Action","Comedy","Drama","Mystery","Crime",];
+
+const genreOptions = [
+  {value: "Action", label: "Action"},
+  {value: "Comedy", label: "Comedy"},
+  {value: "Drama", label: "Drama"},
+  {value: "Mystery", label: "Mystery"},
+  {value: "Crime", label: "Crime"}
+];
+
 const languages = ["English","French","Spanish","Italian","Japanese","Korean"];
+
+const languageOptions = [
+  {value: "English", label: "English"},
+  {value: "French", label: "French"},
+  {value: "Spanish", label: "Spanish"},
+  {value: "Italian", label: "Italian"},
+  {value: "Japanese", label: "Japanese"},
+  {value: "Korean", label: "Korean"},
+];
 
 const FilmBrowse = ({films, getFilms, getPerson, position}) => {
   const [year, setYear] = useState("");
