@@ -3,10 +3,10 @@ import {getFilmByTmdbId} from '../../actions/film_actions';
 import {toggleSignupModal} from '../../actions/ui_actions';
 import HomeSplash from './home_splash';
 
-const mapStateToProps = ({entities, session},ownProps) => ({
-  splashHeaderFilm: Object.values(entities.films).find(film => ownProps.tmdbId === film.tmdbId),
-  loggedIn: !!session.currentUserId,
-  user: entities.users[session.currentUserId],
+const mapStateToProps = (state,ownProps) => ({
+  splashHeaderFilm: Object.values(state.entities.films).find(film => ownProps.tmdbId === film.tmdbId),
+  loggedIn: !!state.session.currentUserId,
+  user: state.entities.users[state.session.currentUserId],
 });
 
 const mapDispatchToProps = (dispatch) => ({

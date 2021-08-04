@@ -79,8 +79,17 @@ button.like-button.clicked > svg {
   fill-rule: nonzero;
 }
 
+.rating-button-container {
+  position: relative;
+}
+
 .rating-button-container > .exit-button {
-  float: left;
+  position: absolute;
+  font-family: $sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  top: 40%;
+  left: 0.5em;
 }
 
 .review-form-container .exit-button {

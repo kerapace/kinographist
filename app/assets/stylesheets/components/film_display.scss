@@ -81,7 +81,13 @@ section.reviews-container {
   grid-area: reviews;
 }
 
-.film-info-header > h2 > a:not(:last-child):after {
+.film-info-header > h2 {
+  color: #ddd;
+  font-weight: 400;
+  margin-left: 0.3em;
+}
+
+.film-info-header > h2 > span:not(:last-child):after {
   content: ", "
 }
 

@@ -29,9 +29,9 @@ const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId,lis
         <section className="film-info">
           <div className="film-info-header">
             <h1>{film.title}</h1>
-            <h2>{<Link to="/">{film.releaseYear}</Link>}</h2>
+            <h2>{film.releaseYear}</h2>
             {!crewHash["director"] ? "" :
-            <h2>Directed by {crewHash["director"].map((el,idx) => <Link key={idx} to="/">{el.name}</Link>)}</h2>
+            <h2>Directed by {crewHash["director"].map((el,idx) => <span>{el.name}</span>)}</h2>
             }
           </div>
           <section className="film-blurb">

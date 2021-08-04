@@ -6,18 +6,18 @@ import Poster from '../poster';
 
 const Review = ({page, context, review, loggedIn, currentUser, userLike, like, unlike}) => {
   const [likeCount, setLikeCount] = useState(review.likesCount === null ? 0 : review.likesCount);
-  useEffect(() => {setLikeCount(review.likesCount === null ? 0 : review.likesCount)},[review.likesCount])
+  useEffect(() => {setLikeCount(review.likesCount === null ? 0 : review.likesCount)},[review.likesCount]);
   return (!review ? "" : 
   <>
     <article className="film-review">
-      {page === "film" ? "" :
+      {page === "film" || (!review.film) ? "" :
         <aside>
           <Poster size="small" film={review.film} hoverable={true}/>
         </aside>
       }
       <section>
         <header>
-          {page === "film" && context === "list" ? "" : <Link to={`/film/${review.film.id}`}><h3>{review.film.title}</h3></Link>}
+          {(page === "film" && context === "list") || (!review.film) ? "" : <Link to={`/film/${review.film.id}`}><h3>{review.film.title}</h3></Link>}
           <div>
           {!review.rating ? "" :
             (<span className="rating ">

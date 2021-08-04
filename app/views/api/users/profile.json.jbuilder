@@ -83,4 +83,9 @@ json.list_elements({})
   json.partial! 'api/lists/preview', list: list
 end
 
+like_obj["List"].each do |like|
+  list = like.likeable
+  json.partial! 'api/lists/preview', list: list
+end
+
 json.films({}) if @user.reviews.empty? && @user.likes.empty?

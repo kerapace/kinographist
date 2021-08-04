@@ -2,10 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './root';
 import configureStore from "./store/store";
-import {fetchFilm, updateFilm} from "./util/film_api_util";
-import {updateReview, deleteReview} from "./actions/review_actions";
-import {filmReviews, filmReviewsWithUserData} from "./reducers/selectors";
-import {getProfile} from "./actions/user_actions";
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.getElementById("root");
