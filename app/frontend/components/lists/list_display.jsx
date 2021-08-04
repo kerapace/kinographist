@@ -8,7 +8,7 @@ const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, lik
   useEffect(() => {if(match.params.listId) {getList(match.params.listId)}},[match]);
   const [likeCount, setLikeCount] = useState(null);
   if (likeCount === null && list) {
-    setLikeCount(list.likesCount === null ? 0 : list.likesCount)
+    setLikeCount(!list.likesCount ? 0 : list.likesCount)
   }
   return !list ? "" : (
     <>

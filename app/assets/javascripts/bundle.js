@@ -5402,7 +5402,7 @@ var ListDisplay = function ListDisplay(_ref) {
       setLikeCount = _useState2[1];
 
   if (likeCount === null && list) {
-    setLikeCount(list.likesCount === null ? 0 : list.likesCount);
+    setLikeCount(!list.likesCount ? 0 : list.likesCount);
   }
 
   return !list ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, !list.isWatchList ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Redirect, {
