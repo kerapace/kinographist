@@ -2831,7 +2831,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var genres = ["Action", "Comedy", "Drama", "Mystery", "Crime"];
 var genreOptions = [{
   value: "Action",
   label: "Action"
@@ -2848,7 +2847,6 @@ var genreOptions = [{
   value: "Crime",
   label: "Crime"
 }];
-var languages = ["English", "French", "Spanish", "Italian", "Japanese", "Korean"];
 var languageOptions = [{
   value: "English",
   label: "English"
@@ -2971,7 +2969,7 @@ var FilmBrowse = function FilmBrowse(_ref) {
     }
   }))), !films ? "" : films.length === 0 && Object.keys(getFilter()).length !== 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No films found matching criteria.") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "film-browse-container"
-  }, !films ? "" : films.map(function (film) {
+  }, films.map(function (film) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       key: film.id,
       to: "/film/".concat(film.id)

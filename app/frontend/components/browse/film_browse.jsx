@@ -3,8 +3,6 @@ import {Link, useParams} from "react-router-dom";
 import Poster from "../poster";
 import Select from 'react-select';
 
-const genres = ["Action","Comedy","Drama","Mystery","Crime",];
-
 const genreOptions = [
   {value: "Action", label: "Action"},
   {value: "Comedy", label: "Comedy"},
@@ -12,8 +10,6 @@ const genreOptions = [
   {value: "Mystery", label: "Mystery"},
   {value: "Crime", label: "Crime"}
 ];
-
-const languages = ["English","French","Spanish","Italian","Japanese","Korean"];
 
 const languageOptions = [
   {value: "English", label: "English"},
@@ -68,9 +64,9 @@ const FilmBrowse = ({films, getFilms, getPerson, position}) => {
         films.length === 0 && Object.keys(getFilter()).length !== 0 ?
           (<p>No films found matching criteria.</p>)
         :
-          <div className="film-browse-container">
-            {!films ? "" : films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}
-          </div>
+          (<div className="film-browse-container">
+            {films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}
+          </div>)
       }
     </section>
   );
