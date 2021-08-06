@@ -60,9 +60,13 @@ main.film-page {
   color: $font-white;
   font-family: $serif;
   grid-template-columns: 1fr 425px 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 30px auto 1fr;
   grid-gap: 20px;
-  grid-template-areas: "left-sidebar info rating-sidebar" ". reviews reviews"
+  grid-template-areas: "left-sidebar title title" "left-sidebar info rating-sidebar" ". reviews reviews"
+}
+
+section.film-info-header {
+  grid-area: title;
 }
 
 section.film-info {
@@ -95,6 +99,10 @@ section.reviews-container {
   margin: 0 auto;
   position: sticky;
   top: 20px;
+}
+
+.film-left-sidebar > aside > div.poster {
+  margin: 0 auto;
 }
 
 .film-info-header {

@@ -31,7 +31,7 @@ const FilmBrowse = ({films, getFilms, getPerson, position}) => {
   const [language, setLanguage] = useState(null);
   const getFilter = () => {
     let filter = Object.fromEntries(Object.entries({decade,genre,language}).filter(([_,v]) => v !== null));
-    if(position !== "" && personId !== "") {filter[position] = personId}
+    if(position !== undefined && personId !== undefined) {filter[position] = personId}
     return filter;
   };
   useEffect(() => {if(personId !== undefined) {getPerson(personId)}},[])
@@ -64,9 +64,14 @@ const FilmBrowse = ({films, getFilms, getPerson, position}) => {
             onChange={(e) => setLanguage(e ? e.value : null)}/>
           </section>
       </header>
-      <div className="film-browse-container">
-        {!films ? "" : films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}
-      </div>
+      {!films ? "" : 
+        films.length === 0 && Object.keys(getFilter()).length !== 0 ?
+          (<p>No films found matching criteria.</p>)
+        :
+          <div className="film-browse-container">
+            {!films ? "" : films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}
+          </div>
+      }
     </section>
   );
 }

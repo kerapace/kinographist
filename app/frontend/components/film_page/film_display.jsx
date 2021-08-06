@@ -26,14 +26,14 @@ const FilmDisplay = ({film, crewHash, reviews, getFilm, match, currentUserId,lis
             {/* <InlineFilmDataContainer filmId={film.id}/> */}
           </aside>
         </div>
-        <section className="film-info">
-          <div className="film-info-header">
+        <section className="film-info-header">
             <h1>{film.title}</h1>
             <h2>{film.releaseYear}</h2>
             {!crewHash["director"] ? "" :
-            <h2>Directed by {crewHash["director"].map((el,idx) => <span>{el.name}</span>)}</h2>
+            <h2>Directed by {crewHash["director"].map((el,idx) => <span key={idx}>{el.name}</span>)}</h2>
             }
-          </div>
+        </section>
+        <section className="film-info">
           <section className="film-blurb">
             <h2>{film.tagline}</h2>
             <p>{film.blurb}</p>

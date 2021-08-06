@@ -2906,7 +2906,7 @@ var FilmBrowse = function FilmBrowse(_ref) {
       return v !== null;
     }));
 
-    if (position !== "" && personId !== "") {
+    if (position !== undefined && personId !== undefined) {
       filter[position] = personId;
     }
 
@@ -2969,7 +2969,7 @@ var FilmBrowse = function FilmBrowse(_ref) {
     onChange: function onChange(e) {
       return setLanguage(e ? e.value : null);
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }))), !films ? "" : films.length === 0 && Object.keys(getFilter()).length !== 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No films found matching criteria.") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "film-browse-container"
   }, !films ? "" : films.map(function (film) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
@@ -3680,12 +3680,14 @@ var FilmDisplay = function FilmDisplay(_ref) {
     displayInfo: false,
     film: film
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-    className: "film-info"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "film-info-header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, film.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, film.releaseYear), !crewHash["director"] ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Directed by ", crewHash["director"].map(function (el, idx) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, el.name);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      key: idx
+    }, el.name);
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+    className: "film-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "film-blurb"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, film.tagline), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, film.blurb)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_film_info_display__WEBPACK_IMPORTED_MODULE_1__.default, {
     film: film,
@@ -5390,11 +5392,15 @@ var ListDisplay = function ListDisplay(_ref) {
       liked = _ref.liked,
       like = _ref.like,
       unlike = _ref.unlike;
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)(),
+      listId = _useParams.listId;
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (match.params.listId) {
-      getList(match.params.listId);
+      getList(listId);
     }
-  }, [match]);
+  }, [listId]);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState2 = _slicedToArray(_useState, 2),

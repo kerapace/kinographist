@@ -5,7 +5,8 @@ import classNames from "classnames";
 import {Heart} from '../svg_elements';
 
 const ListDisplay = ({loggedIn, listUser, currentUser, list, getList, match, liked, like, unlike}) => {
-  useEffect(() => {if(match.params.listId) {getList(match.params.listId)}},[match]);
+  const {listId} = useParams(); 
+  useEffect(() => {if(match.params.listId) {getList(listId)}},[listId]);
   const [likeCount, setLikeCount] = useState(null);
   if (likeCount === null && list) {
     setLikeCount(!list.likesCount ? 0 : list.likesCount)
