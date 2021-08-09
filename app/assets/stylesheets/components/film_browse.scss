@@ -16,10 +16,13 @@ $title: 'Rubik', sans-serif;
   align-items: center;
   max-width: 900px;
   p {
-    font-family: $sans-serif;
-    font-size: 20px;
-    font-weight: bold;
     color: $font-white;
+    font-family: $sans-serif;
+    font-weight: bold;
+    margin-bottom: 0.1em;
+  }
+  .null-message {
+    font-size: 20px;
     margin: 2em;
   }
   h1 {
@@ -82,10 +85,11 @@ main.index {
   }
 }
 
-.like-menu {
+section.like-menu {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  margin: 0 auto;
   button {
     margin-right: 0.3em;
   }

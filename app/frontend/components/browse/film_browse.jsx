@@ -62,7 +62,7 @@ const FilmBrowse = ({films, getFilms, getPerson, position}) => {
       </header>
       {!films ? "" : 
         films.length === 0 && Object.keys(getFilter()).length !== 0 ?
-          (<p>No films found matching criteria.</p>)
+          (<p className="null-message">No films found matching criteria.</p>)
         :
           (<div className="film-browse-container">
             {films.map(film => (<Link key={film.id} to={`/film/${film.id}`}><Poster size={"medium"} hoverable={true} film={film}/></Link>))}

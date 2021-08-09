@@ -166,7 +166,7 @@ const RatingButton = ({rating, userId, filmId, updateReview}) => {
       </div>
       <div className={classNames("rating-button",{"rated": rating !== 0 && displayRating === hoverRating})}
         onMouseLeave={() => setHoverRating(displayRating)}>
-        <div className="visible-rating" style={{width: `${hoverRating*30}px`}}/>
+        <div className="visible-rating" style={{width: `${hoverRating*20}%`}}/>
         {[...Array(10)].map((_,idx) => (
           <RatingIncrement key={idx} rating={(idx+1)/2} {...{updateReview,userId,filmId,setHoverRating,setDisplayRating}}/>
         ))}

@@ -17,7 +17,6 @@ const UserProfile = ({user,currentUser,loggedIn,listPreviews,toggleCreateListMod
       <section className="user-content">
         <RatingList ratings={ratings}/>
         <ReviewList reviews={reviews} page={"user"}/>
-        {currentUser.id !== user.id ? "" : <a onClick={toggleCreateListModal}><h2>Create New List</h2></a>}
         <MultitypeList title={"Recent Likes"} entries={likes}/>
         <ListPreviewList title={"Lists"} entries={listPreviews}/>
       </section>

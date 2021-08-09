@@ -2967,7 +2967,9 @@ var FilmBrowse = function FilmBrowse(_ref) {
     onChange: function onChange(e) {
       return setLanguage(e ? e.value : null);
     }
-  }))), !films ? "" : films.length === 0 && Object.keys(getFilter()).length !== 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "No films found matching criteria.") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }))), !films ? "" : films.length === 0 && Object.keys(getFilter()).length !== 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "null-message"
+  }, "No films found matching criteria.") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "film-browse-container"
   }, films.map(function (film) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
@@ -4248,7 +4250,7 @@ var RatingButton = function RatingButton(_ref7) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "visible-rating",
     style: {
-      width: "".concat(hoverRating * 30, "px")
+      width: "".concat(hoverRating * 20, "%")
     }
   }), _toConsumableArray(Array(10)).map(function (_, idx) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(RatingIncrement, {
@@ -5787,9 +5789,7 @@ var UserProfile = function UserProfile(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_review_list__WEBPACK_IMPORTED_MODULE_1__.default, {
     reviews: reviews,
     page: "user"
-  }), currentUser.id !== user.id ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    onClick: toggleCreateListModal
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Create New List")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_multitype_list__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_multitype_list__WEBPACK_IMPORTED_MODULE_2__.default, {
     title: "Recent Likes",
     entries: likes
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_embeds_list_preview_list__WEBPACK_IMPORTED_MODULE_4__.default, {
