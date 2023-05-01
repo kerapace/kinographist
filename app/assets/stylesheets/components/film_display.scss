@@ -1,15 +1,14 @@
 $dark-grey: #283038;
 $font-white: #ccc;
-$sans-serif: 'Lato', sans-serif;
-$serif: 'Merriweather', serif;
-$title: 'Rubik', sans-serif;
-
+$sans-serif: "Lato", sans-serif;
+$serif: "Merriweather", serif;
+$title: "Rubik", sans-serif;
 
 figure.film-splash-header {
   z-index: -1;
   margin: 0 auto;
   position: relative;
-  max-width: max(80vw, 800px);
+  max-width: unquote("max(80vw, 800px)");
 }
 
 .splash-container {
@@ -23,12 +22,16 @@ figure.film-splash-header {
 }
 
 figure.film-splash-header > img {
-  max-width: max(80vw,800px);
+  max-width: unquote("max(80vw, 800px)");
 }
 
 .left-gradient {
   position: absolute;
-  background: linear-gradient(to right,rgba($dark-grey,1),rgba($dark-grey,0.0));
+  background: linear-gradient(
+    to right,
+    rgba($dark-grey, 1),
+    rgba($dark-grey, 0)
+  );
   left: 0;
   height: 100%;
   width: 15vw;
@@ -36,7 +39,11 @@ figure.film-splash-header > img {
 
 .right-gradient {
   position: absolute;
-  background: linear-gradient(to left,rgba($dark-grey,1),rgba($dark-grey,0.0));
+  background: linear-gradient(
+    to left,
+    rgba($dark-grey, 1),
+    rgba($dark-grey, 0)
+  );
   right: 0;
   height: 100%;
   width: 15vw;
@@ -44,7 +51,7 @@ figure.film-splash-header > img {
 
 .bottom-gradient {
   position: absolute;
-  background: linear-gradient(to top,rgba($dark-grey,1),rgba($dark-grey,0.0));
+  background: linear-gradient(to top, rgba($dark-grey, 1), rgba($dark-grey, 0));
   bottom: 0;
   left: 0;
   height: 15vh;
@@ -52,7 +59,7 @@ figure.film-splash-header > img {
 }
 
 main.film-page {
-  max-width: max(800px,80vw);
+  max-width: unquote("max(80vw, 800px)");
   margin: 0 auto;
   display: grid;
   margin-top: -1em;
@@ -62,7 +69,7 @@ main.film-page {
   grid-template-columns: 1fr 425px 1fr;
   grid-template-rows: 30px auto 1fr;
   grid-gap: 20px;
-  grid-template-areas: "left-sidebar title title" "left-sidebar info rating-sidebar" ". reviews reviews"
+  grid-template-areas: "left-sidebar title title" "left-sidebar info rating-sidebar" ". reviews reviews";
 }
 
 section.film-info-header {
@@ -92,7 +99,7 @@ section.reviews-container {
 }
 
 .film-info-header > h2 > span:not(:last-child):after {
-  content: ", "
+  content: ", ";
 }
 
 .film-left-sidebar > aside {
@@ -142,12 +149,18 @@ section.reviews-container {
   padding: 10px;
 }
 
-.actor-credits, .crew-credits, .film-details, .film-genres {
+.actor-credits,
+.crew-credits,
+.film-details,
+.film-genres {
   display: flex;
   flex-wrap: wrap;
 }
 
-.actor-credits > li, .crew-credits > li, .film-details > li, .film-genres > li {
+.actor-credits > li,
+.crew-credits > li,
+.film-details > li,
+.film-genres > li {
   padding: 0.4em;
   border-radius: 0.4em;
   background-color: #345;
@@ -180,7 +193,10 @@ ol.actor-credits > li:hover p {
   left: 0;
 }
 
-ol.actor-credits > li:hover, ul.crew-credits > li:hover, ul.film-details > li:hover, ul.film-genres > li:hover {
+ol.actor-credits > li:hover,
+ul.crew-credits > li:hover,
+ul.film-details > li:hover,
+ul.film-genres > li:hover {
   background-color: #ccc;
   color: #123;
 }
@@ -201,7 +217,9 @@ ol.actor-credits > li:hover, ul.crew-credits > li:hover, ul.film-details > li:ho
   margin-bottom: 1em;
 }
 
-.film-details, .crew-credits, .film-genres {
+.film-details,
+.crew-credits,
+.film-genres {
   h3 {
     text-transform: uppercase;
     font-family: $sans-serif;

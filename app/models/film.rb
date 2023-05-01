@@ -74,8 +74,8 @@ class Film < ApplicationRecord
     response = Film.request_film(id)
     film = Film.new(Film.extract_film_data(response))
     film.save!
-    backdrop = film.backdrop.attach(io: Film.request_image(response["backdrop_path"],"w1280"), filename: "#{film[:id]}-backdrop.jpg")
-    poster = film.poster.attach(io: Film.request_image(response["poster_path"],"w780"), filename: "#{film[:id]}-poster.jpg")
+    backdrop = film.backdrop.attach(io: Film.request_image(response["backdrop_path"][1..],"w1280"), filename: "#{film[:id]}-backdrop.jpg")
+    poster = film.poster.attach(io: Film.request_image(response["poster_path"][1..],"w780"), filename: "#{film[:id]}-poster.jpg")
     Film.populate_people(response)
     film
   end
