@@ -8,7 +8,8 @@ figure.film-splash-header {
   z-index: -1;
   margin: 0 auto;
   position: relative;
-  max-width: unquote("max(80vw, 800px)");
+  width: 80vw;
+  max-width: 800px;
 }
 
 .splash-container {
@@ -22,7 +23,8 @@ figure.film-splash-header {
 }
 
 figure.film-splash-header > img {
-  max-width: unquote("max(80vw, 800px)");
+  width: 80vw;
+  max-width: 800px;
 }
 
 .left-gradient {
@@ -59,7 +61,8 @@ figure.film-splash-header > img {
 }
 
 main.film-page {
-  max-width: unquote("max(80vw, 800px)");
+  width: 80vw;
+  max-width: 800px;
   margin: 0 auto;
   display: grid;
   margin-top: -1em;
